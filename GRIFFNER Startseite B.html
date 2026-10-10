@@ -16,7 +16,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <style>
-:root{--m:var(--page-margin);--rail:0px}
+:root{--m:var(--page-margin);--rail:64px}
+body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog i{background:#000}
 *{box-sizing:border-box}
 html,body{margin:0;background:#000}
 html.lenis,html.lenis body{height:auto}
@@ -54,15 +55,22 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
 .ln>span{display:block;will-change:transform}
 
-/* ---------- Menü: Knopf immer sichtbar oben links, öffnet das Vollbild-Menü wie Version A ---------- */
-.mbtn{background:none;border:0;padding:16px 0;margin:-16px 0;cursor:pointer;display:flex;align-items:center;gap:14px;justify-self:start}
-.glyph{position:relative;width:28px;height:8px;display:block}
+/* ---------- Menü: schmale Leiste links (Symbol, „Menü“, Fortschrittslinie), Klick öffnet das Vollbild-Menü wie Version A ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:24px;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.rail>*{pointer-events:auto}
+.rail-btn{background:none;border:0;padding:8px;cursor:pointer;display:grid;justify-items:center;gap:18px;color:inherit}
+.glyph{position:relative;width:28px;height:12px;display:block}
 .glyph i{position:absolute;left:0;height:1px;background:currentColor;transition:width 500ms var(--ease),transform 500ms var(--ease),top 500ms var(--ease)}
-.glyph i:first-child{top:0;width:28px}.glyph i:last-child{top:7px;width:16px}
-.mbtn:hover .glyph i:last-child{width:28px}
-body.menu-open .glyph i:first-child{top:4px;transform:rotate(45deg);width:24px}
-body.menu-open .glyph i:last-child{top:4px;transform:rotate(-45deg);width:24px}
-.mnu{position:fixed;inset:0;z-index:49;background:#000;color:#fff;height:100vh;height:100svh;padding:clamp(130px,18vh,190px) var(--m) clamp(24px,4vh,40px);display:none;grid-template-rows:minmax(0,1fr) auto;overflow:auto}
+.glyph i:first-child{top:2px;width:28px}.glyph i:last-child{top:9px;width:16px}
+.rail-btn:hover .glyph i:last-child{width:28px}
+body.menu-open .glyph i:first-child{top:6px;transform:rotate(45deg);width:24px}
+body.menu-open .glyph i:last-child{top:6px;transform:rotate(-45deg);width:24px}
+.vt{writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity 500ms var(--ease)}
+.rail-prog{position:relative;flex:1;width:1px;margin-bottom:28px;background:rgba(255,255,255,.28);transition:opacity 500ms var(--ease)}
+.rail-prog i{position:absolute;left:-1px;top:0;width:3px;height:0;background:#fff}
+body.menu-open .vt,body.menu-open .rail-prog{opacity:0}
+@media (max-width:820px){:root{--rail:52px}.vt,.rail-prog{display:none}.rail{padding-top:16px}}
+.mnu{position:fixed;inset:0;z-index:49;background:#000;color:#fff;height:100vh;height:100svh;padding:clamp(130px,18vh,190px) var(--m) clamp(24px,4vh,40px) max(var(--m),calc(var(--rail) + 24px));display:none;grid-template-rows:minmax(0,1fr) auto;overflow:auto}
 body.menu-open .mnu{display:grid}
 .mnu-main{display:grid;grid-template-columns:minmax(0,1fr) min(30vw,600px);gap:var(--gap-col);align-items:center}
 .mnu-nav{display:grid;gap:clamp(2px,1.4vh,18px)}
@@ -89,8 +97,9 @@ body.menu-open .mnu{display:grid}
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px var(--m) 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}
 .hdr .side{mix-blend-mode:difference;color:#fff;pointer-events:auto}
 .hdr .r{justify-self:end}
-.hdr .r{margin-top:10px}.hdr .side.mbtn{margin-top:-6px}   /* Menü und Projekt starten auf einer Linie (der Knopf hat 16px Klickfläche) */
-.hdr.on-yellow .side,body.fin-yellow .hdr .side{mix-blend-mode:normal;color:#000}
+.hdr .r{margin-top:18px}   /* Schriftmitte auf der Mitte des Menü-Glyphs in der Leiste */
+@media (max-width:820px){.hdr .r{margin-top:10px}}
+.hdr.on-yellow .side,body.fin-yellow .hdr .side,body.fin-yellow .rail{mix-blend-mode:normal;color:#000}
 .logo{display:grid;justify-items:center;gap:7px;pointer-events:auto}
 .logo svg{width:72px;height:auto;display:block}
 .logo .wm{mix-blend-mode:difference;color:#fff;opacity:0}
@@ -318,6 +327,10 @@ html,body{overflow-x:clip}
 <body>
 <div class="preload" id="pl" aria-hidden="true"></div>
 
+<aside class="rail" aria-label="Menü">
+  <button class="rail-btn" id="mBtn" aria-expanded="false" aria-controls="mnu"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span class="info vt" data-c="header.menu"></span></button>
+  <span class="rail-prog" aria-hidden="true"><i id="railProg"></i></span>
+</aside>
 <div class="mnu" id="mnu" role="dialog" aria-label="Menü" aria-hidden="true">
   <div class="mnu-main">
     <div>
@@ -332,7 +345,7 @@ html,body{overflow-x:clip}
 <div class="conn" id="conn" aria-hidden="true"><span></span><span></span></div>
 
 <header class="hdr" id="hdr">
-  <button class="side mbtn info" id="mBtn" aria-expanded="false" aria-controls="mnu"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span data-c="header.menu"></span></button>
+  <span></span>
   <a class="logo" id="logo" href="#top" aria-label="GRIFFNER Startseite"><span class="slot" id="logoSlot"></span><span class="wm" id="logoWm"><svg viewBox="0 878.45 1000 127.11" aria-hidden="true"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"/></svg></span></a>
   <a class="side r info lnk" data-c="header.cta" href="#kontakt"></a>
 </header>
@@ -801,9 +814,10 @@ html,body{overflow-x:clip}
     pl.addEventListener('click', skip); addEventListener('keydown', skip, { once: true });
   }
 
-  // Header kompakt
-  const hdr = $('#hdr');
+  // Header kompakt, Leiste zeigt den Fortschritt
+  const hdr = $('#hdr'), prog = $('#railProg');
   ScrollTrigger.create({ start: 80, end: 'max', onToggle: s => hdr.classList.toggle('compact', s.isActive) });
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: s => { prog.style.height = (s.progress * 100).toFixed(2) + '%'; } });
 
   /* Connector: beginnt als Feld im Hero, baut beim ersten Scrollen das Logo mit der Wortmarke,
      gleitet mit dem Logo aus dem Bild und wandert dann wie in Version A von Andockpunkt zu Andockpunkt. */
