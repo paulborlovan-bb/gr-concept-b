@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+<div data-menu-ov="1" role="dialog" aria-label="Menü" style="position:fixed;inset:0;z-index:59;background:var(--griffner-schwarz);color:var(--griffner-weiss);height:100vh;height:100svh;box-sizing:border-box;padding:clamp(130px,18vh,190px) var(--page-margin) clamp(24px,4vh,40px);display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:auto">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) {{ imgCol }};gap:var(--gap-col);align-items:center">
+    <div style="min-width:0;display:grid;gap:clamp(28px,5vh,56px)">
+      <nav onMouseLeave="{{ leaveAll }}" style="display:grid;gap:clamp(2px,1.4vh,18px)">
+        <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+          <a href="{{ it.href }}" onClick="{{ it.go }}" onMouseEnter="{{ it.enter }}" onFocus="{{ it.enter }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px clamp(16px,1.6vw,28px);color:inherit;text-decoration:none;opacity:{{ it.op }};transition:opacity var(--dur-small) var(--ease)">
+            <span style="display:block;overflow:hidden;padding:.18em .1em .08em 0;margin:-.18em -.1em -.08em 0;font-size:min(clamp(32px,3.9vw,76px),7.2vh);line-height:{{ mLead }}">
+              <span data-mi="1" style="display:block;font-family:var(--font-display);font-weight:{{ mWeight }};letter-spacing:{{ mTrack }};text-transform:uppercase;font-feature-settings:'liga' 0;white-space:nowrap">{{ it.label }}</span>
+            </span>
+            <span style="font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums;white-space:nowrap">{{ it.note }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <sc-if value="{{ season }}" hint-placeholder-val="{{ false }}">
+        <button data-mfoot="1" onClick="{{ openSeason }}" style="justify-self:start;padding:0;border:0;background:none;color:var(--griffner-kalk);cursor:pointer;text-align:left;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--font-text);font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums" style-hover="opacity:.64">
+          <span style="color:var(--griffner-weiss)">{{ seasonBar }}</span><span>{{ seasonNext }}</span><span style="color:var(--griffner-weiss)">→</span>
+        </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <figure data-mimg="1" aria-hidden="true" style="margin:0;display:grid;gap:14px">
+        <div style="position:relative;aspect-ratio:5 / 4;overflow:hidden;background:var(--griffner-anthrazit)">
+          <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
+            <div style="position:absolute;inset:0;opacity:{{ it.show }};transition:opacity 1000ms var(--ease)">
+              <img src="{{ it.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale({{ it.zoom }});transition:transform 3000ms var(--ease)"></img>
+            </div>
+          </sc-for>
+        </div>
+        <figcaption style="min-height:12px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ imgSub }}</figcaption>
+      </figure>
+    </sc-if>
+  </div>
+  <div data-mfoot="1" style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:16px 32px;padding-top:24px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">
+    <div style="display:flex;flex-wrap:wrap;gap:8px 28px">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="3">
+        <a href="{{ l.href }}" style="color:inherit;text-decoration:none" style-hover="opacity:.64">{{ l.label }}</a>
+      </sc-for>
+    </div>
+    <span style="justify-self:center;white-space:nowrap">{{ place }}</span>
+    <div style="justify-self:end;line-height:0">
+      <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="weiss" width="130" hint-size="130px,22px"></x-import>
+    </div>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: false, hover: -1, img: 0, w: innerWidth, h: innerHeight };
+  componentDidMount() {
+    this.onT = () => this.set(!this.state.open);
+    this.onKey = e => { if (e.key === 'Escape' && this.state.open) this.set(false); };
+    this.onRes = () => this.setState({ w: innerWidth, h: innerHeight });
+    this.onDate = () => this.forceUpdate();
+    addEventListener('griffner:menu-toggle', this.onT);
+    addEventListener('keydown', this.onKey);
+    addEventListener('resize', this.onRes);
+    addEventListener('griffner:date', this.onDate);
+  }
+  componentWillUnmount() {
+    removeEventListener('griffner:menu-toggle', this.onT); removeEventListener('keydown', this.onKey);
+    removeEventListener('resize', this.onRes); removeEventListener('griffner:date', this.onDate);
+  }
+  componentDidUpdate() { if (this.state.open && !this.wasOpen) this.reveal(); this.wasOpen = this.state.open; }
+  reveal() {
+    const ov = document.querySelector('[data-menu-ov]');
+    if (!ov || !ov.animate || (window.GW && GW.reduce)) return;
+    const E = 'cubic-bezier(.65,0,.15,1)', O = 'cubic-bezier(.22,1,.36,1)';
+    ov.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 900, easing: E });
+    ov.querySelectorAll('[data-mi]').forEach((el, i) => el.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }], { duration: 1200, delay: 450 + i * 80, easing: O, fill: 'backwards' }));
+    const im = ov.querySelector('[data-mimg] > div');
+    if (im) {
+      im.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 1300, delay: 650, easing: E, fill: 'backwards' });
+      im.querySelectorAll('img').forEach(p => p.animate([{ scale: '1.15' }, { scale: '1' }], { duration: 2400, delay: 650, easing: O, fill: 'backwards' }));
+    }
+    ov.querySelectorAll('[data-mfoot], figcaption').forEach(el => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 1200, easing: O, fill: 'backwards' }));
+  }
+  set(open) {
+    const go = () => {
+      this.setState({ open, hover: -1 });
+      document.documentElement.dataset.menu = open ? 'open' : '';
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      dispatchEvent(new CustomEvent('griffner:menu-state', { detail: { open } }));
+    };
+    const ov = document.querySelector('[data-menu-ov]');
+    if (!open && ov && ov.animate && !(window.GW && GW.reduce)) {
+      dispatchEvent(new CustomEvent('griffner:menu-state', { detail: { open: false } }));
+      ov.animate([{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 700, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' }).onfinish = go;
+    } else go();
+  }
+  renderVals() {
+    const M = (window.GRIFFNER_CONTENT || {}).menu || { items: [] };
+    const G = window.GW;
+    const S = (window.GRIFFNER_CONTENT || {}).season;
+    let season = false, seasonBar = '', seasonNext = '';
+    if (S && G) {
+      const op = S.chapters.filter(c => G.isOpen(c.iso)), cur = op[op.length - 1] || S.chapters[0], nx = S.chapters.find(c => !G.isOpen(c.iso));
+      season = G.today() <= S.hideAfter; seasonBar = G.fill(S.bar, { nr: cur.nr });
+      seasonNext = nx ? G.fill(S.next, { title: nx.title, date: nx.date }) : '';
+    }
+    const wide = this.state.w >= 1100, hv = this.state.hover, im = this.state.img;
+    const cur = M.items[im] || {};
+    const fs = Math.min(Math.max(32, Math.min(this.state.w * .039, 76)), this.state.h * .072), light = fs >= 56;
+    return {
+      mWeight: '300', mTrack: light ? '0' : '.02em', mLead: light ? '.95' : '1',
+      season, seasonBar, seasonNext,
+      openSeason: () => { this.set(false); dispatchEvent(new Event('griffner:season-open')); },
+      open: this.state.open,
+      wide,
+      imgCol: wide ? 'min(30vw,600px)' : '0px',
+      imgSub: cur.sub || '',
+      links: (M.links || []).map(([label, href]) => ({ label, href })),
+      place: M.place || '',
+      leaveAll: () => this.setState({ hover: -1 }),
+      items: M.items.map((it, i) => {
+        const coming = G && !G.isOpen(it.opens);
+        const on = hv === i, dim = hv >= 0 && !on;
+        return {
+          label: it.label, href: coming ? '#top' : it.href, img: it.img,
+          op: dim ? '.32' : '1',
+          note: coming ? (on ? 'Öffnet am ' + it.date : M.comingPrefix + ' ' + it.date) : '',
+          show: im === i ? '1' : '0',
+          zoom: im === i ? '1' : '1.06',
+          enter: () => this.setState({ hover: i, img: i }),
+          go: e => { if (coming) e.preventDefault(); else this.set(false); }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

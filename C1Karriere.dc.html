@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+
+<section id="c-hero" data-room="c-karriere" data-screen-label="01 Karriere" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:clamp(140px,22vh,220px) var(--page-margin) var(--section-pad-sm)">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(28px,4vh,48px)">
+    <span data-reveal="0" style="grid-column:1 / -1;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.info }}</span>
+    <h1 data-reveal="80" style="grid-column:1 / span 8;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(36px,4.4vw,80px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ k.head }}</h1>
+    <div data-reveal="160" style="grid-column:{{ sideCol }};margin-top:clamp(16px,4vh,48px);display:grid;gap:18px;max-width:440px">
+      <sc-for list="{{ k.text }}" as="p" hint-placeholder-count="3">
+        <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ p }}</p>
+      </sc-for>
+    </div>
+  </div>
+  <div data-reveal="240" style="margin-top:clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));border-top:1px solid var(--griffner-anthrazit)">
+    <sc-for list="{{ jumps }}" as="j" hint-placeholder-count="2">
+      <a href="{{ j.href }}" style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 0;border-bottom:1px solid var(--griffner-anthrazit);margin-right:{{ j.gap }};color:inherit;text-decoration:none" style-hover="opacity:.64">
+        <span style="display:flex;align-items:baseline;gap:18px">
+          <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.15vw,18px);letter-spacing:.04em;text-transform:uppercase">{{ j.label }}</span>
+        </span>
+        <span>↓</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section data-room="c-karriere" data-screen-label="02 Bild" style="position:relative;background:transparent;padding:0 var(--page-margin) var(--section-pad)">
+  <div data-dock="edge" data-dock-x=".78" data-reveal="0" style="position:relative;aspect-ratio:21 / 9;min-height:280px;background:var(--griffner-anthrazit);background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23000' stroke-opacity='.5'%3E%3Cpath d='M0 80A80 80 0 0 1 80 0'/%3E%3Cpath d='M80 160A40 40 0 0 1 160 160'/%3E%3Ccircle cx='120' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E&quot;)">
+    <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.imgLabel }}</span>
+  </div>
+</section>
+
+<section id="stellen" data-room="c-karriere" data-screen-label="03 Offene Stellen" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:0 var(--page-margin) var(--section-pad)">
+  <h2 data-reveal="0" style="margin:0 0 clamp(40px,6vh,72px);font-family:var(--font-display);font-weight:300;font-size:clamp(36px,4.4vw,80px);line-height:1;text-transform:uppercase;font-feature-settings:'liga' 0">{{ k.stellenHead }}</h2>
+  <div style="display:grid;gap:clamp(56px,9vh,104px)">
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+      <div id="{{ g.id }}" data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px;scroll-margin-top:120px">
+        <div style="grid-column:{{ labelCol }};display:flex;align-items:baseline;gap:12px">
+          <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.15vw,18px);letter-spacing:.04em;text-transform:uppercase">{{ g.label }}</span>
+        </div>
+        <div style="grid-column:{{ listCol }};border-top:1px solid var(--griffner-weiss)">
+          <sc-for list="{{ g.jobs }}" as="j" hint-placeholder-count="4">
+            <a href="{{ j.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 32px;padding:clamp(18px,2.6vh,26px) 0;border-bottom:1px solid var(--griffner-anthrazit);color:inherit;text-decoration:none" style-hover="opacity:.64">
+              <span style="flex:1 1 320px;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.5vw,24px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase;font-feature-settings:'liga' 0">{{ j.title }} <span style="font-family:var(--font-text);font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);vertical-align:.2em">{{ k.mwd }}</span></span>
+              <span style="flex:0 0 auto;display:flex;gap:32px;align-items:baseline;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">
+                <span style="min-width:110px">{{ j.bereich }}</span>
+                <span style="min-width:170px">{{ j.art }}</span>
+                <span style="font-size:18px;letter-spacing:0">→</span>
+              </span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col)">
+      <div style="grid-column:{{ listCol }};display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px 40px">
+        <p style="margin:0;max-width:520px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ k.initiativText }}</p>
+        <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" arrow="{{ true }}" href="#bewerbung" on-click="{{ toInitiativ }}" hint-size="200px,32px">{{ k.initiativLink }}</x-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<dc-import name="KarriereForm" job="initiativ" hint-size="100%,720px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0, fade: 1, w: typeof innerWidth === 'number' ? innerWidth : 1200 };
+  componentDidMount() {
+    this.onRes = () => this.setState({ w: innerWidth });
+    addEventListener('resize', this.onRes);
+    const go = () => window.GW && window.GRIFFNER_CONTENT && document.getElementById('stellen')
+      ? (this.forceUpdate(), GW.ready(() => ['c-hero', 'stellen'].forEach(id => { const s = document.getElementById(id); if (s) GW.reveal(s); s && s.previousElementSibling && id === 'stellen' && GW.reveal(s.previousElementSibling); })))
+      : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onRes); clearTimeout(this.ft); }
+  pick(i) {
+    if (i === this.state.i) return;
+    this.setState({ fade: 0 }); clearTimeout(this.ft);
+    this.ft = setTimeout(() => this.setState({ i, fade: 1 }), 380);
+  }
+  renderVals() {
+    const C = window.GRIFFNER_CONTENT || {}, k = C.karriere || {}, s = this.state, wide = s.w >= 900;
+    const jobs = k.jobs || [];
+    const href = j => 'GRIFFNER%20Job.dc.html?job=' + j.slug;
+    const groups = (k.groups || []).map(([g, label, id]) => {
+      const list = jobs.filter(j => j.group === g);
+      return { id, label, n: String(list.length).padStart(2, '0'), jobs: list.map(j => ({ ...j, href: href(j) })) };
+    });
+    const ppl = k.menschen || [], cur = ppl[s.i] || {};
+    return {
+      k,
+      sideCol: wide ? '8 / span 5' : '1 / -1',
+      labelCol: wide ? '1 / span 3' : '1 / -1',
+      listCol: wide ? '4 / -1' : '1 / -1',
+      portraitCol: wide ? '1 / span 4' : '1 / -1',
+      quoteCol: wide ? '6 / -1' : '1 / -1',
+      jumps: groups.slice(0, 1).map(g => ({ n: g.n, label: k.jumpErfahrung, href: '#' + g.id, gap: '0px' })),
+      groups,
+      cur: { ...cur, label: (k.portraitLabel || '').replace('{name}', cur.name || '') },
+      fade: s.fade,
+      people: ppl.map((p, i) => ({ name: p.name, role: p.role, on: i === s.i, op: i === s.i ? 1 : .45, line: i === s.i ? '2px solid #000000' : '1px solid #000000', pick: () => this.pick(i) })),
+      toInitiativ: () => dispatchEvent(new CustomEvent('griffner:stelle', { detail: 'initiativ' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

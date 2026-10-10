@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<sc-if value="{{ show }}" hint-placeholder-val="{{ true }}">
+<div data-pl="1" aria-hidden="true" style="position:fixed;inset:0;z-index:100;background:var(--room-loader);overflow:hidden;cursor:pointer">
+  <div data-pl-grid="1" style="position:absolute;inset:0"></div>
+  <div data-pl-rect="1" style="position:absolute;left:0;top:0;width:0;height:0;background:var(--griffner-gelb);opacity:0"></div>
+  <div data-pl-mark="1" style="position:absolute;left:0;top:0;clip-path:inset(0 100% 0 0);color:var(--griffner-weiss)">
+    <svg viewBox="0 878.45 1000 127.11" role="img" aria-label="GRIFFNER" width="{{ markW }}" style="display:block;height:auto"><path fill="#FFFFFF" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"></path></svg>
+  </div>
+  <div style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:66vh;display:grid;font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3vw,46px);line-height:var(--leading-headline-web);letter-spacing:var(--tracking-headline);text-transform:uppercase;color:var(--griffner-weiss)">
+    <span data-pl-h="a" style="grid-area:1 / 1;display:block;overflow:hidden;padding-bottom:.08em"><span data-pl-line="1" style="display:block;transform:translateY(110%)">{{ line1 }}</span></span>
+    <span data-pl-h="b" style="grid-area:1 / 1;display:block;overflow:hidden;padding-bottom:.08em"><span data-pl-line="1" style="display:block;transform:translateY(110%)">{{ line2 }}</span></span>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { show: true };
+  componentDidMount() {
+    this.paintBg();
+    const go = () => window.GW && window.GRIFFNER_CONTENT ? this.run() : setTimeout(go, 30);
+    go();
+  }
+  componentDidUpdate() {
+    const v = this.v();
+    if (this.ran && this.lastV && v !== this.lastV) { this.lastV = v; this.replay(); }
+  }
+  componentWillUnmount() { this.runId = -1; document.documentElement.style.overflow = ''; }
+  v() { return this.props.variant ?? 'licht'; }
+  paintBg() {
+    const L = document.querySelector('[data-pl]');
+    if (L) L.style.background = ['kreis', 'fertigung'].includes(this.v()) ? 'var(--room-loader)' : '#000000';
+  }
+  replay() {
+    this.runId = (this.runId || 0) + 1;
+    dispatchEvent(new Event('griffner:replay'));
+    GW.loaderFinished = false; GW.introDone = false;
+    scrollTo(0, 0);
+    this.setState({ show: false }, () => this.setState({ show: true }, () => requestAnimationFrame(() => { this.paintBg(); this.run(true); })));
+  }
+  run(force) {
+    this.ran = true; this.lastV = this.v();
+    const id = this.runId = (this.runId || 0) + 1;
+    let seen = false;
+    try { seen = sessionStorage.getItem('griffner-intro-seen') === '1'; sessionStorage.setItem('griffner-intro-seen', '1'); } catch (e) {}
+    if (GW.reduce || (seen && !this.props.force && !force)) { this.setState({ show: false }); GW.loaderDone({ skipped: true }); return; }
+    const L = document.querySelector('[data-pl]');
+    if (!L) { GW.loaderDone({ skipped: true }); return; }
+    scrollTo(0, 0);
+    document.documentElement.style.overflow = 'hidden';
+    const field = GW.fieldStart();
+    const rect = L.querySelector('[data-pl-rect]'), mark = L.querySelector('[data-pl-mark]');
+    Object.assign(mark.style, { left: field.x + 'px', top: field.y + field.h + field.w * .078 + 'px' });
+    const io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const seg = (T, a, b, f) => (f || GW.ease)(Math.min(1, Math.max(0, (T - a) / (b - a))));
+    const write = (T, a, b) => { mark.style.clipPath = 'inset(0 ' + (100 - seg(T, a, b) * 100).toFixed(2) + '% 0 0)'; };
+    const box = (el, r) => Object.assign(el.style, { left: r.x + 'px', top: r.y + 'px', width: r.w + 'px', height: r.h + 'px' });
+    const ctx = { L, rect, mark, field, io3, seg, write, box, vw: innerWidth, vh: innerHeight };
+    const V = (this['v_' + this.v()] || this.v_kreis).call(this, ctx);
+    let T = 0, last = performance.now(), skip = false, done = false;
+    const tick = () => {
+      if (done || id !== this.runId) return;
+      const now = performance.now(); let dt = Math.min(.1, (now - last) / 1000); last = now;
+      if (skip) { if (T < V.jump) T = V.jump; dt *= V.speed; }
+      T += dt;
+      V.frame(T);
+      if (T >= V.end) finish(); else requestAnimationFrame(tick);
+    };
+    const finish = () => {
+      if (done) return; done = true;
+      document.documentElement.style.overflow = '';
+      GW.loaderDone({ field });
+      requestAnimationFrame(() => requestAnimationFrame(() => { if (id !== this.runId) return; L.style.display = 'none'; this.setState({ show: false }); }));
+    };
+    requestAnimationFrame(tick);
+    const sk = () => { skip = true; };
+    L.addEventListener('click', sk);
+    L.addEventListener('touchstart', sk, { passive: true });
+    L.addEventListener('wheel', e => { e.preventDefault(); sk(); }, { passive: false });
+    addEventListener('keydown', sk, { once: true });
+  }
+
+  v_kreis({ L, rect, field, io3, seg, write, vw, vh }) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const COLS = vw < 700 ? 5 : 10, CS = vw / COLS, ROWS = Math.ceil(vh / CS) + 1, OY = -CS / 6;
+    const ODD = vw < 700 ? [3, 2] : [6, 1];
+    const rnd = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+    const RAD = { circle: [.5, .5, .5, .5], arch: [.5, .5, 0, 0], quarter: [1, 0, 0, 0] };
+    const cellPath = (sz, [a, b, c, d]) => 'M' + a + ' 0H' + (sz - b) + 'A' + b + ' ' + b + ' 0 0 1 ' + sz + ' ' + b + 'V' + (sz - c) + 'A' + c + ' ' + c + ' 0 0 1 ' + (sz - c) + ' ' + sz + 'H' + d + 'A' + d + ' ' + d + ' 0 0 1 0 ' + (sz - d) + 'V' + a + 'A' + a + ' ' + a + ' 0 0 1 ' + a + ' 0Z';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', vw); svg.setAttribute('height', vh); svg.style.cssText = 'position:absolute;inset:0';
+    L.querySelector('[data-pl-grid]').appendChild(svg);
+    const cells = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const i = r * COLS + c, q = rnd(i), odd = c === ODD[0] && r === ODD[1];
+      const type = odd ? 'quarter' : q < .3 ? 'circle' : q < .56 ? 'arch' : q < .9 ? 'quarter' : 'none';
+      if (type === 'none') continue;
+      const g = document.createElementNS(NS, 'g'), p = document.createElementNS(NS, 'path');
+      p.setAttribute('fill', '#000000'); p.setAttribute('d', cellPath(CS, RAD[type].map(v => v * CS)));
+      g.appendChild(p); svg.appendChild(g);
+      cells.push({ c, r, odd, g, p, rot: Math.floor(rnd(i + 99) * 4), dir: rnd(i + 7) < .5 ? 1 : -1 });
+    }
+    const TICKS = Array.from({ length: 9 }, (_, n) => .05 + .38 * n), ODD_TURNS = 3;
+    const A0 = 1.2, G0 = 2.2;
+    const oddCell = { x: ODD[0] * CS, y: OY + ODD[1] * CS, w: CS, h: CS };
+    const lines = k => [...L.querySelectorAll('[data-pl-h="' + k + '"] [data-pl-line]')];
+    const setLines = (k, T, at, out) => lines(k).forEach(l => {
+      const kin = seg(T, at, at + .6), kout = seg(T, out, out + .35, io3);
+      l.style.transform = 'translateY(' + ((1 - kin) * 110 - kout * 110).toFixed(2) + '%)';
+    });
+    return { end: 3.5, jump: G0, speed: 1.6, frame: T => {
+      const square = seg(T, A0 + .05, A0 + .4), yellow = seg(T, A0 + .15, A0 + .4), away = seg(T, G0, G0 + .8, io3);
+      cells.forEach(cl => {
+        let turns = 0; const lag = (cl.c + cl.r) * .015;
+        TICKS.forEach((tt, n) => { if (!cl.odd || n < ODD_TURNS) turns += seg(T, tt + lag, tt + lag + .32, io3); });
+        const ang = (cl.rot + turns * cl.dir) * 90;
+        const d = Math.hypot(cl.c - ODD[0], cl.r - ODD[1]);
+        const sc = cl.odd ? 1 : 1 - seg(T, G0 + d * .03, G0 + .5 + d * .03, io3);
+        cl.g.setAttribute('transform', 'translate(' + (cl.c * CS + CS / 2) + ' ' + (OY + cl.r * CS + CS / 2) + ') rotate(' + (cl.odd && T > A0 ? Math.round(ang / 90) * 90 : ang) + ') scale(' + sc.toFixed(4) + ') translate(' + (-CS / 2) + ' ' + (-CS / 2) + ')');
+        if (cl.odd) {
+          cl.p.setAttribute('d', cellPath(CS, RAD.quarter.map(v => v * CS * (1 - square))));
+          cl.p.setAttribute('fill', 'rgb(' + Math.round(255 * yellow) + ',' + Math.round(178 * yellow) + ',0)');
+          cl.g.style.opacity = T > G0 ? '0' : '1';
+        }
+      });
+      if (T > G0) {
+        const k = seg(T, G0, G0 + .8);
+        rect.style.opacity = '1';
+        Object.assign(rect.style, { left: GW.lerp(oddCell.x, field.x, k) + 'px', top: GW.lerp(oddCell.y, field.y, k) + 'px', width: GW.lerp(oddCell.w, field.w, k) + 'px', height: GW.lerp(oddCell.h, field.h, k) + 'px' });
+      }
+      write(T, G0 + .7, G0 + 1.25);
+      const g = Math.round(68 * (1 - away)), gb = Math.round(66 * (1 - away));
+      L.style.background = 'rgb(' + g + ',' + g + ',' + gb + ')';
+      setLines('a', T, .2, A0 + .2);
+      setLines('b', T, A0 + .3, G0 + .2);
+    } };
+  }
+
+  /* Licht: Linie, Fensterband, Fenster */
+  v_licht({ L, rect, field: f, io3, seg, write, box, vw }) {
+    L.style.background = '#000000';
+    const cy = f.y + f.h / 2, line = document.createElement('div');
+    const slow = t => t < .5 ? 16 * t ** 5 : 1 - Math.pow(-2 * t + 2, 5) / 2;
+    Object.assign(line.style, { position: 'absolute', left: '0', top: cy - .5 + 'px', width: vw + 'px', height: '1px', background: '#FFFFFF', transformOrigin: '0 50%', transform: 'scaleX(0)' });
+    L.insertBefore(line, rect);
+    Object.assign(rect.style, { opacity: '0' });
+    return { end: 5.55, jump: 3.3, speed: 2.4, frame: T => {
+      line.style.transform = 'scaleX(' + seg(T, .7, 2.3, io3).toFixed(4) + ')';
+      const warm = seg(T, 2.0, 2.4, t => t);
+      line.style.background = 'rgb(255,' + Math.round(255 - 77 * warm) + ',' + Math.round(255 * (1 - warm)) + ')';
+      line.style.opacity = T > 2.45 ? '0' : '1';
+      const open = seg(T, 2.4, 3.6, slow), close = seg(T, 3.5, 5.0, slow);
+      rect.style.opacity = T > 2.4 ? '1' : '0';
+      const hh = 1 + (f.h - 1) * open;
+      box(rect, { x: GW.lerp(0, f.x, close), y: cy - hh / 2, w: GW.lerp(vw, f.w, close), h: hh });
+      write(T, 4.6, 5.45);
+    } };
+  }
+
+  /* Grundriss: Plan zeichnet sich, Türschwenk wird zum Feld */
+  v_grundriss({ L, rect, field: f, io3, seg, write, box, vw, vh }) {
+    L.style.background = '#000000';
+    const NS = 'http://www.w3.org/2000/svg', w = f.w, h = f.h;
+    const Lx = f.x - 1.15 * w, R = f.x + w, T0 = f.y - .55 * h, B = f.y + h, r = w * .32, x0 = f.x + w * .12;
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', vw); svg.setAttribute('height', vh); svg.style.cssText = 'position:absolute;inset:0;overflow:visible';
+    L.querySelector('[data-pl-grid]').appendChild(svg);
+    const ds = [
+      'M' + x0 + ' ' + B + 'H' + Lx + 'V' + T0 + 'H' + R + 'V' + B + 'H' + (x0 + r),
+      'M' + f.x + ' ' + B + 'V' + f.y + 'H' + R,
+      'M' + Lx + ' ' + (f.y + h * .35) + 'H' + (f.x - w * .42),
+      'M' + (f.x - w * .6) + ' ' + T0 + 'V' + (T0 + h * .4),
+      'M' + x0 + ' ' + B + 'V' + (B - r),
+      'M' + (x0 + r) + ' ' + B + 'A' + r + ' ' + r + ' 0 0 0 ' + x0 + ' ' + (B - r)
+    ];
+    const paths = ds.map(d => {
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', d); p.setAttribute('fill', 'none'); p.setAttribute('stroke', '#CACACA'); p.setAttribute('stroke-width', '1');
+      p.setAttribute('pathLength', '1'); p.setAttribute('stroke-dasharray', '1'); p.setAttribute('stroke-dashoffset', '1');
+      svg.appendChild(p); return p;
+    });
+    const door = { x: x0, y: B - r, w: r, h: r };
+    box(rect, door);
+    Object.assign(rect.style, { opacity: '1', transformOrigin: '0 100%', transform: 'scale(0)', borderTopRightRadius: r + 'px' });
+    return { end: 3.3, jump: 1.9, speed: 2, frame: T => {
+      paths.forEach((p, i) => p.setAttribute('stroke-dashoffset', (1 - seg(T, .1 + i * .16, .75 + i * .16, io3)).toFixed(4)));
+      rect.style.transform = 'scale(' + seg(T, 1.35, 1.85, io3).toFixed(4) + ')';
+      const k = seg(T, 1.95, 2.7);
+      box(rect, { x: GW.lerp(door.x, f.x, k), y: GW.lerp(door.y, f.y, k), w: GW.lerp(door.w, f.w, k), h: GW.lerp(door.h, f.h, k) });
+      rect.style.borderTopRightRadius = (r * (1 - seg(T, 1.95, 2.5, io3))).toFixed(2) + 'px';
+      svg.style.opacity = (1 - seg(T, 2.15, 2.75)).toFixed(3);
+      write(T, 2.6, 3.15);
+    } };
+  }
+
+  /* Fertigung: Elemente werden gesetzt, die Fugen schließen sich */
+  v_fertigung({ L, rect, field: f, io3, seg, write, box, vh }) {
+    const N = 4, gap = 2, sw = f.w / N, outl = [], strips = [];
+    for (let i = 0; i < N; i++) {
+      const o = document.createElement('div'), s = document.createElement('div');
+      Object.assign(o.style, { position: 'absolute', outline: '1px solid #CACACA', outlineOffset: '-1px', opacity: '0' });
+      box(o, { x: f.x + i * sw, y: f.y, w: sw, h: f.h });
+      Object.assign(s.style, { position: 'absolute', background: 'var(--griffner-gelb)', willChange: 'transform' });
+      L.insertBefore(o, rect); L.insertBefore(s, rect);
+      outl.push(o); strips.push(s);
+    }
+    const word = document.createElement('div');
+    Object.assign(word.style, { position: 'absolute', left: f.x + 'px', top: f.y + f.h + f.w * .078 + 'px', fontFamily: 'var(--font-text)', fontWeight: '500', fontSize: 'var(--fs-info-web, 12px)', letterSpacing: 'var(--tracking-info-web, .08em)', textTransform: 'uppercase', color: 'var(--griffner-weiss)', opacity: '0', whiteSpace: 'nowrap' });
+    L.insertBefore(word, rect);
+    box(rect, f);
+    const WORDS = ['Design.', 'Engineer.', 'Make.', 'Build.'], WT = [.15, .8, 1.4, 2.0];
+    let wi = -1;
+    return { end: 3.5, jump: 2.0, speed: 2, frame: T => {
+      const oo = seg(T, .1, .6) * .5 * (1 - seg(T, 2.2, 2.5));
+      const g = gap * (1 - seg(T, 2.35, 2.7, io3));
+      strips.forEach((s, i) => {
+        outl[i].style.opacity = oo.toFixed(3);
+        const k = seg(T, .75 + i * .3, 1.5 + i * .3);
+        box(s, { x: f.x + i * sw + g / 2, y: f.y, w: sw - g, h: f.h });
+        s.style.transform = 'translate3d(0,' + ((1 - k) * (vh - f.y + 40)).toFixed(1) + 'px,0)';
+        s.style.opacity = T > 2.72 ? '0' : '1';
+      });
+      rect.style.opacity = T > 2.7 ? '1' : '0';
+      let n = 0; WT.forEach((t, i) => { if (T >= t) n = i; });
+      if (n !== wi) { wi = n; word.textContent = WORDS[n]; }
+      word.style.opacity = (seg(T, WT[n], WT[n] + .2) * (1 - seg(T, 2.55, 2.8))).toFixed(3);
+      const a = seg(T, 2.3, 2.9, io3), c = Math.round(68 * (1 - a)), cb = Math.round(66 * (1 - a));
+      L.style.background = 'rgb(' + c + ',' + c + ',' + cb + ')';
+      write(T, 2.85, 3.4);
+    } };
+  }
+
+  /* Skizze: Hand zeichnet das Feld, der Plan wird gerade, das Feld wird gebaut */
+  v_skizze({ L, rect, field: f, io3, seg, write, box }) {
+    L.style.background = '#000000';
+    const NS = 'http://www.w3.org/2000/svg', w = f.w, x0 = f.x, y0 = f.y, x1 = f.x + f.w, y1 = f.y + f.h;
+    const rnd = i => { const x = Math.sin(i * 91.7 + 47.3) * 43758.5453; return x - Math.floor(x); };
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', innerWidth); svg.setAttribute('height', innerHeight); svg.style.cssText = 'position:absolute;inset:0;overflow:visible';
+    L.querySelector('[data-pl-grid]').appendChild(svg);
+    const E = [[x0, y0, x1, y0], [x1, y0, x1, y1], [x1, y1, x0, y1], [x0, y1, x0, y0], [x0, y0, x1, y0], [x1, y0, x1, y1]];
+    const DRAW = [[.35, 1.0], [.9, 1.5], [1.4, 2.05], [1.95, 2.55], [2.05, 2.45], [2.2, 2.6]];
+    const S = E.map((e, i) => {
+      const p = document.createElementNS(NS, 'path'), re = i >= 4;
+      p.setAttribute('fill', 'none'); p.setAttribute('stroke', '#CACACA'); p.setAttribute('stroke-width', re ? '1' : '1.4');
+      p.setAttribute('stroke-linecap', 'round'); p.setAttribute('pathLength', '1'); p.setAttribute('stroke-dasharray', '1'); p.setAttribute('stroke-dashoffset', '1');
+      svg.appendChild(p);
+      return { e, p, re, os0: w * (.03 + rnd(i) * .07), os1: w * (.1 + rnd(i + 11) * .14), bow: (rnd(i + 23) - .5) * w * .06, j0: (rnd(i + 31) - .5) * w * .035, j1: (rnd(i + 41) - .5) * w * .035, off: re ? (rnd(i + 53) < .5 ? -3 : 3) : 0 };
+    });
+    const path = (s, k) => {
+      const [ax, ay, bx, by] = s.e, len = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / len, uy = (by - ay) / len, nx = -uy, ny = ux, m = 1 - k;
+      const o = s.off * m, sx = ax - ux * s.os0 * m + nx * (s.j0 * m + o), sy = ay - uy * s.os0 * m + ny * (s.j0 * m + o);
+      const ex = bx + ux * s.os1 * m + nx * (s.j1 * m + o), ey = by + uy * s.os1 * m + ny * (s.j1 * m + o);
+      const cx = (ax + bx) / 2 + nx * (s.bow * m + o), cy = (ay + by) / 2 + ny * (s.bow * m + o);
+      return 'M' + sx.toFixed(2) + ' ' + sy.toFixed(2) + 'Q' + cx.toFixed(2) + ' ' + cy.toFixed(2) + ' ' + ex.toFixed(2) + ' ' + ey.toFixed(2);
+    };
+    box(rect, f);
+    Object.assign(rect.style, { transformOrigin: '50% 100%', transform: 'scaleY(0)', opacity: '0' });
+    return { end: 4.7, jump: 2.6, speed: 2.2, frame: T => {
+      const k = seg(T, 2.6, 3.15, io3), fade = 1 - seg(T, 3.6, 4.0);
+      S.forEach((s, i) => {
+        s.p.setAttribute('d', path(s, k));
+        s.p.setAttribute('stroke-dashoffset', (1 - seg(T, DRAW[i][0], DRAW[i][1], io3)).toFixed(4));
+        s.p.style.opacity = ((s.re ? .45 * (1 - seg(T, 2.6, 2.95)) : 1) * fade).toFixed(3);
+      });
+      const fill = seg(T, 3.1, 3.85, io3);
+      rect.style.opacity = fill > 0 ? '1' : '0';
+      rect.style.transform = 'scaleY(' + fill.toFixed(4) + ')';
+      write(T, 3.7, 4.5);
+    } };
+  }
+
+  renderVals() {
+    const P = (window.GRIFFNER_CONTENT || {}).preloader || {};
+    return { show: this.state.show, line1: P.line1, line2: P.line2, markW: Math.round(window.GW ? window.GW.fieldStart().w : 200) };
+  }
+}
+</script>
+</body>
+</html>

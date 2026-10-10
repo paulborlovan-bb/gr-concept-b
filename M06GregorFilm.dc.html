@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+<style>
+/* nur im Film: früher global, färbte Logo und CTA im Header auf hellen Räumen weiß */
+[data-gstage] a{color:#fff;text-decoration:none}
+[data-gstage] a:hover{opacity:.64}
+</style>
+</helmet>
+<div style="position:relative;width:100%;height:100%;background:var(--griffner-schwarz);overflow:hidden;font-family:var(--font-text)">
+  <div data-gstage="1" style="position:absolute;inset:0"></div>
+  <h2 aria-label="Er hat das Springen neu gedacht. Wir das Bauen." style="position:absolute;left:var(--page-margin,80px);bottom:clamp(72px,13vh,150px);margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(38px,4.8vw,96px);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;color:var(--griffner-schwarz);pointer-events:none">
+    <span style="display:block;overflow:hidden"><span data-hl="0" style="display:block;transform:translateY(110%)">Er hat das Springen</span></span>
+    <span style="display:block;overflow:hidden"><span data-hl="1" style="display:block;transform:translateY(110%)">neu gedacht.</span></span>
+    <span style="display:block;overflow:hidden"><span data-hl="2" style="display:block;transform:translateY(110%)">Wir das Bauen.</span></span>
+  </h2>
+  <div data-ctl="1" style="display:none;position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:20px;padding:0 24px 16px;color:var(--griffner-weiss);opacity:.7;transition:color 600ms cubic-bezier(.2,.7,.2,1)" style-hover="opacity:1">
+    <button onClick="{{ toggle }}" style="background:none;border:0;padding:6px 0;color:inherit;font-family:var(--font-text);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;min-width:72px;text-align:left">{{ label }}</button>
+    <input data-scrub="1" type="range" min="0" max="1000" onInput="{{ scrub }}" style="flex:1;accent-color:currentColor;height:2px"></input>
+    <button onClick="{{ doRecord }}" style="background:none;border:0;padding:6px 0;color:inherit;font-family:var(--font-text);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;text-align:right">{{ recLabel }}</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DUR = 17.5, HOLD = 3, KEY = 'griffner-gregor-film-t';
+const cl = x => Math.max(0, Math.min(1, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eo = x => 1 - Math.pow(1 - x, 3);
+const lerp = (a, b, t) => a + (b - a) * t;
+const terrain = x => { if (x < 0) return 3 + 0.22 * -x; if (x < 62) { const u = x / 62; return 3 - 29 * (3 * u * u - 2 * u * u * u); } return -26; };
+const rng = (s => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; })(1950);
+const CAM = [
+  [0, [-6, 6, 92], [-26, 16, 0]],
+  [3.4, [-34, 28, 52], [-42, 26, 0]],
+  [4.6, [-78, 50, 10], [-56, 34, 0]],
+  [5.6, [-60, 43, 9], [-44, 24, 0]],
+  [6.6, [-13, 11.5, 6.5], [4, 5, 0]],
+  [8.2, [6, 24, 100], [10, -1, 0]],
+  [9.8, [30, 15, 106], [34, -9, 0]],
+  [11.2, [52, -12, 40], [68, -19, 4]],
+  [12.8, [56, -16, 32], [74, -19.5, 4]],
+  [16.0, [47, -11, 50], [61, -28, -3]],   // Schlussbild näher am Haus (war 26,3,72), Haus oben rechts, frei von der Überschrift
+  [17.5, [46, -11, 53], [60.5, -28, -3]]
+];
+const crv = (K, t, j) => {
+  let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++;
+  const u = cl((t - K[i][0]) / (K[i + 1][0] - K[i][0]));
+  const P0 = K[Math.max(0, i - 1)][j], P1 = K[i][j], P2 = K[i + 1][j], P3 = K[Math.min(K.length - 1, i + 2)][j];
+  return [0, 1, 2].map(c => .5 * (2 * P1[c] + (-P0[c] + P2[c]) * u + (2 * P0[c] - 5 * P1[c] + 4 * P2[c] - P3[c]) * u * u + (-P0[c] + 3 * P1[c] - 3 * P2[c] + P3[c]) * u * u * u));
+};
+
+class Component extends DCLogic {
+  state = { playing: true };
+  t = 0;
+
+  componentDidMount() {
+    this.boot();
+  }
+  componentWillUnmount() {
+    this.dead = true; cancelAnimationFrame(this.raf);
+    if (this.ro) this.ro.disconnect();
+    if (this.r) this.r.dispose();
+  }
+
+  async boot() {
+    const T = this.T = await import('https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js');
+    const FX = await import(new URL('site/griffner-film.js', document.baseURI).href);
+    const HM = await import(new URL('site/griffner-house.js', document.baseURI).href);
+    if (this.dead) return;
+    const host = this.host = document.querySelector('[data-gstage]');
+    if (window.__gfilmStop) window.__gfilmStop();
+    window.__gfilmStop = () => { this.dead = true; cancelAnimationFrame(this.raf); if (this.ro) this.ro.disconnect(); if (this.r) { this.r.dispose(); this.r.domElement.remove(); } };
+    host.querySelectorAll('canvas').forEach(c => c.remove());
+    this.hl = [0, 1, 2].map(i => document.querySelector('[data-hl="' + i + '"]'));
+    this.ctl = document.querySelector('[data-ctl]');
+    this.range = document.querySelector('[data-scrub]');
+
+    const r = this.r = new T.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    window.__gfilm = { seek: s => { this.t = s; this.setState({ playing: false }); this.last = -1; this.draw(Math.min(s, DUR)); }, record: () => this.record(), info: () => ({ t: this.t, last: this.last, pin: !!this.pin, frames: this.frames || 0 }) };
+    r.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
+    r.toneMapping = T.NoToneMapping;
+    r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
+    r.domElement.style.cssText = 'display:block;width:100%;height:100%';
+    host.appendChild(r.domElement);
+
+    const scene = this.scene = new T.Scene();
+    this.bg0 = new T.Color('#000000'); this.bg1 = new T.Color('#FFFFFF');
+    scene.background = this.bg0.clone();
+    scene.fog = new T.FogExp2(0x000000, 0.0058);
+    const cam = this.cam = new T.PerspectiveCamera(32, 16 / 9, 0.5, 700);
+
+    this.hemi = new T.HemisphereLight(0x9aa6b4, 0x0a0a0a, 0.55); scene.add(this.hemi);
+    const moon = this.moon = new T.DirectionalLight(0xe6ecf2, 2.4);
+    moon.position.set(-50, 90, 60); moon.target.position.set(10, -5, 0);
+    moon.castShadow = true; moon.shadow.mapSize.set(2048, 2048);
+    Object.assign(moon.shadow.camera, { left: -110, right: 110, top: 80, bottom: -80, near: 1, far: 320 });
+    moon.shadow.bias = -0.0004; moon.shadow.normalBias = .02;
+    scene.add(moon, moon.target);
+    const rim = this.rim = new T.DirectionalLight(0xbfc8d4, 0.9); rim.position.set(90, 30, -80); scene.add(rim);
+    const warm = this.warm = new T.PointLight(0xffb200, 0, 46, 1.4); warm.position.set(74, -19.5, 9.5); scene.add(warm);
+
+    const tg = new T.PlaneGeometry(300, 340, 300, 34); tg.rotateX(-Math.PI / 2);
+    const tp = tg.attributes.position;
+    for (let i = 0; i < tp.count; i++) { const x = tp.getX(i) + 20; tp.setX(i, x); tp.setY(i, terrain(x)); }
+    tg.computeVertexNormals();
+    this.snow0 = new T.Color('#D9DBDD'); this.snow1 = new T.Color('#FFFFFF');
+    this.snowMat = new T.MeshStandardMaterial({ color: this.snow0.clone(), roughness: 1 });
+    const snow = new T.Mesh(tg, this.snowMat); snow.receiveShadow = true; scene.add(snow);
+
+    const box = new T.BoxGeometry(1, 1, 1);
+    const V = (x, y, z) => new T.Vector3(x, y, z);
+    const QZ = a => new T.Quaternion().setFromAxisAngle(V(0, 0, 1), a);
+    const A = [], B = [];
+    const add = (arr, x, y, z, sx, sy, sz, q, k) => arr.push({ p: V(x, y, z), s: V(sx, sy, sz), q: q || new T.Quaternion(), k: k || 0 });
+
+    const P0 = [-62, 38], P1 = [-28, 10], P2 = [-8, 6.6], P3 = [0, 5.6];
+    const pts = [];
+    for (let i = 0; i <= 300; i++) { const u = i / 300; pts.push([(1 - u) ** 2 * P0[0] + 2 * (1 - u) * u * P1[0] + u * u * P2[0], (1 - u) ** 2 * P0[1] + 2 * (1 - u) * u * P1[1] + u * u * P2[1]]); }
+    for (let i = 1; i <= 40; i++) { const u = i / 40; pts.push([lerp(P2[0], P3[0], u), lerp(P2[1], P3[1], u)]); }
+    const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const TOT = this.TOT = cum[cum.length - 1];
+    const at = this.at = d => {
+      d = Math.max(0, Math.min(TOT, d)); let j = 1; while (j < cum.length - 1 && cum[j] < d) j++;
+      const a = pts[j - 1], b = pts[j], f = (d - cum[j - 1]) / ((cum[j] - cum[j - 1]) || 1);
+      return { x: lerp(a[0], b[0], f), y: lerp(a[1], b[1], f), ang: Math.atan2(b[1] - a[1], b[0] - a[0]) };
+    };
+    const yAt = x => { for (let j = 1; j < pts.length; j++) if (pts[j][0] >= x) { const a = pts[j - 1], b = pts[j]; return lerp(a[1], b[1], (x - a[0]) / ((b[0] - a[0]) || 1)); } return P3[1]; };
+
+    const NP = 184;
+    for (let k = 0; k < NP; k++) { const c = at((k + .5) * TOT / NP); add(A, c.x, c.y - .08, 0, TOT / NP * .8, .16, 3.4, QZ(c.ang), 2 + k / NP); }
+    for (let k = 0; k < 24; k++) {
+      const c = at((k + .5) * TOT / 24);
+      [-1.85, 1.85].forEach(z => add(A, c.x + Math.sin(c.ang) * .38, c.y - Math.cos(c.ang) * .38, z, TOT / 24 * .985, .55, .24, QZ(c.ang), 1 + k / 24));
+    }
+    for (let x = -58; x <= -5; x += 2.3) {
+      const top = yAt(x) - .65, base = terrain(x), h = top - base;
+      if (h > .5) [-1.6, 1.6].forEach(z => add(A, x, base + h / 2, z, .34, h, .34, null, (x + 62) / 60));
+    }
+    A.sort((a, b) => a.p.x - b.p.x);
+    const N = this.N = A.length;
+
+    const HP = this.HP = HM.houseParts(T, [74, -26, 0]); this.WOOD = HP.WOOD;
+    A.forEach(a => B.push({ p: V(74 + (rng() - .5) * 9, -25 + rng() * 6, -13 + rng() * 18), s: a.s.clone().multiplyScalar(.12), q: a.q.clone(), c: HP.WOOD }));
+
+    this.A = A; this.B = B;
+    this.rnd = A.map(() => ({ h: 8 + rng() * 4, z: (rng() - .5) * 6, ax: V(rng() - .5, rng() - .5, rng() - .5).normalize(), sp: (rng() - .5) * 1.0 }));
+    this.wood0 = new T.Color('#FFFFFF'); this.col = new T.Color(); this.wood1 = new T.Color('#77736C'); // war #0a0a0a: Dach verschwand im Nachthimmel
+    this.woodMat = new T.MeshStandardMaterial({ color: this.wood0.clone(), roughness: .62 });
+    const inst = this.inst = new T.InstancedMesh(box, this.woodMat, N);
+    inst.castShadow = true; inst.receiveShadow = true; inst.frustumCulled = false; scene.add(inst);
+    const hi = this.hi = new T.InstancedMesh(box, this.woodMat, HP.parts.length), hm = new T.Matrix4();
+    const K0 = { g: 9.6, u: 10.3, s: 10.7, b: 10.9, r: 10.9 }, cnt = {}, tot = {};
+    HP.parts.forEach(q => tot[q.k] = (tot[q.k] || 0) + 1);
+    this.hs = HP.parts.map(q => { const n = cnt[q.k] = (cnt[q.k] || 0) + 1; return K0[q.k] + (n / tot[q.k]) * .8; });
+    HP.parts.forEach((q, i) => { hm.compose(q.p, q.q, q.s); hi.setMatrixAt(i, hm); hi.setColorAt(i, q.c); });
+    hi.castShadow = true; hi.receiveShadow = true; scene.add(hi);
+
+    this.body = new T.Mesh(box, new T.MeshStandardMaterial({ color: 0x6e6a63, roughness: .5, metalness: .1 }));
+    this.body.castShadow = true; this.body.receiveShadow = true; scene.add(this.body);
+    const sh = new T.Shape(); sh.moveTo(-6, 0); sh.lineTo(6, 0); sh.lineTo(6, 1.6); sh.lineTo(0, 7.6); sh.lineTo(-6, 1.6); sh.lineTo(-6, 0);
+    this.upper = new T.Mesh(new T.ExtrudeGeometry(sh, { depth: 23, bevelEnabled: false }), this.body.material);
+    this.upper.position.set(74, -22.8, -16); this.upper.castShadow = true; this.upper.receiveShadow = true; scene.add(this.upper);
+    this.plate = new T.Mesh(box, new T.MeshStandardMaterial({ color: 0x000000, emissive: 0xffb200, emissiveIntensity: 1 }));
+    this.plate.castShadow = true; scene.add(this.plate);
+
+    this.m4 = new T.Matrix4(); this.vp = V(0, 0, 0); this.vs = V(1, 1, 1); this.qq = new T.Quaternion(); this.qt = new T.Quaternion(); this.qI = new T.Quaternion();
+    this.F = [V(0, 5.8, 0), V(30, 12, 1), V(58, -17, 16), V(74, -20, 7.08)];
+
+    FX.upgrade(T, r, scene, { env: .22, rim: 3.2, rimPos: [120, 45, -60] });
+    this.snowMat.toneMapped = false; // Schnee darf bei Tag reines Weiß erreichen: nahtloser Übergang in den weißen Raum darunter
+
+    const fit = () => { const w = host.clientWidth || 1, h = host.clientHeight || 1; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); this.last = -1; };
+    this.ro = new ResizeObserver(fit); this.ro.observe(host); fit();
+
+    this.prev = performance.now(); this.saved = 0;
+    const loop = now => {
+      if (this.dead) return;
+      const dt = Math.min(.064, (now - this.prev) / 1000); this.prev = now;
+      if (this.recording) { this.raf = requestAnimationFrame(loop); return; }
+      this.frames = (this.frames || 0) + 1;
+      const pin = this.pin || (this.pin = host.closest('[data-film-pin]'));
+      if (pin) {
+        const rc = pin.getBoundingClientRect(), vh = innerHeight;
+        if (rc.bottom < -50 || rc.top > vh + 50) { this.raf = requestAnimationFrame(loop); return; }
+        const p = cl(-rc.top / Math.max(1, rc.height - vh));
+        const target = Math.min(DUR, p / .9 * DUR);
+        this.t += (target - this.t) * Math.min(1, dt * 5);
+        if (Math.abs(target - this.t) < .002) this.t = target;
+      }
+      const tt = Math.min(this.t, DUR);
+      if (this.range && document.activeElement !== this.range) this.range.value = Math.round(tt / DUR * 1000);
+      if (tt !== this.last) { this.last = tt; this.draw(tt); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  platePos(t) {
+    const T = this.T, F = this.F, p = this.vp, s = this.vs, q = this.qq;
+    if (t < 6.6) {
+      const d = t < 4.6 ? 0 : this.TOT * Math.pow((t - 4.6) / 2, 2);
+      const c = this.at(d);
+      p.set(c.x - Math.sin(c.ang) * .14, c.y + Math.cos(c.ang) * .14, 0);
+      q.setFromAxisAngle(new T.Vector3(0, 0, 1), c.ang);
+      const a = eo(seg(t, 4.0, 4.6)); s.set(1.1 * a, .14 * a, .88 * a);
+      return;
+    }
+    const f = seg(t, 6.6, 11.3), e = lerp(f, eo(f), .5), u = 1 - e;
+    p.set(0, 0, 0).addScaledVector(F[0], u * u * u).addScaledVector(F[1], 3 * u * u * e).addScaledVector(F[2], 3 * u * e * e).addScaledVector(F[3], e * e * e);
+    const d = c => 3 * u * u * (F[1][c] - F[0][c]) + 6 * u * e * (F[2][c] - F[1][c]) + 3 * e * e * (F[3][c] - F[2][c]);
+    const dx = d('x'), dy = d('y');
+    const w = eio(seg(t, 10.9, 11.9));
+    q.setFromAxisAngle(new T.Vector3(0, 0, 1), Math.atan2(dy, dx) * .45 + .1).slerp(this.qI, w);
+    s.set(lerp(1.1, 5, w), lerp(.14, 4, w), lerp(.88, .06, w));
+  }
+
+  draw(t) {
+    const { A, B, N, rnd, m4, qt } = this;
+    const pp = new this.T.Vector3(), qp = new this.T.Quaternion(), sp = new this.T.Vector3();
+    for (let i = 0; i < N; i++) {
+      const a = A[i], b = B[i], R = rnd[i];
+      const k0 = .3 + (a.k / 3) * 2.4;
+      const u0 = eo(seg(t, k0, k0 + 1.1));
+      const st = 7.3 + (i / N) * 2.2, u = eio(seg(t, st, st + 2.2)), arc = Math.sin(Math.PI * u);
+      pp.copy(a.p).lerp(b.p, u); pp.y += (1 - u0) * 7 + arc * R.h; pp.z += arc * R.z;
+      qp.copy(a.q).slerp(b.q, u); qt.setFromAxisAngle(R.ax, arc * R.sp); qp.multiply(qt);
+      sp.copy(a.s).lerp(b.s, u).multiplyScalar(Math.max(.0001, u0));
+      m4.compose(pp, qp, sp); this.inst.setMatrixAt(i, m4);
+      this.col.copy(this.WOOD).lerp(b.c, u); this.inst.setColorAt(i, this.col);
+    }
+    this.inst.instanceMatrix.needsUpdate = true;
+    if (this.inst.instanceColor) this.inst.instanceColor.needsUpdate = true;
+
+    const g = eo(seg(t, 9.2, 10.4)), g2 = eo(seg(t, 10.4, 11.4));
+    const HPp = this.HP.parts;
+    for (let i = 0; i < HPp.length; i++) {
+      const q = HPp[i], h = eo(seg(t, this.hs[i], this.hs[i] + .7));
+      pp.copy(q.p); pp.y += (1 - h) * 2.5; sp.copy(q.s).multiplyScalar(Math.max(.0001, h));
+      m4.compose(pp, q.q, sp); this.hi.setMatrixAt(i, m4);
+    }
+    this.hi.instanceMatrix.needsUpdate = true;
+    this.body.visible = g > 0;
+    this.body.scale.set(11, Math.max(.001, 3.2 * g), 21.4); this.body.position.set(74, -26 + 1.6 * g, -4.9);
+    this.upper.visible = g2 > 0; this.upper.scale.y = Math.max(.001, g2);
+
+    this.plate.visible = t > 4.0;
+    this.platePos(t);
+    this.plate.position.copy(this.vp); this.plate.quaternion.copy(this.qq); this.plate.scale.copy(this.vs);
+
+    this.warm.intensity = 34 * eio(seg(t, 11.6, 12.9));
+
+    const c = eio(seg(t, 13.2, 14.8));
+    this.scene.background.copy(this.bg0).lerp(this.bg1, c);
+    this.scene.fog.color.copy(this.scene.background);
+    this.snowMat.color.copy(this.snow0).lerp(this.bg0, c);
+    this.snowMat.emissive.copy(this.snow1).multiplyScalar(c);
+    this.woodMat.color.copy(this.wood0).lerp(this.wood1, c);
+    this.moon.intensity = lerp(2.4, 1.6, c); this.hemi.intensity = lerp(.55, .38, c); // Tag mit Licht und Schatten statt flach this.rim.intensity = lerp(.9, .2, c);
+
+    const tp = crv(CAM, t, 2), cp = crv(CAM, t, 1);
+    const w = .85 * eio(seg(t, 3.9, 4.4)) * (1 - eio(seg(t, 6.6, 7.8)));
+    this.cam.position.set(cp[0], cp[1], cp[2]);
+    this.cam.lookAt(lerp(tp[0], this.vp.x, w), lerp(tp[1], this.vp.y, w), lerp(tp[2], this.vp.z, w));
+    this.r.render(this.scene, this.cam);
+
+    this.hl.forEach((el, i) => { if (el) el.style.transform = 'translateY(' + ((1 - eo(seg(t, 14.8 + i * .25, 16 + i * .25))) * 110).toFixed(1) + '%)'; });
+    if (this.ctl) this.ctl.style.color = c > .5 ? '#000000' : '#FFFFFF';
+  }
+
+  async record() {
+    if (this.recording) return; this.recording = true;
+    const W = 1920, H = 1080, END = DUR + 2.5;
+    this.setState({ playing: false, rec: 0 });
+    this.r.setPixelRatio(1); this.r.setSize(W, H, false); this.cam.aspect = W / H; this.cam.updateProjectionMatrix();
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    try { await document.fonts.load('300 120px "Ofelia Display"'); } catch (e) {}
+    const lines = ['ER HAT DAS SPRINGEN', 'NEU GEDACHT.', 'WIR DAS BAUEN.'];
+    const fs = 118, lh = fs * .95, x0 = 160, yb = H - 150;
+    const frame = t => {
+      this.draw(Math.min(t, DUR));
+      ctx.drawImage(this.r.domElement, 0, 0, W, H);
+      ctx.font = '300 ' + fs + 'px "Ofelia Display", "Helvetica Neue", Arial, sans-serif';
+      ctx.fillStyle = '#000000'; ctx.textBaseline = 'alphabetic';
+      lines.forEach((l, i) => {
+        const u = eo(seg(t, 14.8 + i * .25, 16 + i * .25)); if (u <= 0) return;
+        const base = yb - (lines.length - 1 - i) * lh;
+        ctx.save(); ctx.beginPath(); ctx.rect(0, base - fs * .82, W, fs * 1.02); ctx.clip();
+        ctx.fillText(l, x0, base + (1 - u) * fs * 1.05); ctx.restore();
+      });
+    };
+    const mime = ['video/mp4;codecs=avc1', 'video/webm;codecs=vp9', 'video/webm'].find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || 'video/webm';
+    const stream = cv.captureStream(60);
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 16000000 });
+    const chunks = []; rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+    const done = new Promise(res => rec.onstop = res);
+    frame(0); rec.start(250);
+    const t0 = performance.now();
+    await new Promise(res => {
+      const step = () => {
+        const t = (performance.now() - t0) / 1000;
+        frame(Math.min(t, END));
+        this.setState({ rec: Math.min(1, t / END) });
+        if (t < END) requestAnimationFrame(step); else res();
+      };
+      requestAnimationFrame(step);
+    });
+    rec.stop(); await done;
+    const blob = new Blob(chunks, { type: mime.split(';')[0] });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'GRIFFNER_Ueberleitung_Gregor.' + (mime.includes('mp4') ? 'mp4' : 'webm');
+    document.body.appendChild(a); a.click(); a.remove();
+    this.recording = false;
+    this.r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    const w = this.host.clientWidth || 1, h = this.host.clientHeight || 1; this.r.setSize(w, h, false); this.cam.aspect = w / h; this.cam.updateProjectionMatrix();
+    this.t = 0; this.last = -1; this.setState({ playing: true, rec: null });
+    return { size: blob.size, type: blob.type };
+  }
+
+  renderVals() {
+    return {
+      label: this.state.playing ? 'Pause' : 'Abspielen',
+      recLabel: this.state.rec != null ? 'Video wird aufgenommen ' + Math.round(this.state.rec * 100) + ' %' : 'Video laden (1920 × 1080)',
+      doRecord: () => this.record(),
+      toggle: () => { if (!this.state.playing && this.t >= DUR) this.t = 0; this.setState({ playing: !this.state.playing }); },
+      scrub: e => { this.t = (+e.target.value / 1000) * DUR; if (this.state.playing) this.setState({ playing: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

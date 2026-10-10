@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="positionierung" data-room="haltung" data-screen-label="02 Haltung" style="position:relative;height:400vh;background:var(--griffner-schwarz);color:var(--griffner-weiss)">
+  <div id="haltung" style="position:absolute;top:0;left:0;width:1px;height:1px"></div>
+  <div data-stage="1" style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+    <div data-half="a" style="position:absolute;left:0;top:0;width:50%;height:100%;overflow:hidden">
+      <img src="{{ imgLife }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 75%;display:block"></img>
+      <div data-hp="1" style="position:absolute;inset:0;background:var(--bildschutz);opacity:0"></div>
+      <p data-cap="1" style="position:absolute;left:clamp(24px,3vw,48px);right:clamp(24px,3vw,48px);bottom:clamp(32px,7vh,72px);margin:0;max-width:12em;font-family:var(--font-display);font-weight:300;font-size:min(clamp(22px,2.3vw,42px),4.8vh);line-height:.95;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance;opacity:0">{{ life }}</p>
+    </div>
+    <div data-half="b" style="position:absolute;left:50%;top:0;width:50%;height:100%;overflow:hidden">
+      <img src="{{ imgBuild }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></img>
+      <div data-hp="1" style="position:absolute;inset:0;background:var(--bildschutz);opacity:0"></div>
+      <p data-cap="1" style="position:absolute;left:clamp(24px,3vw,48px);right:clamp(24px,3vw,48px);bottom:clamp(32px,7vh,72px);margin:0;max-width:12em;font-family:var(--font-display);font-weight:300;font-size:min(clamp(22px,2.3vw,42px),4.8vh);line-height:.95;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance;opacity:0">{{ build }}</p>
+    </div>
+    <div data-house="1" style="position:absolute;inset:0;background:var(--griffner-weiss);opacity:0"></div>
+    <div data-dock="box" data-fdock="1" aria-hidden="true" style="position:absolute;left:0;top:0;width:100px;height:80px;pointer-events:none"></div>
+    <svg data-plane="1" role="img" aria-label="built different" style="position:absolute;inset:0;width:100%;height:100%;display:block">
+      <defs>
+        <mask id="m02h-window" maskUnits="userSpaceOnUse" x="-10" y="-10" width="100000" height="100000">
+          <rect x="-10" y="-10" width="100000" height="100000" fill="#fff"></rect>
+          <path data-glyphs="1" fill="#000"></path>
+        </mask>
+      </defs>
+      <rect x="-10" y="-10" width="100000" height="100000" fill="#000" mask="url(#m02h-window)"></rect>
+    </svg>
+    <div data-fin="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:50%;color:var(--griffner-schwarz);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px;opacity:0;pointer-events:none">
+      <h2 style="margin:0;max-width:9em;font-family:var(--font-display);font-weight:300;font-size:min(clamp(34px,4.2vw,80px),7.6vh);line-height:.95;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ head }}</h2>
+      <div style="display:grid;gap:28px;justify-items:start;max-width:420px">
+        <div style="display:grid;gap:10px">
+          <sc-for list="{{ body }}" as="t" hint-placeholder-count="2"><p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ t }}</p></sc-for>
+        </div>
+        <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="schwarz" width="200" hint-size="200px,32px"></x-import>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => window.GW && window.ScrollTrigger && window.GRIFFNER_CONTENT && window.GRIFFNERDesignSystem_559bd8 && document.getElementById('positionierung') ? GW.ready(() => this.setup()) : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { if (this.st) this.st.kill(); removeEventListener('resize', this.rs); this.ro && this.ro.disconnect(); }
+  setup() {
+    this.root = document.getElementById('positionierung');
+    const q = s => this.root.querySelector(s), qa = s => [...this.root.querySelectorAll(s)], NS = window.GRIFFNERDesignSystem_559bd8;
+    this.E = { stage: q('[data-stage]'), a: q('[data-half="a"]'), b: q('[data-half="b"]'), hp: qa('[data-hp]'), cap: qa('[data-cap]'), house: q('[data-house]'), dock: q('[data-fdock]'), plane: q('[data-plane]'), g: q('[data-glyphs]'), fin: q('[data-fin]') };
+    const vb = (NS.CLAIM_VIEWBOX || '0 0 6053 977').split(' ').map(Number);
+    this.vw = vb[2]; this.vh = vb[3];
+    this.E.g.setAttribute('d', NS.CLAIM_D || '');
+    this.anchor = this.findAnchor();
+    this.rs = () => this.apply(this.p || 0); addEventListener('resize', this.rs);
+    if (window.ResizeObserver) { this.ro = new ResizeObserver(() => this.apply(this.p || 0)); this.ro.observe(this.E.stage); }
+    if (GW.reduce) { this.apply(1); return; }
+    this.st = ScrollTrigger.create({ trigger: this.root, start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: s => this.apply(s.progress), onRefresh: s => this.apply(s.progress) });
+    this.apply(0);
+    requestAnimationFrame(() => this.apply(this.p || 0));
+    setTimeout(() => this.apply(this.p || 0), 300);
+  }
+  findAnchor() {
+    const g = this.E.g, inside = (x, y) => { try { return g.isPointInFill(new DOMPoint(x, y)); } catch (e) { return false; } };
+    let best = { x: this.vw / 2, y: this.vh / 2, r: 30, score: -1 };
+    const dirs = [[1,0],[-1,0],[0,1],[0,-1],[.7,.7],[-.7,.7],[.7,-.7],[-.7,-.7]];
+    for (let x = this.vw * .3; x < this.vw * .7; x += 20) for (let y = this.vh * .2; y < this.vh * .85; y += 20) {
+      if (!inside(x, y)) continue;
+      let r = 0;
+      for (let rr = 8; rr <= 120; rr += 8) { if (dirs.every(([dx, dy]) => inside(x + dx * rr, y + dy * rr))) r = rr; else break; }
+      const score = r - Math.abs(x - this.vw / 2) * .01;
+      if (score > best.score) best = { x, y, r: Math.max(r, 8), score };
+    }
+    return best;
+  }
+  apply(p) {
+    this.p = p;
+    const E = this.E, c = v => Math.max(0, Math.min(1, v));
+    const io = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const out3 = v => 1 - Math.pow(1 - v, 3);
+    const W = E.stage.clientWidth, H = E.stage.clientHeight;
+    if (!W) return;
+    if ((!this.anchor || this.anchor.score < 0) && (this.tries = (this.tries || 0) + 1) < 60) this.anchor = this.findAnchor();
+    if (!this.anchor) return;
+    const A = this.anchor, cw = Math.min(W * .86, H * 4.2), s0 = cw / this.vw;
+    const bx = (W - cw) / 2 + A.x * s0, by = (H - this.vh * s0) / 2 + A.y * s0;
+    const sEnd = Math.hypot(W, H) * .62 / A.r;
+    const t = c((p - .04) / .3), e = t * t * (3 - 2 * t), k = io(c((p - .04) / .22));
+    const s = s0 * Math.pow(sEnd / s0, e);
+    const cx = bx + (W / 2 - bx) * k, cy = by + (H / 2 - by) * k;
+    E.g.setAttribute('transform', `translate(${cx.toFixed(2)} ${cy.toFixed(2)}) scale(${s.toFixed(5)}) translate(${-A.x} ${-A.y})`);
+    E.plane.style.opacity = (1 - c((p - .3) / .04)).toFixed(3);
+
+    const open = io(c((p - .34) / .1)) * (1 - io(c((p - .56) / .1)));
+    const vert = W < 700, gap = open * .26, seam = 1 - open;
+    const sz = (1 - gap) / 2;
+    if (vert) {
+      Object.assign(E.a.style, { left: '0', top: '0', width: '100%', height: (sz * 100).toFixed(3) + '%' });
+      Object.assign(E.b.style, { left: '0', top: `calc(${((sz + gap) * 100).toFixed(3)}% + ${seam.toFixed(2)}px)`, width: '100%', height: (sz * 100).toFixed(3) + '%' });
+    } else {
+      Object.assign(E.a.style, { left: '0', top: '0', height: '100%', width: (sz * 100).toFixed(3) + '%' });
+      Object.assign(E.b.style, { top: '0', left: `calc(${((sz + gap) * 100).toFixed(3)}% + ${seam.toFixed(2)}px)`, height: '100%', width: (sz * 100).toFixed(3) + '%' });
+    }
+    const bg = p > .32 ? 'var(--griffner-weiss)' : 'var(--griffner-schwarz)';
+    const rm = p > .75 ? 'position' : 'haltung';
+    if (this.root.dataset.room !== rm) this.root.dataset.room = rm;
+    if (this.bg !== bg) { this.bg = bg; this.root.style.background = bg; }
+    const white = bg.includes('weiss') && p < .66, gapPx = open * .26 * (vert ? H : W);
+    const sb = document.querySelector('[data-season-btn]');
+    if (sb) { const o = white && !vert ? '0' : ''; if (sb.style.opacity !== o) { sb.style.transition = 'opacity 300ms'; sb.style.opacity = o; sb.style.pointerEvents = o ? 'none' : ''; } }
+    const wm = document.querySelector('[data-wm]');
+    if (wm) { const col = white && !vert && gapPx > 24 ? 'var(--griffner-schwarz)' : ''; if (wm.style.color !== col) { wm.style.transition = 'color 300ms'; wm.style.color = col; } }
+    const prot = c((p - .32) / .06).toFixed(3);
+    E.hp.forEach(el => el.style.opacity = prot);
+    const cap = out3(c((p - .4) / .08)) * (1 - c((p - .56) / .04));
+    E.cap.forEach(el => { el.style.opacity = cap.toFixed(3); el.style.transform = `translateY(${(16 * (1 - Math.min(1, cap * 1.2))).toFixed(1)}px)`; });
+
+    E.house.style.opacity = io(c((p - .7) / .1)).toFixed(3);
+    const fin = out3(c((p - .8) / .1));
+    E.fin.style.opacity = fin.toFixed(3);
+    E.fin.style.transform = `translateY(${(16 * (1 - fin)).toFixed(1)}px)`;
+    const HB = 72, finH = E.fin.offsetHeight, m = parseFloat(getComputedStyle(E.fin).left) || 24;
+    let fw = Math.min(Math.max(W * .1, 64), 160);
+    const room = (H - HB - 16 - finH) / (.8 + .4 * .8);
+    if (room < fw) fw = Math.max(W / 12, Math.min(fw, room));
+    const fh = fw * .8, g = Math.max(16, fh * .4);
+    const stacked = fh + g + finH <= H - HB - 24;
+    const groupTop = stacked ? Math.max(HB, (H - (fh + g + finH)) / 2) : Math.max(HB, Math.min((H - finH) / 2, H - 24 - finH));
+    const finTop = stacked ? groupTop + fh + g : groupTop;
+    E.fin.style.top = finTop.toFixed(1) + 'px';
+    const phase = p < .56 ? 'claim' : p < .78 ? 'seam' : 'fin';
+    const vs = phase !== 'fin' && !vert, dw = vs ? fh : fw, dh = vs ? fw : fh;
+    E.dock.dataset.dockKey = phase === 'claim' ? 'seam' : phase;
+    E.dock.dataset.dockHide = phase === 'claim' ? '1' : '';
+    E.dock.dataset.dockSolid = phase === 'fin' ? '1' : '';
+    E.dock.dataset.dockAxis = vs ? 'v' : '';
+    let P;
+    if (phase === 'claim' || phase === 'seam') P = { x: W / 2 - dw / 2, y: H / 2 - dh / 2 };
+    else P = stacked ? { x: m, y: groupTop } : { x: W - m - fw, y: finTop };
+    Object.assign(E.dock.style, { left: P.x.toFixed(1) + 'px', top: P.y.toFixed(1) + 'px', width: dw.toFixed(1) + 'px', height: dh.toFixed(1) + 'px' });
+    E.fin.style.pointerEvents = fin > .5 ? 'auto' : 'none';
+  }
+  renderVals() {
+    const T = (window.GRIFFNER_CONTENT || {}).haltungV2 || {};
+    return { imgLife: T.imgLife, imgBuild: T.imgBuild, imgHouse: T.imgHouse, life: T.life, build: T.build, head: T.head, body: T.body || [] };
+  }
+}
+</script>
+</body>
+</html>

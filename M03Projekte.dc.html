@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="projekte" data-room="projects" data-screen-label="03 Projektindex" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad-sm) var(--page-margin) var(--section-pad)">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 32px">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px">
+      <h3 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ head }}</h3>
+      <span style="font-size:var(--fs-text-web);line-height:1.3">{{ text }}</span>
+    </div>
+    <a href="{{ href }}" style="display:flex;gap:10px;color:inherit;text-decoration:none;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>{{ link }}</span><span>→</span></a>
+  </div>
+  <div style="margin-top:clamp(32px,5vh,56px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);align-items:start">
+    <ol data-plist="1" onMouseLeave="{{ release }}" style="grid-column:{{ listCol }};margin:0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.2)">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="10">
+        <li data-prow="{{ r.i }}" style="border-bottom:1px solid rgba(255,255,255,.2)">
+          <a href="{{ r.href }}" onMouseEnter="{{ r.enter }}" onFocus="{{ r.enter }}" style="display:grid;grid-template-columns:3.2em minmax(0,1fr) auto;align-items:baseline;gap:8px 16px;padding:clamp(18px,2.8vh,28px) 0;color:inherit;text-decoration:none;opacity:{{ r.op }};transition:opacity 750ms var(--ease)">
+            <span style="font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);font-variant-numeric:tabular-nums">{{ r.no }}</span>
+            <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);line-height:1.05;letter-spacing:.04em;text-transform:uppercase;font-feature-settings:'liga' 0">{{ r.name }}</span>
+            <span style="font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;white-space:nowrap">{{ r.info }}</span>
+            <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+              <span style="grid-column:2 / -1;display:block;margin-top:12px;aspect-ratio:16 / 10;overflow:hidden;background:var(--griffner-anthrazit)"><img src="{{ r.img }}" alt="{{ r.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></img></span>
+            </sc-if>
+          </a>
+        </li>
+      </sc-for>
+    </ol>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <div style="grid-column:10 / span 3;position:sticky;top:clamp(110px,16vh,160px);display:grid;gap:16px">
+        <a data-lux="1" href="{{ cur.href }}" data-dock="edge" data-dock-x=".72" style="position:relative;display:block;aspect-ratio:4 / 5;overflow:hidden;background:var(--griffner-anthrazit)">
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="1">
+            <img src="{{ r.img }}" alt="{{ r.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ r.imgOp }};transform:scale({{ r.scale }});transition:opacity 900ms var(--ease), transform 1400ms var(--ease)"></img>
+          </sc-for>
+          <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ cur.name }}</span>
+        </a>
+        <div style="display:flex;justify-content:space-between;gap:16px;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums">
+          <span>{{ cur.info }}</span>
+          <span>{{ cur.count }}</span>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { a: 0, w: typeof innerWidth === 'number' ? innerWidth : 1200 };
+  componentDidMount() {
+    this.onScroll = () => { if (this.q) return; this.q = 1; this.raf = requestAnimationFrame(() => { this.q = 0; this.track(); }); };
+    this.onResize = () => { this.setState({ w: innerWidth }); this.onScroll(); };
+    addEventListener('scroll', this.onScroll, { passive: true });
+    addEventListener('resize', this.onResize);
+    this.onScroll();
+  }
+  componentWillUnmount() { removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onResize); cancelAnimationFrame(this.raf); }
+  track() {
+    if (this.hover) return;
+    const rows = document.querySelectorAll('#projekte [data-prow]'); if (!rows.length) return;
+    const mid = innerHeight * .5; let best = 0, d = Infinity;
+    rows.forEach((r, i) => { const b = r.getBoundingClientRect(), x = Math.abs(b.top + b.height / 2 - mid); if (x < d) { d = x; best = i; } });
+    if (best !== this.state.a) this.setState({ a: best });
+  }
+  renderVals() {
+    const L = ((window.GRIFFNER_CONTENT || {}).architektur || {}).projectList || {}, items = L.items || [], a = Math.min(this.state.a, Math.max(0, items.length - 1));
+    const narrow = this.state.w < 820, n = items.length, pad = x => String(x).padStart(2, '0');
+    const info = it => [it.place, it.year].filter(Boolean).join(' / ');
+    const rows = items.map((it, i) => ({ i, no: pad(i + 1), name: it.name, info: info(it), img: it.img, href: it.href || '#',
+      op: narrow || i === a ? 1 : .5, imgOp: i === a ? 1 : 0, scale: i === a ? 1 : 1.03,
+      enter: () => { this.hover = true; if (this.state.a !== i) this.setState({ a: i }); } }));
+    const c = items[a] || {};
+    return { head: L.head, text: L.text, link: L.link, href: L.href || '#', rows, narrow, wide: !narrow,
+      listCol: narrow ? '1 / -1' : '1 / span 7',
+      cur: { name: c.name, href: c.href || '#', info: 'Project ' + pad(a + 1) + (info(c) ? ' / ' + info(c) : ''), count: pad(a + 1) + ' / ' + pad(n) },
+      release: () => { this.hover = false; } };
+  }
+}
+</script>
+</body>
+</html>

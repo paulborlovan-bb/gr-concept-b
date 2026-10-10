@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="top" data-room="hero" data-screen-label="01 Hero" style="position:relative;height:200vh;background:var(--griffner-schwarz);color:var(--griffner-weiss)">
+  <div data-hstage="1" style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--griffner-schwarz)">
+  <div data-win="1" data-dock="edge" data-dock-x=".72" data-dock-at=".2" style="position:absolute;left:36%;top:30%;width:28%;height:30%;background:var(--griffner-gelb);overflow:hidden">
+    <div data-view="1" style="position:absolute;inset:0;opacity:0">
+      <img data-pic="1" src="{{ img }}" alt="" style="position:absolute;left:-4%;top:-4%;width:108%;height:108%;object-fit:cover;object-position:center 60%;display:block;filter:brightness(.55) saturate(.6)"></img>
+      <div data-night="1" style="position:absolute;inset:0;background:#0A1426;mix-blend-mode:multiply;opacity:.75"></div>
+      <div data-dawn="1" style="position:absolute;inset:0;background:var(--griffner-kupfer-verlauf);mix-blend-mode:soft-light;opacity:0"></div>
+      <div data-prot="1" style="position:absolute;inset:0;background:var(--bildschutz);opacity:0"></div>
+    </div>
+  </div>
+  <div data-hmark="1" style="position:absolute;left:0;top:0;opacity:0;transform-origin:0 0">
+    <svg viewBox="0 878.45 1000 127.11" role="img" aria-label="GRIFFNER" width="{{ markW }}" style="display:block;height:auto"><path fill="#FFFFFF" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"></path></svg>
+  </div>
+  <h1 data-st="1" aria-label="{{ statement }}" style="position:absolute;left:var(--page-margin);bottom:clamp(76px,11vh,120px);margin:0;display:grid;gap:.04em;font-family:var(--font-display);font-weight:300;font-size:120px;line-height:.8;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;white-space:nowrap;color:var(--griffner-weiss);opacity:0">
+    <sc-for list="{{ lines }}" as="l" hint-placeholder-count="3"><span data-ln="1" aria-hidden="true" style="display:block;width:max-content">{{ l }}</span></sc-for>
+  </h1>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => window.GW && window.gsap && window.GRIFFNER_CONTENT ? this.setup() : setTimeout(go, 30);
+    go();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); removeEventListener('griffner:replay', this.rp); removeEventListener('mousemove', this.mm); removeEventListener('deviceorientation', this.mo); removeEventListener('resize', this.rs); this.ro && this.ro.disconnect(); }
+  q(s) { return this.root.querySelector(s); }
+  setup() {
+    this.root = document.getElementById('top');
+    if (!this.root) return setTimeout(() => this.setup(), 30);
+    const f = GW.fieldStart(), win = this.q('[data-win]'), mk = this.q('[data-hmark]');
+    Object.assign(win.style, { left: f.x + 'px', top: f.y + 'px', width: f.w + 'px', height: f.h + 'px' });
+    Object.assign(mk.style, { left: f.x + 'px', top: f.y + f.h + f.w * .078 + 'px', opacity: '1' });
+    this.m = { x: 0, y: 0, sx: 0, sy: 0 };
+    this.mm = e => { this.m.x = e.clientX / innerWidth * 2 - 1; this.m.y = e.clientY / innerHeight * 2 - 1; };
+    this.mo = e => { if (e.gamma == null) return; this.m.x = GW.clamp(e.gamma / 25, -1, 1); this.m.y = GW.clamp((e.beta - 45) / 25, -1, 1); };
+    addEventListener('mousemove', this.mm); addEventListener('deviceorientation', this.mo);
+    const pic = this.q('[data-pic]');
+    const loop = () => {
+      const m = this.m; m.sx += (m.x - m.sx) * .05; m.sy += (m.y - m.sy) * .05;
+      if (!GW.reduce) pic.style.transform = `translate3d(${(m.sx * -1.6).toFixed(2)}%,${(m.sy * -1.1).toFixed(2)}%,0)`;
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+    this.fit();
+    if (document.fonts) {
+      const fam = getComputedStyle(this.q('[data-st]')).fontFamily;
+      document.fonts.load('300 100px ' + fam, 'HAUSBAU').then(() => this.fit(), () => {});
+      document.fonts.ready.then(() => this.fit());
+    }
+    this.rs = () => this.fit(); addEventListener('resize', this.rs);
+    if (window.ResizeObserver) { this.ro = new ResizeObserver(() => this.fit()); this.ro.observe(this.q('[data-st]')); }
+    this.rp = () => this.reset(); addEventListener('griffner:replay', this.rp);
+    GW.onLoader(() => this.open());
+  }
+  reset() {
+    this.tl && this.tl.kill();
+    if (this.stw) { this.stw.scrollTrigger && this.stw.scrollTrigger.kill(); this.stw.kill(); this.stw = null; }
+    this.scrubbed = 0;
+    const f = GW.fieldStart();
+    gsap.set(this.q('[data-win]'), { left: f.x, top: f.y, width: f.w, height: f.h });
+    gsap.set(this.q('[data-hmark]'), { x: 0, y: 0, scale: 1, opacity: 1 });
+    gsap.set(this.q('[data-view]'), { opacity: 0, scale: 1 });
+    gsap.set(this.q('[data-night]'), { opacity: .75 });
+    gsap.set(this.q('[data-dawn]'), { opacity: 0 });
+    gsap.set(this.q('[data-pic]'), { filter: 'brightness(.55) saturate(.6)' });
+    gsap.set(this.q('[data-prot]'), { opacity: 0 });
+    gsap.set(this.q('[data-st]'), { opacity: 0 });
+    gsap.set(this.root.querySelectorAll('[data-ln]'), { opacity: 0 });
+    const lg = document.querySelector('[data-logo]');
+    if (lg) { lg.style.opacity = '0'; GW.onIntro(() => { lg.style.opacity = '1'; }); }
+    GW.onLoader(() => this.open());
+  }
+  fit() {
+    const h = this.q('[data-st]'), ls = [...h.querySelectorAll('[data-ln]')];
+    if (!ls.length) return;
+    const st = this.q('[data-hstage]'), W = st.clientWidth, H = st.offsetHeight, m = h.offsetLeft;
+    if (!W) return;
+    ls.forEach(l => l.style.fontSize = '100px');
+    const ws = ls.map(l => l.getBoundingClientRect().width), wMax = Math.max(...ws), wLast = ws[ws.length - 1];
+    if (!wMax || !wLast) return;
+    let s = W >= 700 ? Math.min(100 * (W * .55 - m) / wLast, 100 * (W - 2 * m) / wMax) : 100 * (W - 2 * m) * .92 / wMax;
+    s = Math.min(s, H * .6 / (ls.length * .84));
+    ls.forEach(l => l.style.fontSize = Math.floor(s * 100) / 100 + 'px');
+  }
+  open() {
+    const win = this.q('[data-win]'), mk = this.q('[data-hmark]');
+    const big = GW.ms('--dur-big') / 1000, small = GW.ms('--dur-small') / 1000;
+    const end = () => { Object.assign(win.style, { left: '50%', top: '0', width: '50%', height: '100%' }); this.scrub(); };
+    const target = document.querySelector('[data-wm]');
+    if (!target && (this.tries = (this.tries || 0) + 1) < 60) return setTimeout(() => this.open(), 30);
+    this.tries = 0;
+    GW.onIntro(() => gsap.to(mk, { opacity: 0, duration: .25, overwrite: 'auto' }));
+    if (GW.reduce) {
+      end(); mk.style.opacity = '0';
+      ['[data-view]', '[data-prot]', '[data-st]'].forEach(s => this.q(s).style.opacity = '1');
+      this.q('[data-night]').style.opacity = '0'; this.q('[data-pic]').style.filter = 'none';
+      GW.finishIntro(); return;
+    }
+    if ((this.props.intro ?? 'fenster') === 'fenster') return this.openFenster(win, mk, target, big, small, end);
+    const tl = this.tl = gsap.timeline({ delay: .25, defaults: { ease: GW.ease } });
+    tl.to(win, { left: innerWidth / 2, top: 0, width: innerWidth / 2, height: this.q('[data-hstage]').offsetHeight, duration: big * 1.1, onComplete: end }, 0)
+      .to(this.q('[data-view]'), { opacity: 1, duration: small }, .1)
+      .to(this.q('[data-night]'), { opacity: 0, duration: big * 1.15 }, .3)
+      .to(this.q('[data-dawn]'), { opacity: .55, duration: big * 1.15 }, .3)
+      .to(this.q('[data-pic]'), { filter: 'brightness(1) saturate(1)', duration: big * 1.15 }, .3)
+      .to(this.q('[data-prot]'), { opacity: 1, duration: small }, big * .9);
+    if (target) {
+      const t = target.getBoundingClientRect(), r = mk.getBoundingClientRect();
+      tl.to(mk, { x: t.left - r.left, y: t.top - r.top, scale: t.width / r.width, duration: big }, 0)
+        .call(() => GW.finishIntro(), null, big * .95)
+        .to(mk, { opacity: 0, duration: .2 }, big * .98);
+    } else tl.call(() => GW.finishIntro(), null, big);
+    tl.set(this.q('[data-st]'), { opacity: 1 }, big * 1.05)
+      .fromTo(this.root.querySelectorAll('[data-ln]'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: big, stagger: .14 }, big * 1.05);
+  }
+  openFenster(win, mk, target, big, small, end) {
+    const vw = innerWidth, H = this.q('[data-hstage]').offsetHeight, view = this.q('[data-view]');
+    const G = 2.6, Lt = 2.2, LD = 1.4, ST = .32, S = Lt + LD + ST * 2 + 1.6, SPLIT = 2.1;
+    const lns = this.root.querySelectorAll('[data-ln]');
+    gsap.set(view, { scale: 1.28 });
+    const tl = this.tl = gsap.timeline({ delay: 0, defaults: { ease: GW.ease } });
+    tl.to(win, { left: 0, top: 0, width: vw, height: H, duration: G, ease: 'power2.inOut' }, 0)
+      .to(view, { opacity: 1, duration: 1.6, ease: 'power1.inOut' }, .7)
+      .to(view, { scale: 1, duration: S + SPLIT, ease: 'power2.out' }, .4)
+      .to(this.q('[data-night]'), { opacity: 0, duration: 3.2, ease: 'power1.inOut' }, .9)
+      .to(this.q('[data-dawn]'), { opacity: .55, duration: 3.2, ease: 'power1.inOut' }, .9)
+      .to(this.q('[data-pic]'), { filter: 'brightness(1) saturate(1)', duration: 3.2, ease: 'power1.inOut' }, .9)
+      .to(this.q('[data-prot]'), { opacity: 1, duration: 1.2 }, G * .75);
+    if (target) {
+      const t = target.getBoundingClientRect(), r = mk.getBoundingClientRect();
+      tl.to(mk, { x: t.left - r.left, y: t.top - r.top, scale: t.width / r.width, duration: 2.2, ease: 'power2.inOut' }, 0)
+        .call(() => GW.finishIntro(), null, 2.2)
+        .to(mk, { opacity: 0, duration: .25 }, 2.25);
+    } else tl.call(() => GW.finishIntro(), null, G);
+    tl.set(this.q('[data-st]'), { opacity: 1 }, Lt)
+      .fromTo(lns, { opacity: 1, yPercent: 60, clipPath: 'inset(0% 0% 100% 0%)' }, { yPercent: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: LD, stagger: ST, ease: 'power3.out' }, Lt)
+      .to(win, { left: vw / 2, width: vw / 2, duration: SPLIT, ease: 'power3.inOut', onComplete: end }, S);
+  }
+  scrub() {
+    if (this.scrubbed || GW.reduce || !window.ScrollTrigger) return;
+    this.scrubbed = 1;
+    gsap.registerPlugin(ScrollTrigger);
+    this.stw = gsap.fromTo(this.q('[data-win]'), { left: '50%', width: '50%' }, { left: '0%', width: '100%', ease: 'none',
+      scrollTrigger: { trigger: this.root, start: 'top top', end: 'bottom bottom', scrub: .6 } });
+  }
+  renderVals() {
+    const H = (window.GRIFFNER_CONTENT || {}).hero || {};
+    const w = String(H.statement || '').split(' ');
+    return { img: (this.props.intro ?? 'fenster') === 'fenster' ? 'assets/photos/haus-wald.jpg' : H.img, imgLabel: H.imgLabel, statement: H.statement, lines: w, markW: Math.round(window.GW ? window.GW.fieldStart().w : 200) };
+  }
+}
+</script>
+</body>
+</html>

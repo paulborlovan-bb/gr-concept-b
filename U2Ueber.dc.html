@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<div>
+
+
+
+<section id="u-geschichte" data-room="u-geschichte" data-screen-label="05 Geschichte" class="gri-sand" style="position:relative;color:var(--griffner-schwarz)">
+  <div style="padding:var(--section-pad) var(--page-margin) clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:28px;align-items:end">
+    <h2 data-reveal="0" style="grid-column:1 / span 7;margin:0;min-width:min(100%,300px);font-family:var(--font-display);font-weight:300;font-size:var(--fs-headline-xl);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">SEIT 1950. UND WIR FANGEN GERADE ERST AN.</h2>
+    <p data-reveal="120" style="grid-column:9 / span 4;margin:0;min-width:min(100%,280px);font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">Aus einer Zimmerei in Griffen wurde eine Marke für Architektur in Holz. Erfahrung ist für uns kein Argument, sondern die Grundlage, Dinge neu zu denken.</p>
+  </div>
+  <div id="u-zeit" data-tpin="1" style="position:relative;height:380vh">
+    <div data-tsticky="1" style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+      <div data-tgrad="1" aria-hidden="true" style="position:absolute;inset:0;background:var(--griffner-weiss);opacity:0"></div>
+      <div data-tline="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:clamp(96px,15vh,140px);height:1px;background:var(--griffner-schwarz)">
+        <sc-for list="{{ stations }}" as="s" hint-placeholder-count="7">
+          <span aria-hidden="true" style="position:absolute;top:-4px;left:{{ s.pos }};width:1px;height:9px;background:var(--griffner-schwarz)"></span>
+        </sc-for>
+        <div data-tdock="1" data-dock="box" data-dock-trigger="u-zeit" aria-hidden="true" style="position:absolute;left:0;top:0;width:48px;height:38px;pointer-events:none"></div>
+      </div>
+      <div data-track="1" style="position:absolute;left:0;top:0;bottom:0;display:flex;will-change:transform">
+        <sc-for list="{{ stations }}" as="s" hint-placeholder-count="2">
+          <article style="flex:none;width:100vw;box-sizing:border-box;padding:clamp(140px,22vh,210px) var(--page-margin) clamp(28px,5vh,56px);display:flex;flex-wrap:wrap;align-items:flex-end;align-content:center;gap:clamp(24px,4vh,40px) clamp(24px,5vw,96px)">
+            <div style="position:relative;flex:1 1 320px;max-width:720px;aspect-ratio:4 / 3;max-height:52vh;overflow:hidden;background:var(--griffner-schwarz)">
+              <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ s.img }}" alt="{{ s.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></img>
+              </sc-if>
+              <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ s.label }}</span>
+            </div>
+            <div style="flex:1 1 300px;display:grid;gap:16px;align-content:end;min-width:0">
+              <span style="font-family:var(--font-display);font-weight:300;font-size:clamp(44px,6.6vw,128px);line-height:.9;letter-spacing:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere">{{ s.year }}</span>
+              <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ s.title }}</span>
+              <p style="margin:0;max-width:26em;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ s.text }}</p>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => window.GW && document.getElementById('u-zeit') && document.querySelectorAll('[data-track] article').length === 7 ? GW.ready(() => this.setup()) : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+
+  setup() {
+    if (this.ok) return; this.ok = 1;
+    const $ = s => document.querySelector(s);
+    this.f = { pin: null };
+    this.t = { pin: $('[data-tpin]'), sticky: $('[data-tsticky]'), grad: $('[data-tgrad]'), line: $('[data-tline]'), dock: $('[data-tdock]'), track: $('[data-track]') };
+    const $$ = q => [...document.querySelectorAll(q)];
+    this.b = { pin: $('[data-bpin]'), words: $$('[data-bw]'), tx: $$('[data-btx]'), fills: $$('[data-bfill]'), frame: $('[data-bframe]'), imgs: $$('[data-bimg]'), cmp: $$('[data-bcmp]') };
+    this.b.cmp.forEach(c => { c._s = c.querySelector('[data-bstrike]'); c._n = [...c.querySelectorAll('[data-bnew]')]; });
+    if (GW.reduce) {
+      const T = this.t;
+      T.pin.style.height = 'auto'; T.sticky.style.position = 'relative'; T.sticky.style.height = 'auto';
+      T.track.style.position = 'relative'; T.track.style.flexDirection = 'column'; T.grad.style.opacity = '1';
+      T.line.style.display = 'none';
+      T.track.querySelectorAll('article').forEach(a => { a.style.width = '100%'; a.style.paddingTop = '48px'; });
+    }
+    ['u-geschichte'].forEach(id => GW.reveal(document.getElementById(id)));
+    const loop = () => { this.frame(); this.raf = requestAnimationFrame(loop); };
+    loop();
+  }
+
+  pp(el) { const r = el.getBoundingClientRect(); return { r, p: GW.clamp(-r.top / Math.max(1, r.height - innerHeight)) }; }
+
+  frame() {
+    const vh = innerHeight, RD = GW.reduce;
+    const fp = this.f.pin ? this.pp(this.f.pin) : null;
+    if (fp && fp.r.bottom > 0 && fp.r.top < vh) {
+      const p = RD ? 0 : GW.clamp((vh - fp.r.top) / (fp.r.height + vh));
+      this.f.z.style.transform = 'scale(' + (1.08 - .08 * p).toFixed(4) + ')';
+      const sec = Math.floor(p * 96), tc = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+      if (this.f.tc.textContent !== tc) this.f.tc.textContent = tc;
+    }
+    const B = this.b, br = B.pin ? B.pin.getBoundingClientRect() : null;
+    if (br && br.bottom > -vh && br.top < vh * 2) {
+      const p = RD ? .999 : GW.clamp(-br.top / Math.max(1, br.height - vh)), x = p * 3, idx = Math.min(2, Math.floor(x)), lc = x - idx;
+      if (this.bIdx !== idx) {
+        this.bIdx = idx;
+        B.words.forEach((w, i) => w.querySelectorAll('[data-bch]').forEach((c, j) => { c.style.transitionDelay = (j * 40 + (i === idx ? 180 : 0)) + 'ms'; c.style.transform = i === idx ? 'none' : (i < idx ? 'translateY(-110%)' : 'translateY(110%)'); }));
+        B.tx.forEach((t, i) => { t.style.opacity = i === idx ? '1' : '0'; t.style.transform = i === idx ? 'none' : 'translateY(16px)'; });
+        B.cmp.forEach((c, i) => { c.style.opacity = i === idx ? '1' : '0'; });
+        B.frame.dataset.dockX = ['.28', '.5', '.72'][idx]; B.frame.dataset.dockKey = String(idx);
+      }
+      B.fills.forEach((f, i) => { f.style.transform = 'scaleX(' + GW.clamp(x - i).toFixed(3) + ')'; });
+      B.imgs.forEach((im, i) => { const k = i === 0 ? 1 : GW.E(x - i, -.08, .22); im.style.clipPath = 'inset(' + ((1 - k) * 100).toFixed(2) + '% 0 0 0)'; });
+      const c = B.cmp[idx], sk = RD ? 1 : GW.E(lc, .12, .4), nk = RD ? 1 : GW.E(lc, .32, .55);
+      if (c) { c._s.style.transform = 'scaleX(' + sk.toFixed(3) + ')'; c._n.forEach((n, j) => { const k = RD ? 1 : GW.E(lc, .32 + j * .06, .55 + j * .06); n.style.opacity = k.toFixed(3); n.style.transform = 'translateY(' + ((1 - k) * 12).toFixed(1) + 'px)'; }); }
+    }
+    if (RD) return;
+    const T = this.t, tp = this.pp(T.pin);
+    if (tp.r.bottom > -vh && tp.r.top < vh * 2) {
+      const n = 6, s = tp.p * n, i = Math.min(n, Math.floor(s)), f = s - i;
+      const s2 = Math.min(n, i + GW.E(f, .45, 1));
+      const max = Math.max(0, T.track.scrollWidth - innerWidth);
+      T.track.style.transform = 'translate3d(' + (-(s2 / n) * max).toFixed(1) + 'px,0,0)';
+      T.grad.style.opacity = (GW.E(tp.p, 0, .05) * (1 - GW.E(tp.p, .96, 1))).toFixed(3);
+      const lw = T.line.clientWidth, w = Math.max(40, Math.min(lw / 14, 88)), h = w * .8;
+      T.dock.style.width = w.toFixed(1) + 'px'; T.dock.style.height = h.toFixed(1) + 'px';
+      T.dock.style.left = ((s2 / n) * (lw - w)).toFixed(1) + 'px'; T.dock.style.top = (-h / 2).toFixed(1) + 'px';
+    }
+  }
+
+  renderVals() {
+    const st = [
+      ['1950', 'ZIMMEREI SIUTZ', 'Dachstühle und Blockhäuser aus Griffen.', '', 'Platzhalter / Archivbild Zimmerei'],
+      ['[JAHR]', 'GRIFFNERHAUS', 'Ari Griffner übernimmt die Zimmerei und gründet Griffnerhaus.', '', 'Platzhalter / Archivbild Griffnerhaus'],
+      ['[JAHR]', 'O SOLE MIO', 'Das modulare Pultdachhaus, entwickelt mit Matteo Thun und ausgezeichnet.', '', 'Platzhalter / O Sole Mio'],
+      ['[JAHR]', 'HAUS DES JAHRES', 'Gold und Silber in den Kategorien Luxus und Ökologie.', '', 'Platzhalter / Haus des Jahres'],
+      ['[JAHR]', 'FLOATING HOUSE', 'Das erste Wohnhaus, das Studio F. A. Porsche entworfen hat.', 'assets/projects/floating-house.jpg', 'Floating House'],
+      ['2026', 'NEUE ÄRA', 'Thomas Scheriau übernimmt GRIFFNER als Eigentümer und Geschäftsführer.', '', 'Platzhalter / Thomas Scheriau'],
+      ['23.10.2026', 'THE NEW GRIFFNER', 'Neue Marke, neue Häuser, neuer Auftritt.', '', 'Platzhalter / The new GRIFFNER']
+    ];
+    return {
+      ch: [
+        { short: 'Planen', chars: [...'PLANEN.'], text: 'Räume für dein Leben. Frei gestaltbar, offen und hell, entworfen aus der Frage, wie du leben möchtest.', img: 'assets/photos/schlafen-hell.jpg', old: 'Tragende Innenwände. Jede Änderung kostet einen Aufpreis.', neu: 'Patentiertes Open Space Konzept. Der Grundriss folgt deinem Leben.', num: '9,80 m', numLabel: 'Raumbreite ohne Wand' },
+        { short: 'Bauen', chars: [...'BAUEN.'], text: 'Ein Ansprechpartner, ein Festpreis und ein Termin, der hält. Ruhig statt nervenaufreibend.', img: 'assets/photos/weiss-detail.jpg', old: 'Endloses Warten, weitergereicht werden.', neu: 'Ein Projektmanager vom ersten Schritt bis zum Schlüssel.', num: '10 Monate', numLabel: 'Bis zum Einzug, garantierter Festpreis' },
+        { short: 'Leben', chars: [...'LEBEN.'], text: 'Holz, das man ein Leben lang spürt. Gesünder, leiser, langlebiger.', img: 'assets/photos/daemmerung-garten.jpg', old: '250 cm Raumhöhe.', neu: '2,72 m in jedem Raum, auf Wunsch 2,92 m.', num: '+22 cm', numLabel: 'Raumhöhe, mehr als üblich' }
+      ],
+      chapters: [
+        { title: 'BESSER PLANEN.', text: 'Räume für dein Leben. Frei gestaltbar, offen und hell, entworfen aus der Frage, wie du leben möchtest.', img: 'assets/photos/schlafen-hell.jpg', trig: 'u3t1', trigTop: '0px', delay: 0 },
+        { title: 'BESSER BAUEN.', text: 'Ein Ansprechpartner, ein Festpreis und ein Termin, der hält. Ruhig statt nervenaufreibend.', img: 'assets/photos/weiss-detail.jpg', trig: 'u3t2', trigTop: '22vh', delay: 140 },
+        { title: 'BESSER LEBEN.', text: 'Holz, das man ein Leben lang spürt. Gesünder, leiser, langlebiger.', img: 'assets/photos/daemmerung-garten.jpg', trig: 'u3t3', trigTop: '44vh', delay: 280 }
+      ],
+      numbers: [{ label: 'MENSCHEN', delay: 0 }, { label: 'QUADRATMETER WERK', delay: 120 }, { label: 'HÄUSER PRO JAHR', delay: 240 }],
+      stations: st.map((s, i) => ({ year: s[0], title: s[1], text: s[2], img: s[3], label: s[4], pos: (i / 6 * 100).toFixed(3) + '%' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

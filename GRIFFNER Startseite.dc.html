@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>GRIFFNER, Hausbau geht besser.</title>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/base.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="site/griffner-lux.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#000000"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#000000"></rect><rect x="32" y="36" width="36" height="28" fill="#FFB200"></rect></svg></template>
+<style>
+html, body { margin: 0; background: #000000; }
+body { overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: inherit; opacity: .64; }
+::selection { background: #FFFFFF; color: #000000; }
+</style>
+</helmet>
+
+<div data-site="1" style="position:relative;color:var(--griffner-weiss);font-family:var(--font-text);font-weight:400;font-feature-settings:'liga' 1;-webkit-font-smoothing:antialiased">
+  <div data-bgl="1" aria-hidden="true" style="position:fixed;inset:0;z-index:0;background:var(--griffner-schwarz);pointer-events:none"></div>
+
+  <div data-connector="1" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:0;z-index:5;pointer-events:none;opacity:0;display:grid;grid-template-rows:1fr 1fr;will-change:transform">
+    <span data-c-top="1" style="display:block;background:var(--griffner-gelb)"></span>
+    <span style="display:block;background:var(--griffner-gelb)"></span>
+  </div>
+
+  <dc-import name="GriffnerHeader" hint-size="100%,0px"></dc-import>
+  <dc-import name="GriffnerMenu" hint-size="100%,0px"></dc-import>
+  <!-- Season-Leiste vorerst aus: <dc-import name="GriffnerSeason" hint-size="100%,0px"></dc-import> -->
+  <dc-import name="M00Preloader" force="{{ forcePreloader }}" variant="{{ preloaderVariant }}" hint-size="100%,0px"></dc-import>
+
+  <main style="position:relative">
+    <dc-import name="M01Hero" intro="{{ heroIntro }}" hint-size="100%,200vh"></dc-import>
+    <dc-import name="M02Haltung" hint-size="100%,400vh"></dc-import>
+    <dc-import name="M03Architektur" hint-size="100%,640vh"></dc-import>
+    <dc-import name="M03Projekte" hint-size="100%,160vh"></dc-import>
+    <dc-import name="M04Weg" hint-size="100%,680vh"></dc-import>
+    <dc-import name="M06Gregor" hint-size="100%,820vh"></dc-import>
+    <dc-import name="M06News" hint-size="100%,90vh"></dc-import>
+    <dc-import name="M07Erleben" hint-size="100%,300vh"></dc-import>
+  </main>
+  <dc-import name="GriffnerFooter" variant="{{ footerVariant }}" finale="{{ footerFinale }}" finale-farbe="{{ footerFinaleFarbe }}" hint-size="100%,80vh"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;footerFinaleFarbe&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;gelb&quot;,&quot;weiss&quot;],&quot;default&quot;:&quot;gelb&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;footerFinale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;stanze&quot;,&quot;wechsel&quot;],&quot;default&quot;:&quot;stanze&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;simDate&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;2026-10-23&quot;,&quot;2026-10-29&quot;,&quot;2026-11-05&quot;,&quot;2026-11-12&quot;,&quot;2026-11-19&quot;,&quot;2026-11-20&quot;],&quot;default&quot;:&quot;2026-10-23&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Kapitel&quot;},&quot;preloaderAlways&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bewegung&quot;},&quot;preloaderVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;kreis&quot;,&quot;licht&quot;,&quot;grundriss&quot;,&quot;fertigung&quot;,&quot;skizze&quot;],&quot;default&quot;:&quot;licht&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Bewegung&quot;},&quot;footerVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signal&quot;,&quot;abend&quot;,&quot;ort&quot;,&quot;aktuell&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Footer&quot;},&quot;heroIntro&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fenster&quot;,&quot;direkt&quot;],&quot;default&quot;:&quot;fenster&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Bewegung&quot;},&quot;film3d&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bewegung&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    document.documentElement.dataset.simDate = this.props.simDate ?? '2026-10-23';
+    window.GW ? GW.ready(() => this.start()) : setTimeout(() => this.componentDidMount(), 50);
+  }
+  componentDidUpdate() {
+    const d = this.props.simDate ?? '2026-10-23';
+    if (document.documentElement.dataset.simDate !== d) { document.documentElement.dataset.simDate = d; dispatchEvent(new Event('griffner:date')); }
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); this.hro && this.hro.disconnect(); clearTimeout(this.hrt); }
+
+  watchHeight() {
+    if (this.hro || !window.ResizeObserver) return;
+    let last = 0;
+    this.hro = new ResizeObserver(() => {
+      const hgt = document.documentElement.scrollHeight;
+      if (Math.abs(hgt - last) < 2) return;
+      last = hgt; clearTimeout(this.hrt);
+      this.hrt = setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 120);
+    });
+    this.hro.observe(document.body);
+    if (!window.__gwAnchor) {
+      window.__gwAnchor = 1;
+      document.addEventListener('click', e => {
+        const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+        const id = a.getAttribute('href').slice(1), t = id ? document.getElementById(id) : null;
+        if (!t && id !== 'top') return;
+        e.preventDefault();
+        scrollTo({ top: t ? t.getBoundingClientRect().top + scrollY : 0, behavior: GW.reduce ? 'auto' : 'smooth' });
+      });
+    }
+    const main = document.querySelector('main'); if (main) this.hro.observe(main);
+  }
+
+  start() {
+    this.watchHeight();
+    if (this.started) return; this.started = true;
+    this.colors = {};
+    this.cur = null; this.active = null;
+    this.conn = document.querySelector('[data-connector]');
+    this.top = this.conn.querySelector('[data-c-top]');
+    this.bot = this.conn.lastElementChild;
+    this.conn.style.transition = 'opacity 600ms cubic-bezier(.2,.7,.2,1)';
+    this.bgl = document.querySelector('[data-bgl]');
+    const loop = () => { this.frame(); this.raf = requestAnimationFrame(loop); };
+    loop();
+    addEventListener('load', () => ScrollTrigger.refresh());
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+  }
+
+  room(el) {
+    const k = el.dataset.room;
+    if (!this.colors[k]) this.colors[k] = GW.hex(GW.token('--room-' + k) || '#000000');
+    return this.colors[k];
+  }
+  colorAt(y, rooms) {
+    const L = c => (c[0] * .2126 + c[1] * .7152 + c[2] * .0722) / 255;
+    const zone = (a, b) => innerHeight * (Math.abs(L(a) - L(b)) > .45 ? .035 : .3);
+    for (let i = 0; i < rooms.length; i++) {
+      const r = rooms[i].getBoundingClientRect();
+      if (r.top <= y && r.bottom > y) {
+        let c = this.room(rooms[i]);
+        const prev = rooms[i - 1], next = rooms[i + 1];
+        if (prev) { const p = this.room(prev), Z = zone(p, c); if (y - r.top < Z) c = GW.mix(p, c, .5 + (y - r.top) / (2 * Z)); }
+        if (next) { const n = this.room(next), Z = zone(c, n); if (r.bottom - y < Z) c = GW.mix(c, n, .5 - (r.bottom - y) / (2 * Z)); }
+        return c;
+      }
+    }
+    return GW.hex('#000000');
+  }
+
+  dockRect(el) {
+    const r = el.getBoundingClientRect(), t = el.dataset.dock;
+    if (t === 'edge') {
+      const share = parseFloat(el.dataset.dockW || GW.token('--connector-share') || .14);
+      const w = Math.min(Math.max(r.width * share, r.width / 12), r.width / 5, innerWidth / 5);
+      const h = w * .8, cx = r.left + r.width * parseFloat(el.dataset.dockX || .72);
+      return { x: cx - w / 2, y: r.bottom - h / 2, w, h, top: parseFloat(GW.token('--connector-overlay-opacity')) || .5 };
+    }
+    return { x: r.left, y: r.top, w: r.width, h: r.height, top: t === 'home' || el.dataset.dockSolid ? 1 : (parseFloat(GW.token('--connector-overlay-opacity')) || .5) };
+  }
+  pickDock() {
+    const docks = [...document.querySelectorAll('[data-dock]')];
+    const home = docks.find(d => d.dataset.dock === 'home');
+    if (scrollY < 24 || document.documentElement.dataset.menu === 'open') return home;
+    const lim = innerHeight * .5;
+    let act = null;
+    docks.forEach(d => {
+      if (d === home) return;
+      const trg = d.dataset.dockTrigger ? document.getElementById(d.dataset.dockTrigger) : d.closest('[data-room]');
+      if (trg && trg.getBoundingClientRect().top <= lim) act = d;
+    });
+    return act || home;
+  }
+
+  frame() {
+    const vh = innerHeight;
+    const rooms = [...document.querySelectorAll('[data-room]')];
+    if (!rooms.length) return;
+    this.bgl.style.background = GW.css(this.colorAt(vh / 2, rooms));
+    const menu = document.documentElement.dataset.menu === 'open';
+    const fk = document.querySelector('[data-fk]'), fkr = fk && fk.style.visibility !== 'hidden' && fk.style.display !== 'none' ? fk.getBoundingClientRect() : null;
+    const onFk = yy => fkr && fkr.top <= yy && fkr.bottom > yy;
+    const hk = menu ? '#FFFFFF' : onFk(44) ? '#000000' : GW.ink(this.colorAt(44, rooms));
+    const sk = onFk(vh - 28) ? '#000000' : GW.ink(this.colorAt(vh - 28, rooms));
+    const ds = document.documentElement.style;
+    if (hk !== this.hk) { this.hk = hk; ds.setProperty('--header-ink', hk); }
+    if (sk !== this.sk) { this.sk = sk; ds.setProperty('--season-ink', sk); }
+
+    const home = document.querySelector('[data-dock="home"]');
+    const atHome = scrollY < 24 || menu;
+    const dock = atHome && home ? home : this.pickDock();
+    if (!dock) return;
+    const tgt = { ...this.dockRect(dock), split: dock.dataset.dockAxis === 'v' ? 'v' : 'h', bot: 1 };
+    const now = performance.now(), mode = (dock.dataset.dockId || (dock.dataset.dockId = String(++this.dockN || (this.dockN = 1)))) + ':' + (dock.dataset.dockKey || '');
+    if (mode !== this.mode) { this.from = this.cur ? { ...this.cur, split: this.split } : tgt; this.t0 = now; this.mode = mode; }
+    const dur = GW.reduce ? 0 : GW.ms('--dur-glide');
+    const k = dur ? GW.ease(Math.min(1, (now - this.t0) / dur)) : 1, f = this.from;
+    this.cur = { x: GW.lerp(f.x, tgt.x, k), y: GW.lerp(f.y, tgt.y, k), w: GW.lerp(f.w, tgt.w, k), h: GW.lerp(f.h, tgt.h, k), top: GW.lerp(f.top, tgt.top, k), bot: GW.lerp(f.bot ?? 1, tgt.bot, k) };
+    const c = this.cur, st = this.conn.style;
+    st.transform = `translate3d(${c.x.toFixed(2)}px,${c.y.toFixed(2)}px,0)`;
+    st.width = c.w.toFixed(2) + 'px'; st.height = c.h.toFixed(2) + 'px';
+    this.top.style.opacity = c.top.toFixed(3);
+    this.bot.style.opacity = c.bot.toFixed(3);
+    const split = k < 1 && k < .5 ? (f.split || 'h') : tgt.split;
+    if (split !== this.split) { this.split = split; st.gridTemplateRows = split === 'v' ? 'none' : '1fr 1fr'; st.gridTemplateColumns = split === 'v' ? '1fr 1fr' : 'none'; }
+    st.opacity = GW.introDone && !(menu && !home) && !dock.dataset.dockHide ? '1' : '0';
+  }
+
+  renderVals() {
+    return {
+      forcePreloader: this.props.preloaderAlways ?? false,
+      heroIntro: this.props.heroIntro ?? 'fenster',
+      preloaderVariant: this.props.preloaderVariant ?? 'licht',
+      footerVariant: this.props.footerVariant ?? 'signal',
+      footerFinale: this.props.footerFinale ?? 'stanze',
+      footerFinaleFarbe: this.props.footerFinaleFarbe ?? 'gelb',
+      use3d: this.props.film3d ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+<style>
+[data-kf] input::placeholder, [data-kf] textarea::placeholder { color: #444442; opacity: 1; }
+</style>
+</helmet>
+
+<section id="k-hero" data-room="k-kontakt" data-screen-label="01 Kontakt" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:clamp(140px,22vh,220px) var(--page-margin) var(--section-pad-sm)">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(28px,4vh,48px)">
+    <span data-reveal="0" style="grid-column:1 / -1;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.info }}</span>
+    <h1 data-reveal="80" style="grid-column:1 / span 8;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(36px,4.4vw,80px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ k.head }}</h1>
+    <p data-reveal="160" style="grid-column:{{ sideCol }};margin:clamp(16px,4vh,48px) 0 0;max-width:440px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ k.text }}</p>
+  </div>
+</section>
+
+<section id="k-form" data-room="k-kontakt" data-screen-label="02 Dein Projekt" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:0 0 var(--section-pad-sm) var(--page-margin)">
+  <div id="kontakt" data-stage="1" data-dock="rect" data-dock-solid="1" data-dock-trigger="kontakt" style="position:relative;margin-left:{{ stageInset }};padding:clamp(32px,4.4vw,72px) clamp(24px,4.4vw,72px) clamp(36px,4.8vw,80px);box-sizing:border-box;color:var(--griffner-schwarz)">
+    <div style="position:relative;z-index:6;display:grid;gap:clamp(28px,4.5vh,48px);max-width:920px">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px">
+        <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.formInfo }}</span>
+        <h2 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ k.formHead }}</h2>
+      </div>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form data-kf="1" onSubmit="{{ submit }}" noValidate="{{ true }}" style="--line:#000000;--text-primary:#000000;--surface-page:#FFB200;--text-secondary:#444442;--text-tertiary:#444442;display:grid;gap:clamp(28px,4.5vh,48px);margin:0">
+          <p style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(24px,2.5vw,42px);line-height:1.4;letter-spacing:0;text-wrap:pretty">
+            <span>{{ k.s1 }} </span><input name="name" autocomplete="name" aria-label="Name" placeholder="{{ k.namePh }}" value="{{ name }}" onChange="{{ onName }}" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:{{ nameLine }};border-radius:0;padding:0 .08em;margin:0;min-width:5ch;max-width:100%;field-sizing:content;outline:none"></input><span> {{ k.s2 }} </span>
+            <sc-for list="{{ topics }}" as="t" hint-placeholder-count="3">
+              <span><button type="button" onClick="{{ t.pick }}" aria-pressed="{{ t.on }}" style="font:inherit;color:inherit;background:transparent;border:0;padding:0;margin:0;cursor:pointer;opacity:{{ t.op }};text-decoration:{{ t.deco }};text-decoration-thickness:1px;text-underline-offset:.14em;transition:opacity 750ms var(--ease)">{{ t.label }}</button><span style="opacity:.35">{{ t.sep }}</span></span>
+            </sc-for>
+            <sc-if value="{{ showPlace }}" hint-placeholder-val="{{ true }}">
+              <span>, {{ k.sPlace }} </span><select aria-label="Standort" value="{{ place }}" onChange="{{ onPlace }}" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px solid #000000;border-radius:0;padding:0 .08em;margin:0;appearance:none;-webkit-appearance:none;cursor:pointer;field-sizing:content;max-width:100%;outline:none">
+                <sc-for list="{{ places }}" as="o" hint-placeholder-count="1"><option value="{{ o }}">{{ o }}</option></sc-for>
+              </select>
+            </sc-if>
+            <span>. {{ k.s3 }} </span><input name="contact" autocomplete="email" aria-label="E-Mail oder Telefon" placeholder="{{ k.contactPh }}" value="{{ contact }}" onChange="{{ onContact }}" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:{{ contactLine }};border-radius:0;padding:0 .08em;margin:0;min-width:8ch;max-width:100%;field-sizing:content;outline:none"></input><span>.</span>
+          </p>
+          <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:6px;font-size:var(--fs-text-web);line-height:1.45;font-weight:600">
+              <sc-for list="{{ errors }}" as="e" hint-placeholder-count="0"><span>{{ e }}</span></sc-for>
+            </div>
+          </sc-if>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,5vh,48px) clamp(32px,5vw,96px);align-items:start;padding-top:clamp(24px,4vh,40px);border-top:1px solid #000000">
+            <div style="--fs-body:15px">
+              <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.TextField" label="{{ f.message }}" name="message" multiline="{{ true }}" rows="{{ 4 }}" placeholder="{{ f.messageHint }}" value="{{ message }}" on-change="{{ setMessage }}" hint-size="100%,130px"></x-import>
+            </div>
+            <div style="display:grid;gap:clamp(20px,3vh,28px)">
+              <div style="--fs-body:14px;display:grid;gap:8px">
+                <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Checkbox" label="{{ f.consent }}" checked="{{ consent }}" on-change="{{ setConsent }}" hint-size="100%,40px"></x-import>
+                <a href="{{ f.privacyHref }}" style="padding-left:32px;font-size:14px;line-height:1.45;color:inherit;text-decoration:underline;text-underline-offset:3px">{{ f.privacy }}</a>
+              </div>
+              <div style="--fs-body:14px">
+                <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Checkbox" label="{{ f.newsletter }}" checked="{{ newsletter }}" on-change="{{ setNewsletter }}" hint-size="100%,40px"></x-import>
+              </div>
+              <div style="padding-top:8px">
+                <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="primary" size="lg" arrow="{{ true }}" type="submit" hint-size="220px,58px">{{ submitLabel }}</x-import>
+              </div>
+            </div>
+          </div>
+        </form>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gap:clamp(20px,3vh,32px);max-width:880px;min-height:clamp(260px,36vh,420px);align-content:end">
+          <h3 style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(32px,3.4vw,60px);line-height:1;text-transform:uppercase;font-feature-settings:'liga' 0">{{ thanksHead }}</h3>
+          <p style="margin:0;max-width:560px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ f.thanksText }}</p>
+          <sc-if value="{{ sentNewsletter }}" hint-placeholder-val="{{ false }}"><p style="margin:0;max-width:560px;font-size:var(--fs-text-web);line-height:var(--leading-body);font-weight:600">{{ f.newsletterThanks }}</p></sc-if>
+          <div><x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" on-click="{{ reset }}" hint-size="160px,32px">{{ f.again }}</x-import></div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="zentrale" data-room="k-kontakt" data-screen-label="03 Kontaktdaten" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:0 var(--page-margin) var(--section-pad)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(40px,6vh,64px) clamp(32px,6vw,120px);align-items:end">
+    <div data-reveal="0" style="display:grid;gap:clamp(20px,3vh,32px)">
+      <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.zentraleInfo }}</span>
+      <address style="font-style:normal;display:grid;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.35;text-transform:uppercase;font-feature-settings:'liga' 0">
+        <sc-for list="{{ k.zentrale }}" as="z" hint-placeholder-count="3"><span>{{ z }}</span></sc-for>
+      </address>
+    </div>
+    <div data-reveal="120" style="display:grid;border-bottom:1px solid var(--griffner-anthrazit)">
+      <sc-for list="{{ facts }}" as="x" hint-placeholder-count="3">
+        <a href="{{ x.href }}" style="display:grid;grid-template-columns:minmax(90px,.32fr) minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--griffner-anthrazit);color:inherit;text-decoration:none" style-hover="opacity:.64">
+          <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ x.label }}</span>
+          <span style="font-size:clamp(16px,1.15vw,19px);line-height:1.3;font-variant-numeric:tabular-nums;overflow-wrap:anywhere">{{ x.value }}</span>
+          <span>→</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+  <span data-reveal="0" style="display:block;margin-top:clamp(28px,4vh,40px);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.made }}</span>
+</section>
+
+<section id="orte" data-room="k-orte" class="gri-salbei" data-screen-label="04 Musterhäuser" style="position:relative;background:transparent;color:var(--griffner-schwarz);padding:var(--section-pad) var(--page-margin)">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(24px,4vh,40px)">
+    <span data-reveal="0" style="grid-column:1 / -1;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ k.orteInfo }}</span>
+    <h2 data-reveal="80" style="grid-column:1 / span 8;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(32px,3.6vw,64px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance;min-width:min(100%,300px)">{{ k.orteHead }}</h2>
+    <p data-reveal="160" style="grid-column:{{ orteTextCol }};margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty;min-width:min(100%,280px)">{{ k.orteText }}</p>
+  </div>
+
+  <div style="margin-top:clamp(56px,8vh,96px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:20px 48px;padding-bottom:18px;border-bottom:1px solid var(--griffner-schwarz)">
+    <div role="tablist" style="display:flex;flex-wrap:wrap;gap:8px 32px">
+      <sc-for list="{{ arten }}" as="a" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{ a.on }}" onClick="{{ a.pick }}" style="background:transparent;border:0;padding:0;margin:0;cursor:pointer;color:inherit;font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.1vw,18px);letter-spacing:.04em;line-height:1.1;text-transform:uppercase;opacity:{{ a.op }};transition:opacity 750ms var(--ease)">{{ a.label }} <span style="font-family:var(--font-text);font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);vertical-align:super;font-variant-numeric:tabular-nums">{{ a.n }}</span></button>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 24px">
+      <sc-for list="{{ laender }}" as="l" hint-placeholder-count="4">
+        <button type="button" onClick="{{ l.pick }}" aria-pressed="{{ l.on }}" style="background:transparent;border:0;padding:4px 0;margin:0;cursor:pointer;color:inherit;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;opacity:{{ l.op }};border-bottom:{{ l.line }};transition:opacity 750ms var(--ease)">{{ l.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+
+  <sc-if value="{{ isMuster }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:clamp(40px,6vh,64px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:clamp(40px,6vh,64px) var(--gap-col)">
+      <sc-for list="{{ muster }}" as="m" hint-placeholder-count="6">
+        <article style="display:grid;gap:18px;align-content:start">
+          <div data-dock="{{ m.dock }}" data-dock-x=".72" style="position:relative;aspect-ratio:4 / 3;overflow:hidden;background:var(--griffner-anthrazit)">
+            <img src="{{ m.img }}" alt="{{ m.alt }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 2400ms var(--ease)" style-hover="transform:scale(1.03)"></img>
+            <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ m.badge }}</span>
+          </div>
+          <div style="display:grid;gap:12px">
+            <h3 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(16px,1.2vw,19px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ m.city }}</h3>
+            <div style="display:grid;gap:2px;font-size:15px;line-height:1.45">
+              <sc-for list="{{ m.addr }}" as="ln" hint-placeholder-count="2"><span>{{ ln }}</span></sc-for>
+            </div>
+            <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;line-height:1.6">{{ m.hours }}</span>
+            <div style="margin-top:6px">
+              <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" arrow="{{ true }}" on-click="{{ m.request }}" hint-size="170px,32px">{{ k.request }}</x-import>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isBuero }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:8px;display:grid">
+      <sc-for list="{{ bueros }}" as="b" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px var(--gap-col);align-items:baseline;padding:18px 0;border-bottom:1px solid var(--griffner-schwarz)">
+          <h3 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(16px,1.2vw,19px);letter-spacing:.04em;line-height:1.1;text-transform:uppercase">{{ b.city }} <span style="font-family:var(--font-text);font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web)">{{ b.land }}</span></h3>
+          <span style="font-size:15px;line-height:1.45;font-weight:600">{{ b.who }}</span>
+          <span style="font-size:15px;line-height:1.45">{{ b.addrLine }}</span>
+          <a href="{{ b.telHref }}" style="justify-self:start;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);font-variant-numeric:tabular-nums;color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px" style-hover="opacity:.64">{{ b.tel }}</a>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+    <p style="margin:clamp(40px,6vh,64px) 0 0;font-size:var(--fs-text-web);line-height:var(--leading-body)">{{ emptyText }}</p>
+  </sc-if>
+</section>
+
+<section id="katalog" data-room="k-zentrale" data-screen-label="05 Katalog" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad) var(--page-margin) var(--section-pad-sm)">
+
+
+  <div data-reveal="0" style="padding-top:clamp(28px,4vh,40px);border-top:1px solid var(--griffner-weiss);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px clamp(32px,6vw,120px);align-items:start">
+    <h2 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.1;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ k.katalogHead }}</h2>
+    <div style="display:grid;gap:24px;max-width:520px">
+      <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ k.katalogText }}</p>
+      <div><x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" arrow="{{ true }}" href="{{ k.katalogHref }}" hint-size="190px,32px">{{ k.katalogLink }}</x-import></div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { topic: 0, name: '', contact: '', place: '', message: '', consent: false, newsletter: false, tried: false, sent: false, art: 'muster', land: 'alle', w: typeof innerWidth === 'number' ? innerWidth : 1200 };
+  componentDidMount() {
+    this.onRes = () => this.setState({ w: innerWidth });
+    addEventListener('resize', this.onRes);
+    const go = () => window.GW && window.GRIFFNER_CONTENT && document.getElementById('katalog')
+      ? GW.ready(() => ['k-hero', 'zentrale', 'orte', 'katalog'].forEach(id => { const s = document.getElementById(id); if (s) GW.reveal(s); }))
+      : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onRes); }
+  C() { return (window.GRIFFNER_CONTENT || {}).kontakt || {}; }
+  F() { return ((window.GRIFFNER_CONTENT || {}).erleben || {}).form || {}; }
+  check(s) {
+    const F = this.F(), c = s.contact.trim(), mail = /\S+@\S+\.\S+/.test(c), ok = mail || c.replace(/[^\d]/g, '').length >= 6;
+    return [!s.name.trim() && F.errName, !ok && F.errContact, s.newsletter && !mail && F.errNewsletter, !s.consent && F.errConsent].filter(Boolean);
+  }
+  toForm() {
+    const t = document.getElementById('kontakt'); if (!t) return;
+    scrollTo({ top: t.getBoundingClientRect().top + scrollY - 40, behavior: window.GW && GW.reduce ? 'auto' : 'smooth' });
+  }
+  renderVals() {
+    const k = this.C(), F = this.F(), s = this.state, wide = s.w >= 900;
+    const topicsSrc = k.topics || [];
+    const places = ['meiner Nähe', ...new Set((k.musterhaeuser || []).map(m => m.city))];
+    const place = s.place || places[0];
+    const errs = s.tried ? this.check(s) : [];
+    const LAND = { AT: 'Österreich', DE: 'Deutschland', CZ: 'Tschechien' };
+    const inLand = x => s.land === 'alle' || x.land === s.land;
+    const muster = (k.musterhaeuser || []).filter(inLand).map((m, i) => ({
+      ...m, dock: i === 0 ? 'edge' : undefined, alt: 'Musterhaus ' + m.city + ' ' + m.house,
+      badge: 'Musterhaus / ' + m.house + ' / ' + m.land,
+      request: () => { this.setState({ place: m.city, topic: 1 }); this.toForm(); }
+    }));
+    const bueros = (k.bueros || []).filter(inLand).map(b => ({ ...b, addrLine: (b.addr || []).join(', '), telHref: 'tel:' + (b.tel || '').replace(/[^\d+]/g, '').replace(/^\+/, '00') }));
+    const isMuster = s.art === 'muster', list = isMuster ? muster : bueros;
+    const firstName = s.name.trim().split(' ')[0] || '';
+    return {
+      k, f: F,
+      direct: (k.direct || []).map(d => ({ ...d, href: d.href })),
+      imgCol: wide ? '1 / span 4' : '1 / -1', sideCol: wide ? '8 / span 5' : '1 / -1',
+      stageInset: wide ? 'calc((100vw - 2 * var(--page-margin)) / 12 * 4)' : '0px',
+      orteTextCol: wide ? '9 / span 4' : '1 / -1',
+      name: s.name, contact: s.contact, message: s.message, consent: s.consent, newsletter: s.newsletter, place,
+      nameLine: s.tried && !s.name.trim() ? '3px solid #000000' : '1px solid #000000',
+      contactLine: s.tried && errs.includes(F.errContact) ? '3px solid #000000' : '1px solid #000000',
+      topics: topicsSrc.map((t, i) => ({ label: t, on: i === s.topic, op: i === s.topic ? 1 : .35, deco: i === s.topic ? 'underline' : 'none', sep: i < topicsSrc.length - 1 ? ' / ' : '', pick: () => this.setState({ topic: i }) })),
+      showPlace: s.topic !== 2, places,
+      errors: errs, hasErrors: errs.length > 0,
+      submitLabel: F.submit || 'Senden',
+      notSent: !s.sent, sent: s.sent, sentNewsletter: s.sent && s.newsletter,
+      thanksHead: (F.thanksHead || 'Danke, {name}.').replace('{name}', firstName),
+      onName: e => this.setState({ name: e.target.value }),
+      onContact: e => this.setState({ contact: e.target.value }),
+      onPlace: e => this.setState({ place: e.target.value }),
+      setMessage: v => this.setState({ message: v }),
+      setConsent: v => this.setState({ consent: v }),
+      setNewsletter: v => this.setState({ newsletter: v }),
+      submit: e => { e.preventDefault(); if (this.check(this.state).length) { this.setState({ tried: true }); return; } this.setState({ sent: true }); },
+      reset: () => this.setState({ topic: 0, name: '', contact: '', place: '', message: '', consent: false, newsletter: false, tried: false, sent: false }),
+      arten: (k.arten || []).map(([v, l]) => ({ label: l, on: s.art === v, op: s.art === v ? 1 : .4, n: String((v === 'muster' ? k.musterhaeuser : k.bueros || []).filter(inLand).length).padStart(2, '0'), pick: () => this.setState({ art: v }) })),
+      laender: (k.laender || []).map(([v, l]) => ({ label: l, on: s.land === v, op: s.land === v ? 1 : .55, line: s.land === v ? '1px solid currentColor' : '1px solid transparent', pick: () => this.setState({ land: v }) })),
+      isMuster, isBuero: !isMuster, muster, bueros: bueros.map(b => ({ ...b, land: b.land })),
+      isEmpty: list.length === 0, emptyText: 'In ' + (LAND[s.land] || '') + ' gibt es derzeit kein ' + (isMuster ? 'Musterhaus' : 'Verkaufsbüro') + '.',
+      facts: (k.facts || []).map(([label, value, href]) => ({ label, value, href }))
+    };
+  }
+}
+</script>
+</body>
+</html>

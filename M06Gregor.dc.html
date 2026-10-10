@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<div data-screen-label="06 Gregor" style="position:relative">
+  <div id="gregor-film" data-film-pin="1" style="position:relative;height:700vh;background:var(--griffner-schwarz)">
+    <div data-room="gregorfilm" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:calc(432vh + 44px);pointer-events:none"></div>
+    <div data-room="gregor" aria-hidden="true" style="position:absolute;left:0;right:0;top:calc(432vh + 44px);bottom:0;pointer-events:none"></div>
+    <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+      <dc-import name="M06GregorFilm" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+      <div data-dock="rect" data-dock-hide="1" data-dock-trigger="gregor-film" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:1px;height:1px;pointer-events:none"></div>
+    </div>
+  </div>
+
+  <section id="gregor" data-room="gregor" class="gri-salbei" style="position:relative;background:transparent;color:var(--griffner-schwarz)">
+    <div id="gregor-text" style="padding:var(--section-pad-sm) var(--page-margin) var(--section-pad);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(40px,7vh,72px);align-items:end">
+      <div data-reveal="0" data-dock="edge" data-dock-trigger="gregor-text" style="grid-column:1 / span 5;position:relative;aspect-ratio:4 / 5;overflow:hidden;background:var(--griffner-schwarz);min-width:min(100%,280px)">
+                <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ portraitLabel }}</span>
+      </div>
+      <div data-amb="1" aria-hidden="true" style="grid-column:8 / span 5;grid-row:1;align-self:start;aspect-ratio:5 / 4;pointer-events:none"></div>
+      <div style="grid-column:8 / span 5;grid-row:1;display:grid;gap:clamp(20px,3vh,28px);min-width:min(100%,280px)">
+        <p data-reveal="0" style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body)">{{ text }}</p>
+        <div data-reveal="120">
+          <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" arrow="{{ true }}" href="#gregor" hint-size="200px,32px">{{ link }}</x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => window.GW && document.getElementById('gregor') ? GW.ready(() => GW.reveal(document.getElementById('gregor'))) : setTimeout(go, 40);
+    go();
+  }
+  renderVals() {
+    const G = (window.GRIFFNER_CONTENT || {}).gregor || {};
+    return { portraitLabel: G.portraitLabel, text: G.text, link: G.link };
+  }
+}
+</script>
+</body>
+</html>

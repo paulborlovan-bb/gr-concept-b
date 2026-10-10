@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="news" data-room="news" class="gri-kalk" data-screen-label="06 News" style="position:relative;background:transparent;color:var(--griffner-schwarz);padding:var(--section-pad) var(--page-margin)">
+  <div data-amb="1" aria-hidden="true" style="position:absolute;top:calc(var(--section-pad) - 30px);left:40%;width:20%;height:clamp(150px,14vw,230px);pointer-events:none"></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px">
+    <h2 data-reveal="0" style="margin:0;max-width:9em;font-family:var(--font-display);font-weight:300;font-size:clamp(44px,5.6vw,104px);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ head }}</h2>
+    <div data-reveal="0" style="margin:0 clamp(0px,6vw,120px) .3em 0;max-width:460px;display:grid;gap:20px">
+      <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ sub }}</p>
+      <a href="{{ href }}" style="justify-self:start;display:flex;gap:10px;color:inherit;text-decoration:none;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>{{ link }}</span><span>→</span></a>
+    </div>
+  </div>
+  <div style="margin-top:clamp(72px,12vh,136px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(40px,6vh,64px) var(--gap-col)">
+    <sc-for list="{{ items }}" as="n" hint-placeholder-count="3">
+      <a data-reveal="0" href="{{ n.href }}" style="display:grid;gap:16px;align-content:start;color:inherit;text-decoration:none">
+        <span data-lux="1" data-dock="{{ n.dock }}" data-dock-x=".72" style="position:relative;display:block;aspect-ratio:3 / 2;overflow:hidden;background:var(--griffner-anthrazit)">
+          <img src="{{ n.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img>
+        </span>
+        <span style="display:grid;gap:10px">
+          <span style="font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums">{{ n.date }}</span>
+          <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:pretty">{{ n.title }}</span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const N = (window.GRIFFNER_CONTENT || {}).news || {};
+    const NP = (window.GRIFFNER_CONTENT || {}).newsPage;
+    const src = NP ? NP.items.map(n => ({ ...n, href: 'GRIFFNER%20News%20Beitrag.dc.html?b=' + n.slug })) : (N.items || []);
+    const items = src.slice(0, 3).map((n, i) => ({ ...n, dock: i === 0 ? 'edge' : undefined }));
+    return { head: N.head, sub: N.sub, link: N.link, href: N.href || '#', items };
+  }
+}
+</script>
+</body>
+</html>

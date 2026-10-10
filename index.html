@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRIFFNER, Hausbau geht besser. Version B</title>
+<!-- Version B „Der Plan“: gleiche Sitemap, gleiche Copy (site/content.js), neue Inszenierung.
+     Eigenständige Seite ohne Prototyp-Laufzeit, zum Vergleich mit GRIFFNER Startseite.dc.html. -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+:root{--m:var(--page-margin);--rail:64px}
+*{box-sizing:border-box}
+html,body{margin:0;background:#000}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{color:#fff;font-family:var(--font-text);font-weight:400;font-feature-settings:'liga' 1;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none;transition:opacity 320ms var(--ease)}
+a:hover{opacity:.64}
+img{display:block;max-width:100%}
+::selection{background:#FFB200;color:#000}
+button,input,select,textarea{font:inherit;color:inherit}
+
+/* Typo-Rollen */
+.info{font-family:var(--font-text);font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.2em;text-transform:uppercase}
+.disp{font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;letter-spacing:0;line-height:.95;margin:0}
+.xl{font-size:clamp(40px,6.2vw,116px)}
+.l{font-size:clamp(30px,4vw,72px)}
+.ml{font-size:clamp(24px,2.4vw,44px);line-height:1}
+.hm{font-family:var(--font-display);font-weight:500;text-transform:uppercase;letter-spacing:.04em;line-height:1.08;font-size:clamp(18px,1.5vw,24px);margin:0;font-feature-settings:'liga' 0}
+.txt{font-size:var(--fs-text-web);line-height:1.45;margin:0;max-width:34em;text-wrap:pretty}
+.lnk{display:inline-flex;gap:10px;align-items:center;padding-bottom:6px;border-bottom:1px solid currentColor}
+.lnk.info{font-size:11px}
+
+/* Raster und Flächen */
+.dark{background:#000;color:#fff}
+.light{background:#fff;color:#000}
+.pad{padding:var(--section-pad) var(--m)}
+.g12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col)}
+.rule{border-top:1px solid currentColor}
+.ph{position:relative;background:#000;overflow:hidden}
+.ph .lab,.lab{position:absolute;left:0;bottom:0;background:#000;color:#fff;padding:8px 10px;font:500 10px/1 var(--font-text);letter-spacing:.2em;text-transform:uppercase}
+.frame{position:relative;overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover}
+
+/* Zeilen aus der Maske */
+.ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.ln>span{display:block;will-change:transform}
+
+/* ---------- Menü: offen am Seitenanfang, beim Scrollen zur schmalen Leiste links, Hover oder Klick öffnet ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:24px;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.rail>*{pointer-events:auto}
+.rail-btn{background:none;border:0;padding:8px;cursor:pointer;display:grid;justify-items:center;gap:18px;color:inherit}
+.glyph{position:relative;width:28px;height:12px;display:block}
+.glyph i{position:absolute;left:0;height:1px;background:currentColor;transition:width 500ms var(--ease),transform 500ms var(--ease),top 500ms var(--ease)}
+.glyph i:first-child{top:2px;width:28px}.glyph i:last-child{top:9px;width:16px}
+.rail-btn:hover .glyph i:last-child{width:28px}
+body.menu-open .glyph i:first-child{top:6px;transform:rotate(45deg);width:24px}
+body.menu-open .glyph i:last-child{top:6px;transform:rotate(-45deg);width:24px}
+.vt{writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity 500ms var(--ease)}
+.rail-prog{position:relative;flex:1;width:1px;margin-bottom:28px;background:rgba(255,255,255,.28);transition:opacity 500ms var(--ease)}
+.rail-prog i{position:absolute;left:-1px;top:0;width:3px;height:0;background:#fff}
+body.menu-open .vt,body.menu-open .rail-prog{opacity:0}
+.panel{position:fixed;left:0;top:0;bottom:0;z-index:58;width:min(420px,88vw);padding:120px 40px 36px calc(var(--rail) + 24px);display:flex;flex-direction:column;gap:36px;color:#fff;background:#000;transform:translateX(-100%);transition:transform 900ms var(--ease),background 600ms var(--ease);overflow-y:auto}
+body.menu-open .panel{transform:none}
+body.at-top .panel{background:transparent}
+.panel ul{list-style:none;margin:0;padding:0;display:grid}
+.mi{display:grid;gap:6px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.18);position:relative}
+.mi .hm{font-size:clamp(18px,1.5vw,24px)}
+.mi .sub{opacity:.5}
+.mi.on .hm::before{content:"";position:absolute;left:-18px;top:24px;width:10px;height:1px;background:currentColor}
+.mi.soon{opacity:.36;cursor:default}
+.mi.soon .soon-tag{opacity:.9}
+.mi{grid-auto-flow:row}
+.mi.soon .hint{display:none}
+.mi.soon:hover .sub{display:none}.mi.soon:hover .hint{display:block}
+.panel .links{display:flex;flex-wrap:wrap;gap:12px 22px}
+.panel .back{margin-top:auto;opacity:.6}
+@media (max-width:820px){:root{--rail:52px}.vt,.rail-prog{display:none}.rail{padding-top:16px}.panel{width:100vw;padding-left:var(--m)}}
+
+/* ---------- Header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px var(--m) 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}
+.hdr .side{mix-blend-mode:difference;color:#fff;pointer-events:auto}
+.hdr .r{justify-self:end}
+.hdr.on-yellow .side,body.fin-yellow .hdr .side,body.fin-yellow .rail{mix-blend-mode:normal;color:#000}
+body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog i{background:#000}
+.logo{display:grid;justify-items:center;gap:7px;pointer-events:auto}
+.logo svg{width:72px;height:auto;display:block}
+.logo .wm{mix-blend-mode:difference;color:#fff;opacity:0}
+.logo .slot{display:block;width:72px;height:57.6px}
+.logo{will-change:transform}
+/* Connector wie Version A: gelbes Feld 5:4, oben 50 %, unten voll; gleitet zwischen Andockpunkten */
+.conn{position:fixed;left:0;top:0;width:0;height:0;z-index:5;pointer-events:none;display:grid;grid-template-rows:1fr 1fr;opacity:0;transition:opacity 600ms var(--ease);will-change:transform}
+.conn span{display:block;background:#FFB200}
+.dockpt{position:absolute;pointer-events:none}
+@media (max-width:600px){.hdr .info{font-size:10px;letter-spacing:.12em}}
+
+/* ---------- Hero: das Feld öffnet sich zum Fenster ---------- */
+#top{height:520vh} /* Hero + Claim-Fenster */
+.claim-svg{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.hero-img{position:absolute;inset:0;will-change:clip-path}
+.hero-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);will-change:transform}
+.hero-img::after{content:"";position:absolute;inset:0;background:var(--bildschutz)}
+.hero-copy{position:absolute;left:var(--m);right:var(--m);bottom:clamp(110px,15vh,170px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.hero-copy .txt{max-width:22em}
+.hero-cue{position:absolute;left:50%;bottom:calc(0px + 22px);transform:translateX(-50%);display:grid;justify-items:center;gap:10px}
+.hero-cue i{display:block;width:1px;height:42px;background:currentColor;transform-origin:top;animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- Haltung: zwei Hälften werden ein Haus ---------- */
+#haltung{height:340vh}
+.hal{position:absolute;inset:0}
+.hal .pair{position:absolute;left:50%;top:12vh;height:50vh;width:0}
+.hal .half{position:absolute;top:0;height:100%;width:calc(50vh * .8);overflow:hidden;will-change:transform}
+.hal .half img{width:100%;height:100%;object-fit:cover}
+.hal .a{right:0}.hal .b{left:0}
+.hal .house{position:absolute;top:0;height:100%;left:calc(50vh * -.8);width:calc(50vh * 1.6);overflow:hidden;opacity:0;will-change:opacity}
+.hal .house img{width:100%;height:100%;object-fit:cover}
+.hal .cap{position:absolute;top:calc(12vh + 50vh + 28px);width:min(30vw,420px)}
+.hal .cap.a{right:calc(50% + 28px);text-align:right}
+.hal .cap.b{left:calc(50% + 28px)}
+.hal .end{position:absolute;left:var(--m);right:calc(var(--m) + 8vw);bottom:clamp(96px,13vh,150px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;opacity:0}
+.hal .end h2{max-width:12em}
+@media (max-width:820px){.hal .pair{top:12vh;height:30vh}.hal .half{width:calc(30vh * .62)}.hal .house{left:calc(30vh * -.62);width:calc(30vh * 1.24)}.hal .cap{top:calc(12vh + 30vh + 16px);width:42vw}.hal .end{bottom:48px;right:var(--m)}.hal .end img{display:none}.hal .cap{font-size:19px;hyphens:manual;-webkit-hyphens:manual}}
+
+/* ---------- Kapitel (neu in v3): sechs Türen, eine pro Kapitel ---------- */
+.doors{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.2vw,20px);margin-top:clamp(56px,9vh,110px)}
+.door{position:relative;display:block;aspect-ratio:5/8;perspective:1600px;perspective-origin:0% 50%;color:#fff;outline-offset:6px}
+.door:hover{opacity:1}
+.door .room{position:absolute;inset:0;overflow:hidden;background:#141413}
+.door .room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1800ms var(--ease)}
+.door .room .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px}
+.door .q{position:absolute;right:16px;bottom:16px;left:28%;text-align:right;font-family:var(--font-display);font-weight:300;font-size:clamp(16px,1.3vw,21px);line-height:1.2;opacity:0;transform:translateX(20px);transition:opacity 1200ms var(--ease),transform 1200ms var(--ease)}
+.door .shade{position:absolute;inset:0;background:#000;opacity:.92;transition:opacity 1400ms var(--ease)}
+.door .leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform 1400ms var(--ease);will-change:transform}
+.door .face{position:absolute;inset:0;background:#000;display:grid;align-content:space-between;padding:clamp(14px,1.4vw,22px);backface-visibility:hidden;border-right:1px solid rgba(255,255,255,.4);border-bottom:1px solid rgba(255,255,255,.4)}
+.door .face .lb{color:#CACACA}
+.door .face .nr{font-family:var(--font-display);font-weight:300;font-size:clamp(36px,3.4vw,60px);line-height:.85;font-variant-numeric:tabular-nums}
+.door .face .hm{font-size:clamp(14px,1.05vw,17px)}
+.door .face .knob{position:absolute;right:14px;top:50%;width:1px;height:34px;margin-top:-17px;background:rgba(255,255,255,.55)}
+.door .side{position:absolute;top:0;bottom:0;right:0;width:10px;background:#2E2E2C;transform-origin:right center;transform:rotateY(-90deg)}
+.door.locked{cursor:default}
+@media (max-width:820px){.doors{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:calc(-1 * var(--m));margin-right:calc(-1 * var(--m));padding:0 var(--m) 8px;scrollbar-width:none}.door{flex:none;width:58vw;scroll-snap-align:start}}
+
+/* ---------- Architektur: Index statt Karussell ---------- */
+.idx{margin-top:clamp(72px,12vh,140px)}
+.idx-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:18px}
+.idx-head .l1{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
+.rows{margin-top:clamp(24px,4vh,48px);border-top:1px solid currentColor}
+.row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,5fr) auto;gap:var(--gap-col);align-items:baseline;padding:clamp(22px,3.4vh,36px) 0;border-bottom:1px solid rgba(0,0,0,.18);transition:opacity 600ms var(--ease)}
+.rows:hover .row{opacity:.32}.rows .row:hover{opacity:1}
+.row .disp{font-size:clamp(28px,3.4vw,60px)}
+.row .arr{font-size:22px;transition:transform 600ms var(--ease)}
+.row:hover .arr{transform:translateX(8px)}
+.row .mimg{display:none}
+.peek{position:fixed;left:0;top:0;width:min(26vw,400px);aspect-ratio:4/3;z-index:30;pointer-events:none;opacity:0;overflow:hidden;transition:opacity 500ms var(--ease)}
+.peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 700ms var(--ease),transform 1200ms var(--ease)}
+.peek img.on{opacity:1;transform:none}
+.qa{margin-top:clamp(64px,10vh,120px)}
+@media (hover:none),(max-width:820px){.peek{display:none}.row{grid-template-columns:1fr}.row .mimg{display:block;aspect-ratio:4/3;margin-top:10px}.row .arr{display:none}}
+
+/* ---------- Floating House ---------- */
+#floating{height:240vh}
+.fl-img{position:absolute;inset:0;will-change:clip-path}
+.fl-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);will-change:transform}
+.fl-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.18) 50%,rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.6))} /* links dunkler: kleine Zeile und Headline lesbar */
+.fl-copy{position:absolute;left:calc(var(--m) + 3vw);right:calc(var(--m) + 3vw);bottom:clamp(150px,21vh,230px);display:grid;gap:24px}
+.fl-copy .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+
+/* ---------- Projects: Kontaktbogen ---------- */
+.pj-stick{display:flex;flex-direction:column;justify-content:center;padding:0 0 0 var(--m)}
+.pj-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:0 var(--m) 0 0;margin-bottom:clamp(28px,5vh,56px)}
+.pj-head .l1{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
+.track{display:flex;gap:clamp(20px,2.6vw,44px);will-change:transform;padding-right:var(--m)}
+.card{flex:none;width:calc(min(52vh,60vw) * .8);display:grid;gap:14px}
+.card .frame{aspect-ratio:4/5}
+.card .frame img{transition:transform 1400ms var(--ease)}
+.card:hover .frame img{transform:scale(1.03)}
+.card .meta{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:baseline}
+.card .meta .hm{grid-column:2}
+.card .meta .hm{font-size:clamp(15px,1.15vw,19px)}
+.card .meta .pl{grid-column:2;opacity:.55;font-size:10px;letter-spacing:.16em}
+
+/* ---------- Weg ---------- */
+.wg{display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:110px var(--m) clamp(36px,7vh,80px) calc(var(--rail) + var(--m))}
+.wfilm{position:absolute;inset:0}
+.wfilm>[data-wstage]{position:absolute;inset:0}
+.wlabels{position:absolute;inset:0;pointer-events:none;font:500 10px/1 var(--font-text);letter-spacing:.16em;text-transform:uppercase;color:#fff}
+.wg-top,.wg-bot{position:relative;z-index:1;pointer-events:none}
+.wg-top{display:flex;justify-content:space-between;align-items:start;gap:24px;flex-wrap:wrap}
+.steps{display:flex;gap:clamp(16px,2.4vw,40px);flex-wrap:wrap}
+.step{display:grid;gap:12px;color:#CACACA;transition:color 700ms var(--ease)}
+.step.on{color:#fff}
+.step .trk{display:block;width:clamp(64px,8vw,140px);height:1px;background:rgba(255,255,255,.24)}
+.step .trk i{display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(0)}
+.wcap{color:#CACACA}
+.wword{display:flex;overflow:hidden;padding-bottom:.04em}
+.wword .ch{display:block;transform:translateY(110%);transition:transform 1000ms cubic-bezier(0.22,1,0.36,1)}
+.wg-bot{grid-row:3;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.wg .titles{position:relative;flex:1;height:clamp(44px,7vw,130px)}
+.wg .titles>*{position:absolute;left:0;bottom:0}
+.wg .texts{position:relative;width:min(34em,40vw);min-height:6em}
+.wg .texts>*{position:absolute;left:0;bottom:0;opacity:0}
+.wg-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap-col)}
+.wg-cols ul{list-style:none;margin:18px 0 0;padding:0}
+.wg-cols li{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.22)}
+@media (max-width:820px){.wg{padding-left:var(--m)}.gr-hl{left:var(--m)}.step .trk{width:16vw}.wg-bot{flex-direction:column;align-items:flex-start}.wg .texts{width:100%}.wg-cols{grid-template-columns:1fr}}
+
+/* ---------- Gregor: Wort für Wort ---------- */
+#gregor .ph .lab{top:0;bottom:auto}
+.gr-hl{position:absolute;left:calc(var(--rail) + var(--m));bottom:clamp(72px,13vh,150px);margin:0;color:#000;font-size:clamp(38px,4.8vw,96px);pointer-events:none}
+.gr-hl>span{display:block;overflow:hidden}
+.gr-hl [data-hl]{display:block;transform:translateY(110%)}
+.gr-grid{margin-top:clamp(64px,10vh,120px);align-items:end}
+
+/* ---------- News: Liste ---------- */
+.nrow{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,7fr) minmax(0,3fr);gap:var(--gap-col);align-items:center;padding:clamp(18px,2.6vh,28px) 0;border-bottom:1px solid rgba(0,0,0,.18)}
+.nrow .th{aspect-ratio:3/2;overflow:hidden;justify-self:end;width:min(100%,220px);transition:width 900ms var(--ease)}
+.nrow:hover .th{width:min(100%,300px)}
+.nrow .th img{width:100%;height:100%;object-fit:cover}
+@media (max-width:820px){.nrow{grid-template-columns:1fr}.nrow .th{justify-self:start;width:100%}}
+
+/* ---------- Erleben: Paneele ---------- */
+.acc{display:flex;gap:clamp(10px,1vw,16px);height:min(66vh,640px);margin-top:clamp(64px,10vh,120px)}
+.pan{position:relative;flex:1;overflow:hidden;transition:flex-grow 1100ms var(--ease);background:#000;color:#fff;min-width:0}
+.pan.on{flex-grow:2.6}
+.pan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1400ms var(--ease)}
+.pan.on img{transform:none}
+.pan::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.6))}
+.pan .cap{position:absolute;left:22px;right:22px;bottom:22px;z-index:1;display:grid;gap:10px}
+.pan .cap .lnk{justify-self:start;opacity:0;transform:translateY(8px);transition:opacity 600ms var(--ease),transform 600ms var(--ease)}
+.pan.on .cap .lnk{opacity:1;transform:none}
+.pan .lab{top:0;bottom:auto;z-index:1}
+@media (max-width:820px){.acc{flex-direction:column;height:auto}.pan{height:46vh;flex:none}.pan .cap .lnk{opacity:1;transform:none}}
+
+/* ---------- Kontakt: Formular als Satz ---------- */
+.stage .af{opacity:0;transition:opacity 700ms var(--ease)}
+.stage.filled{background:#FFB200}
+.stage.filled .af{opacity:1}
+.af{position:relative;z-index:6;display:grid;gap:clamp(28px,4vh,40px);max-width:760px;margin:0}
+.af-g{display:grid;gap:14px}
+.choice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #000}
+.choice button{background:transparent;border:0;border-left:1px solid #000;padding:18px 20px;text-align:left;font:500 clamp(15px,1.15vw,18px)/1.3 var(--font-text);color:#000;cursor:pointer;transition:background 320ms var(--ease),color 320ms var(--ease)}
+.choice button:first-child{border-left:0}
+.choice button[aria-checked="true"]{background:#000;color:#FFB200}
+.af-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(24px,3vh,32px) var(--gap-col)}
+.fld{display:grid;gap:10px}
+.fld input,.fld textarea{border:0;border-bottom:1px solid #000;background:transparent;padding:10px 0;font-size:var(--fs-text-web);line-height:1.4;outline:none;border-radius:0;color:#000;resize:vertical}
+.fld textarea{font-size:15px}
+.fld input::placeholder,.fld textarea::placeholder{color:#444442;opacity:1}
+.fld.bad input{border-bottom-width:3px}
+.ferr{font-size:14px;line-height:1.45;font-weight:600}
+.pl{padding-left:28px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;line-height:1.45}
+.stage{position:relative;background:transparent;color:#000;padding:clamp(32px,4.4vw,72px);margin-right:calc(-1 * var(--m))}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;font-weight:500;cursor:pointer}
+.chk input{appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;border:1px solid #000;margin:2px 0 0;border-radius:0;background:transparent;cursor:pointer}
+.chk input:checked{background:#000}
+.err{font-size:14px;font-weight:600;line-height:1.45}
+.send{justify-self:start;display:inline-flex;gap:14px;background:#000;color:#fff;border:0;padding:21px 30px;font:500 11px/1 var(--font-text);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border-radius:0;transition:background 320ms var(--ease)}
+.send:hover{background:#444442}.send:active{transform:translateY(1px)}
+
+/* ---------- Finale: das Feld wird Fläche, die Fläche trägt den Claim ---------- */
+#finale{height:300vh;background:#000}
+.fin-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* ---------- Footer ---------- */
+.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap-col)}
+.ft-cols ul{list-style:none;margin:16px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.28);display:grid;gap:10px;font-size:var(--fs-text-sm)}
+.ft-wm{margin-top:clamp(80px,14vh,160px);color:#fff}
+.ft-wm svg{width:100%;height:auto;display:block}
+.ft-bot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:28px;padding-bottom:calc(0px + 60px)}
+@media (max-width:820px){.ft-cols{grid-template-columns:1fr 1fr}}
+
+/* ---------- Preloader: Plan-Skizze wird zum Feld ---------- */
+.preload{position:fixed;inset:0;z-index:80;background:#000;color:#fff;cursor:pointer}
+.preload svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.preload-i{position:absolute;bottom:28px;opacity:0}
+.preload-i.at-l{left:var(--m)}.preload-i.at-r{right:var(--m);font-variant-numeric:tabular-nums}
+
+/* Korn, wie auf Version A: overlay, reines Schwarz und Weiß bleiben unberührt */
+.grain{position:fixed;inset:-50%;z-index:45;pointer-events:none;opacity:.14;mix-blend-mode:overlay}
+
+@media (prefers-reduced-motion:reduce){.hero-cue i{animation:none}}
+
+/* Handy: Raster stapeln, lange deutsche Wörter trennen, nichts ragt seitlich heraus */
+html,body{overflow-x:clip}
+@media (max-width:820px){
+  .g12>*{grid-column:1/-1!important}
+  .g12{row-gap:24px}
+  .disp{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+  .stage{margin-left:calc(-1 * var(--m))}
+  .choice{grid-template-columns:1fr}.choice button{border-left:0;border-top:1px solid #000}.choice button:first-child{border-top:0}
+  .hero-copy,.fl-copy .bot{gap:18px}
+}
+</style>
+</head>
+<body>
+<div class="preload" id="pl" aria-hidden="true"></div>
+
+<aside class="rail" aria-label="Menü">
+  <button class="rail-btn" id="railBtn" aria-expanded="false" aria-controls="panel"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span class="info vt" data-c="header.menu"></span></button>
+  <span class="rail-prog" aria-hidden="true"><i id="railProg"></i></span>
+</aside>
+<nav class="panel" id="panel" aria-label="Hauptmenü">
+  <ul id="menuItems"></ul>
+  <div class="links info" id="menuLinks"></div>
+  <a class="back info" href="GRIFFNER%20Startseite.dc.html">← Version A</a>
+</nav>
+
+<div class="conn" id="conn" aria-hidden="true"><span></span><span></span></div>
+
+<header class="hdr" id="hdr">
+  <span></span>
+  <a class="logo" id="logo" href="#top" aria-label="GRIFFNER Startseite"><span class="slot" id="logoSlot"></span><span class="wm" id="logoWm"><svg viewBox="0 878.45 1000 127.11" aria-hidden="true"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"/></svg></span></a>
+  <a class="side r info lnk" data-c="header.cta" href="#kontakt"></a>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section id="top" class="dark" data-label="Hausbau geht besser">
+    <div class="stick">
+      <div class="hero-img" id="heroImg"><img alt="" data-src="hero.img"></div>
+      <svg class="claim-svg" id="claimOpen" aria-label="built different" role="img"><defs><mask id="mOpen" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><rect width="100%" height="100%" fill="#fff"/><g class="claim-g"><path class="claim-p" fill="#000"/></g></mask></defs><rect width="100%" height="100%" fill="#000" mask="url(#mOpen)"/></svg>
+      <div class="hero-copy">
+        <h1 class="disp xl" id="heroHead"></h1>
+        <p class="txt" id="heroText" data-c="hero.text"></p>
+      </div>
+      <div class="hero-cue info" id="heroCue"><span>Scroll</span><i></i></div>
+    </div>
+  </section>
+
+  <!-- Haltung -->
+  <section id="haltung" class="light" data-label="Haltung">
+    <div class="stick">
+      <div class="hal">
+        <div class="pair">
+          <div class="half a" id="halA"><img alt="" data-src="haltungV2.imgLife"></div>
+          <div class="half b" id="halB"><img alt="" data-src="haltungV2.imgBuild"></div>
+          <div class="house" id="halHouse" data-dock="edge" data-dock-edge="top" data-dock-x=".72"><img alt="" data-src="haltungV2.imgHouse"></div>
+        </div>
+        <p class="cap a disp ml" id="capA" data-c="haltungV2.life"></p>
+        <p class="cap b disp ml" id="capB" data-c="haltungV2.build"></p>
+        <div class="end" id="halEnd">
+          <h2 class="disp l" data-c="haltungV2.head"></h2>
+          <div style="display:grid;gap:22px;max-width:420px">
+            <p class="txt" data-c="haltungV2.body.0"></p>
+            <img src="assets/logo/griffner-claim.svg" alt="built different" style="width:150px;height:auto">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kapitel (neu in v3): The new GRIFFNER in sechs Kapiteln -->
+  <section id="kapitel" class="dark pad" data-label="Kapitel">
+    <div class="g12" style="align-items:end">
+      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="kapitel.head" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1" data-c="kapitel.sub" data-rv></p>
+    </div>
+    <div class="doors" id="doors"></div>
+  </section>
+
+  <!-- Architektur -->
+  <section id="ideas" class="light pad" data-menu="#ideas" data-label="Architektur">
+    <div class="g12" style="align-items:end">
+      <h2 class="disp xl" style="grid-column:1/span 7" id="archHead" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1" data-c="architektur.text" data-rv></p>
+    </div>
+    <div class="idx" style="position:relative">
+      <span class="dockpt" data-dock="box" aria-hidden="true" style="left:0;top:-16px;width:40px;height:32px"></span>
+      <div class="rule"></div>
+      <div class="idx-head">
+        <div class="l1"><h3 class="hm" data-c="architektur.rowTitle"></h3><span class="txt" data-c="architektur.rowSub"></span></div>
+        <a class="info" href="#" data-c="architektur.rowLink" data-arrow></a>
+      </div>
+      <div class="rows" id="rows"></div>
+    </div>
+    <div class="g12 qa">
+      <p class="disp ml" style="grid-column:6/span 4" data-c="architektur.question" data-rv></p>
+      <p class="txt" style="grid-column:10/-1" data-c="architektur.answer" data-rv></p>
+    </div>
+  </section>
+  <div class="peek" id="peek" aria-hidden="true"></div>
+
+  <!-- Floating House -->
+  <section id="floating" class="dark" data-menu="#proj" data-label="Projects">
+    <div class="stick">
+      <span id="proj" aria-hidden="true" style="position:absolute;top:0"></span>
+      <div class="fl-img" id="flImg"><img alt="" data-src="architektur.projects.img"></div>
+      <span class="dockpt" data-dock="edge" data-dock-x=".72" data-dock-w=".08" aria-hidden="true" style="left:var(--m);right:var(--m);bottom:10vh;height:0"></span>
+      <div class="fl-copy" id="flCopy">
+        <p class="info" data-c="architektur.projects.q"></p>
+        <div class="bot">
+          <h2 class="disp xl" style="max-width:9em" data-c="architektur.projects.a"></h2>
+          <div style="display:grid;gap:20px;max-width:360px">
+            <p class="txt" data-c="architektur.projects.text"></p>
+            <a class="lnk info" href="#projekte" data-c="architektur.projects.link" data-arrow></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projekte" class="dark" data-menu="#proj" data-label="Projects">
+    <div class="stick pj-stick">
+      <div class="pj-head">
+        <div class="l1"><h3 class="hm" data-c="architektur.projectList.head"></h3><span class="txt" data-c="architektur.projectList.text"></span></div>
+        <a class="info" href="#" data-c="architektur.projectList.link" data-arrow></a>
+      </div>
+      <div class="track" id="track"></div>
+    </div>
+  </section>
+
+  <!-- Weg -->
+  <section id="weg" class="dark" data-menu="#weg" data-label="Dein Weg zum Haus">
+    <div class="pad g12" style="align-items:end;padding-bottom:clamp(40px,8vh,90px)">
+      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="weg.statement" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1;color:#CACACA" data-c="weg.text" data-rv></p>
+    </div>
+    <div id="wegPin" data-st="proof" style="height:520vh;position:relative">
+      <div class="stick wg">
+        <div class="wfilm"><div data-wstage="1"></div><div data-wlabels="1" class="wlabels" aria-hidden="true"></div></div>
+        <div class="wg-top" data-wband="top"><div class="steps info" id="steps"></div><span class="info wcap" id="wcap"></span></div>
+        <div class="dockpt" id="wDock" data-dock="box" data-dock-solid="1" data-dock-trigger="wegPin" aria-hidden="true"></div>
+        <div class="wg-bot" data-wband="bot">
+          <div class="titles" id="stTitles"></div>
+          <div class="texts" id="stTexts"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Gregor: 3D-Film aus Version A, endet in Weiß und geht nahtlos in den Text über -->
+  <section id="gregorfilm" class="dark" data-menu="#gregor" data-label="Über GRIFFNER">
+    <div data-film-pin="1" style="position:relative;height:700vh">
+      <div class="stick" style="background:#000">
+        <div data-gstage="1" style="position:absolute;inset:0"></div>
+        <span class="dockpt" data-dock="box" data-dock-hide="1" aria-hidden="true" style="left:50%;top:50%;width:1px;height:1px"></span>
+        <h2 class="disp gr-hl" id="grHl"></h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gregor -->
+  <section id="gregor" class="light pad" data-menu="#gregor" data-label="Über GRIFFNER" style="padding-top:var(--section-pad-sm)">
+    <div class="g12 gr-grid" style="margin-top:0">
+      <div class="ph" style="grid-column:1/span 4;aspect-ratio:4/5" data-lux data-dock="edge" data-dock-x=".72"><span class="lab" data-c="gregor.portraitLabel"></span></div>
+      <div style="grid-column:7/span 5;display:grid;gap:24px">
+        <p class="txt" data-c="gregor.text" data-rv></p>
+        <a class="lnk info" href="#gregor" data-c="gregor.link" data-arrow style="justify-self:start"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- News -->
+  <section id="news" class="light pad" data-label="News">
+    <div class="g12" style="align-items:end">
+      <h2 class="disp l" style="grid-column:1/span 6" data-c="news.head" data-rv></h2>
+      <div style="grid-column:8/-1;display:grid;gap:18px" data-rv>
+        <p class="txt" data-c="news.sub"></p>
+        <a class="info" data-c="news.link" data-href="news.href" data-arrow></a>
+      </div>
+    </div>
+    <div style="margin-top:clamp(56px,9vh,110px);border-top:1px solid currentColor" id="newsRows"></div>
+  </section>
+
+  <!-- Erleben -->
+  <section id="erleben" class="light pad" data-menu="#erleben" data-label="GRIFFNER erleben">
+    <div class="g12" style="align-items:end">
+      <h2 class="disp xl" style="grid-column:1/span 6;max-width:6.6em" data-c="erleben.statement" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1" data-c="erleben.text" data-rv></p>
+    </div>
+    <div class="acc" id="acc" data-dock="edge" data-dock-edge="top" data-dock-x="end" data-dock-w=".08"></div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt" class="dark pad" data-label="Kontakt">
+    <div class="g12" style="align-items:start;row-gap:40px">
+      <div style="grid-column:1/span 5;display:grid;gap:28px">
+        <p class="info" data-c="kontakt.formInfo"></p>
+        <h2 class="disp l" style="max-width:9em" data-c="erleben.head" data-rv></h2>
+        <p class="txt" data-c="erleben.headText" data-rv></p>
+      </div>
+      <div class="stage" style="grid-column:6/-1" id="stage" data-dock="rect" data-dock-solid="1"></div>
+    </div>
+  </section>
+  <!-- Finale: der Connector wird zur gelben Fläche mit ausgestanztem Claim, Zoom durchs f in den Footer -->
+  <section id="finale" class="dark" data-label="GRIFFNER">
+    <div class="stick">
+      <svg class="fin-svg" id="finSvg" aria-label="built different" role="img"><defs><mask id="mFin" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><rect width="100%" height="100%" fill="#fff"/><g class="claim-g"><path class="claim-p" id="finP" fill="#000" fill-opacity="0"/></g></mask></defs><rect width="100%" height="100%" fill="#FFB200" mask="url(#mFin)"/></svg>
+      <span class="dockpt" id="finDock" data-dock="box" data-dock-solid="1" aria-hidden="true"></span>
+    </div>
+  </section>
+</main>
+
+<footer class="dark pad" id="ft" style="padding-bottom:0;position:relative" data-label="GRIFFNER">
+  <span class="dockpt" data-dock="box" data-dock-hide="1" aria-hidden="true" style="left:50%;top:0;width:1px;height:1px"></span>
+  <div class="ft-cols" id="ftCols"></div>
+  <div class="ft-wm" aria-label="GRIFFNER"><svg viewBox="0 878.45 1000 127.11" aria-hidden="true"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"/></svg></div>
+  <div class="ft-bot info"><span data-c="footer.place"></span><span id="ftLegal" style="display:flex;gap:24px"></span></div>
+</footer>
+
+<script>
+(function () {
+  const C = window.GRIFFNER_CONTENT;
+  const get = p => p.split('.').reduce((o, k) => (o == null ? o : o[k]), C);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lines = arr => arr.map(t => `<span class="ln"><span>${esc(t)}</span></span>`).join('');
+
+  /* ---------- Copy einsetzen (eine Quelle: site/content.js) ---------- */
+  $$('[data-c]').forEach(el => { el.textContent = get(el.dataset.c) ?? ''; if (el.hasAttribute('data-arrow')) el.innerHTML = `<span>${esc(el.textContent)}</span><span>→</span>`; });
+  $$('[data-href]').forEach(el => el.setAttribute('href', get(el.dataset.href)));
+  $$('img[data-src]').forEach(el => el.src = get(el.dataset.src));
+
+  const [hw, ...hrest] = C.hero.statement.split(' ');   // zwei Zeilen: „Hausbau / geht besser.“
+  $('#heroHead').innerHTML = lines([hw, hrest.join(' ')]);
+  $('#archHead').innerHTML = lines(C.architektur.head);
+  // Filmüberschrift in drei Zeilen: „Er hat das Springen / neu gedacht. / Wir das Bauen.“
+  const [g1, g2] = C.gregor.head.split(/(?<=\.)\s+/), gw = g1.split(' ');
+  $('#grHl').setAttribute('aria-label', C.gregor.head);
+  $('#grHl').innerHTML = [gw.slice(0, 4).join(' '), gw.slice(4).join(' '), g2].map((t, i) => `<span><span data-hl="${i}">${esc(t)}</span></span>`).join('');
+
+  $('#rows').innerHTML = C.architektur.concepts.map((c, i) => `
+    <a class="row" href="#" data-i="${i}">
+      <span class="disp">${esc(c.name)}</span>
+      <span class="txt">${esc(c.text)}</span>
+      <span class="arr" aria-hidden="true">→</span>
+      <span class="mimg frame"><img src="${esc(c.img)}" alt="" loading="lazy"></span>
+    </a>`).join('');
+  $('#peek').innerHTML = C.architektur.concepts.map(c => `<img src="${esc(c.img)}" alt="">`).join('');
+
+  $('#track').innerHTML = C.architektur.projectList.items.map((p, i) => `
+    <a class="card" href="${esc(p.href)}">
+      <span class="frame"${i === 0 ? ' data-dock="edge" data-dock-edge="top" data-dock-x=".72"' : ''}><img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy"></span>
+      <span class="meta"><span class="info">${String(i + 1).padStart(2, '0')}</span><span class="hm">${esc(p.name)}</span><span class="info pl">${esc(p.place)} / ${esc(p.year)}</span></span>
+    </a>`).join('');
+
+  const W = C.weg;
+  $('#steps').innerHTML = W.stations.map(st => `<span class="step"><span>${esc(st.title)}</span><span class="trk"><i></i></span></span>`).join('');
+  $('#stTexts').innerHTML = W.stations.map(s => `<p class="txt" style="color:#CACACA">${esc(s.text)}</p>`).join('');
+  $('#stTitles').innerHTML = W.stations.map(st => `<p class="disp xl wword" aria-label="${esc(st.title)}">${[...st.title].map(ch => `<span class="ch" aria-hidden="true">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('')}</p>`).join('');
+  /* Kapitel: Türen aus season.chapters, geöffnet nach Datum (wie das Menü: simuliertes Startdatum) */
+  const KAP = C.kapitel || {}, CH = (C.season || {}).chapters || [], kToday = '2026-10-23';
+  const kCur = CH.filter(c => c.iso <= kToday).length - 1;
+  $('#doors').innerHTML = CH.map((c, i) => {
+    const open = c.iso <= kToday, cur = i === kCur;
+    const lb = !open ? (KAP.coming || 'Coming {date}').replace('{date}', c.date) : cur ? KAP.now : KAP.open;
+    return `<a class="door${open ? '' : ' locked'}" href="${esc(open ? c.href : '#kapitel')}" data-open="${open ? 1 : 0}" data-rest="${cur ? 14 : 0}"${open ? '' : ' aria-disabled="true"'}${cur ? ' data-dock="edge" data-dock-edge="top" data-dock-x=".8"' : ''}>
+      <span class="room">${open ? `<img src="${esc(c.teaser)}" alt="" loading="lazy">` : `<span class="grid"></span><span class="q">${esc(c.question)}</span>`}<span class="shade"></span></span>
+      <span class="leaf"><span class="face"><span class="info lb">${esc(lb)}</span><span class="knob"></span><span style="display:grid;gap:10px"><span class="nr">${esc(c.nr)}</span><span class="hm">${esc(c.claim ? (KAP.first || c.title) : c.title)}</span></span></span><span class="side"></span></span>
+    </a>`;
+  }).join('');
+  const doorSet = (d, ang, shade, q) => {
+    d.querySelector('.leaf').style.transform = `rotateY(${reduce ? 0 : -ang}deg)`;
+    d.querySelector('.shade').style.opacity = shade;
+    const im = d.querySelector('.room img'); if (im) im.style.transform = `scale(${ang > 40 ? 1 : 1.08})`;
+    const qq = d.querySelector('.q'); if (qq) { qq.style.opacity = q ? 1 : 0; qq.style.transform = q ? 'none' : 'translateX(20px)'; }
+  };
+  const doorRest = d => { const r = +d.dataset.rest; doorSet(d, r, r ? .5 : .92, false); };
+  $$('#doors .door').forEach(d => {
+    doorRest(d);
+    const enter = () => { d._h = 1; d.dataset.open === '1' ? doorSet(d, 74, 0, false) : doorSet(d, 24, .4, true); };
+    const leave = () => { d._h = 0; doorRest(d); };
+    d.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') enter(); });
+    d.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') leave(); });
+    d.addEventListener('focus', enter); d.addEventListener('blur', leave);
+    d.addEventListener('click', e => { if (d.dataset.open !== '1') { e.preventDefault(); enter(); setTimeout(leave, 2600); } });
+  });
+
+  // News: neueste drei aus der News-Seite, verlinkt auf die eigene Beitragsseite (v3)
+  const NEWS3 = (C.newsPage ? C.newsPage.items.map(n => ({ ...n, href: 'GRIFFNER%20News%20Beitrag.dc.html?b=' + n.slug })) : C.news.items).slice(0, 3);
+  $('#newsRows').innerHTML = NEWS3.map(n => `
+    <a class="nrow" href="${esc(n.href)}">
+      <span class="info">${esc(n.date)}</span>
+      <span class="hm">${esc(n.title)}</span>
+      <span class="th"><img src="${esc(n.img)}" alt="" loading="lazy"></span>
+    </a>`).join('');
+  $('#newsRows .th').setAttribute('data-dock', 'edge'); $('#newsRows .th').dataset.dockX = '.5';
+
+  $('#acc').innerHTML = C.erleben.entries.map((e, i) => `
+    <div class="pan${i === C.erleben.entries.length - 1 ? ' on' : ''}" tabindex="0">
+      ${e.img ? `<img src="${esc(e.img)}" alt="" loading="lazy">` : ''}
+      <span class="lab">${esc(e.label)}</span>
+      <div class="cap">
+        <h3 class="hm">${esc(e.title)}</h3>
+        <span class="info">${esc(e.info)}</span>
+        <a class="lnk info" href="${esc(e.href)}"><span>${esc(e.link)}</span><span>→</span></a>
+      </div>
+    </div>`).join('');
+  $$('.pan').forEach(p => { const on = () => { $$('.pan').forEach(q => q.classList.toggle('on', q === p)); }; p.addEventListener('mouseenter', on); p.addEventListener('focus', on); p.addEventListener('click', on); });
+
+  /* Kontakt: Formular wie Version A (Thema, Name, Kontakt, Nachricht, Newsletter, Einwilligung); Texte aus erleben.form */
+  const F = C.erleben.form;
+  const stage = $('#stage');
+  const mountForm = () => {
+    let topic = 0;
+    stage.innerHTML = `
+    <form id="form" class="af" novalidate>
+      <div class="af-g"><span class="info">${esc(F.topicLabel)}</span>
+        <div class="choice" role="radiogroup" aria-label="${esc(F.topicLabel)}">${F.topics.map((t, i) => `<button type="button" role="radio" aria-checked="${i === 0}" data-i="${i}">${esc(t)}</button>`).join('')}</div></div>
+      <div class="af-2">
+        <label class="fld" id="wName"><span class="info">${esc(F.name)}</span><input id="fName" autocomplete="name"><span class="ferr" id="eName"></span></label>
+        <label class="fld" id="wContact"><span class="info">${esc(F.contact)}</span><input id="fContact" autocomplete="email"><span class="ferr" id="eContact"></span></label>
+      </div>
+      <label class="fld"><span class="info">${esc(F.message)}</span><textarea id="fMsg" rows="3" placeholder="${esc(F.messageHint)}"></textarea></label>
+      <div style="display:grid;gap:8px"><label class="chk"><input type="checkbox" id="fNews"><span>${esc(F.newsletter)}</span></label><span class="ferr pl" id="eNews"></span></div>
+      <div style="display:grid;gap:8px"><label class="chk"><input type="checkbox" id="fOk"><span>${esc(F.consent)}</span></label>
+        <div class="pl"><a href="${esc(F.privacyHref)}" style="text-decoration:underline;text-underline-offset:3px">${esc(F.privacy)}</a><span class="ferr" id="eOk"></span></div></div>
+      <div><button class="send" type="submit"><span>${esc(F.submit)}</span><span>→</span></button></div>
+    </form>`;
+    $$('.choice button', stage).forEach(b => b.addEventListener('click', () => { topic = +b.dataset.i; $$('.choice button', stage).forEach(x => x.setAttribute('aria-checked', x === b)); }));
+    $('#form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = $('#fName').value.trim(), contact = $('#fContact').value.trim(), nl = $('#fNews').checked, ok = $('#fOk').checked;
+      const errs = { eName: !name && F.errName, eContact: !contact && F.errContact, eNews: nl && !/@/.test(contact) && F.errNewsletter, eOk: !ok && F.errConsent };
+      Object.entries(errs).forEach(([id, m]) => { $('#' + id).textContent = m || ''; });
+      $('#wName').classList.toggle('bad', !!errs.eName); $('#wContact').classList.toggle('bad', !!errs.eContact);
+      if (Object.values(errs).some(Boolean)) return;
+      stage.innerHTML = `<div class="af" style="gap:clamp(20px,3vh,28px);max-width:560px;min-height:clamp(240px,34vh,380px);align-content:end">
+        <h3 class="hm" style="font-size:var(--fs-headline-web)">${esc(F.thanksHead.replace('{name}', name))}</h3>
+        <p class="txt">${esc(F.thanksText)}</p>${nl ? `<p class="txt" style="font-weight:600">${esc(F.newsletterThanks)}</p>` : ''}
+        <div><button class="lnk info" type="button" id="again" style="background:none;border:0;border-bottom:1px solid #000;cursor:pointer;padding:0 0 6px">${esc(F.again)}</button></div></div>`;
+      $('#again').addEventListener('click', mountForm);
+    });
+  };
+  mountForm();
+
+  $('#ftCols').innerHTML = C.footer.cols.map(c => `<div><p class="info">${esc(c.title)}</p><ul>${c.links.map(l => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join('')}</ul></div>`).join('')
+    + `<div><p class="info">Griffen</p><ul>${C.footer.address.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>`;
+  $('#ftLegal').innerHTML = C.footer.legal.map(l => `<a href="#">${esc(l)}</a>`).join('');
+
+  /* Claim „built different“: Pfad aus assets/logo/griffner-claim-maske.svg, nie als Text.
+     Zoompunkt im f und Radius wie Version A (GriffnerFooter): dort ist die Ausstanzung breit genug, um den Screen zu füllen. */
+  const CL = { VW: 6053, VH: 977, FX: .5225, FY: .303, R: .009 };
+  fetch('assets/logo/griffner-claim-maske.svg').then(r => r.text()).then(t => { const m = t.match(/\sd="([^"]+)"/); if (m) $$('.claim-p').forEach(p => p.setAttribute('d', m[1])); }).catch(() => {});
+  const claimT = (W, H, e) => { // e = 0: ganzer Claim, 84 % breit; e = 1: so tief im f, dass die Öffnung den Screen füllt
+    const W0 = Math.min(W * .84, 1200), H0 = W0 * CL.VH / CL.VW, px = (W - W0) / 2 + CL.FX * W0, py = (H - H0) / 2 + CL.FY * H0;
+    const far = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py));
+    const k = W0 * Math.exp(Math.log(far / (CL.R * W0) * 1.2) * e) / CL.VW;
+    return `translate(${px.toFixed(2)} ${py.toFixed(2)}) scale(${k.toFixed(5)}) translate(${(-CL.FX * CL.VW).toFixed(1)} ${(-CL.FY * CL.VH).toFixed(1)})`;
+  };
+
+  /* Menü: Punkte aus menu.items, noch nicht geöffnete Kapitel gedimmt mit „Coming“ */
+  const M = C.menu, today = '2026-10-23'; // wie Version A: simuliertes Startdatum, in Produktion Serverdatum
+  $('#menuItems').innerHTML = M.items.map(it => {
+    const soon = it.opens && today < it.opens;
+    const inner = `<span class="hm">${esc(it.label)}</span><span class="info sub">${esc(it.sub)}</span>` + (soon ? `<span class="info soon-tag">${esc(M.comingPrefix)} ${esc(it.date)}</span><span class="info hint">${esc(M.comingHover.replace('{date}', it.date))}</span>` : '');
+    return soon ? `<li class="mi soon" data-href="${esc(it.href)}" aria-disabled="true">${inner}</li>` : `<li class="mi" data-href="${esc(it.href)}"><a href="${esc(it.href)}" style="display:grid;gap:6px">${inner}</a></li>`;
+  }).join('');
+  $('#menuLinks').innerHTML = M.links.map(([l, h]) => `<a href="${esc(h)}">${esc(l)}</a>`).join('');
+  const body = document.body, btn = $('#railBtn');
+  let pinned = false, hovering = false;
+  const desktop = matchMedia('(min-width: 821px)');
+  const sync = () => {
+    const open = pinned || hovering;
+    body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open);
+  };
+  btn.addEventListener('click', () => { pinned = !pinned; sync(); });
+  [$('.rail'), $('#panel')].forEach(el => { el.addEventListener('mouseenter', () => { if (desktop.matches) { hovering = true; sync(); } }); el.addEventListener('mouseleave', () => { hovering = false; sync(); }); });
+  $('#panel').addEventListener('click', e => { if (e.target.closest('a')) { pinned = false; hovering = false; sync(); } });
+  addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = false; sync(); } });
+  sync();
+
+  /* 3D-Filme aus Version A (exportiert nach site/film-*.js) */
+  import('./site/film-weg.js').then(m => m.mount());
+  import('./site/film-gregor.js').then(m => m.mount());
+
+  /* Korn */
+  (() => { const n = 160, c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'), d = g.createImageData(n, n); for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; } g.putImageData(d, 0, 0); const el = document.createElement('div'); el.className = 'grain'; el.setAttribute('aria-hidden', 'true'); el.style.background = `url(${c.toDataURL()})`; document.body.appendChild(el); if (!reduce) el.animate([0, 1, 2, 3, 4, 5].map(i => ({ transform: `translate(${(i * 37) % 100 - 50}px,${(i * 61) % 100 - 50}px)` })), { duration: 700, iterations: Infinity, easing: 'steps(6)' }); })();
+
+  /* ---------- Bewegung ---------- */
+  gsap.registerPlugin(ScrollTrigger);
+  const ease = 'expo.out';
+  let lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    window.__lenis = lenis; // zum Testen und für eigene Sprünge
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (!a) return; const t = document.querySelector(a.getAttribute('href')); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { duration: 1.8 }); });
+  }
+
+  /* Preloader (Gegenstück zu Version A „licht“/„skizze“, passend zu „Der Plan“):
+     Hilfslinien skizzieren den Plan, das Feld wird von Hand gezeichnet, die Striche ziehen sich gerade,
+     das Feld füllt sich gelb, die Wortmarke schreibt sich ein. Endet exakt im Startbild des Hero.
+     Einmal pro Sitzung, ?preloader erzwingt ihn, Klick oder Taste überspringt, reduzierte Bewegung lässt ihn weg. */
+  const pl = $('#pl');
+  let plSeen = false; try { plSeen = sessionStorage.getItem('griffner-b-pl') === '1'; } catch (e) {}
+  window.__plActive = !!pl && !reduce && (/[?&]preloader/.test(location.search) || !plSeen);
+  if (!window.__plActive) { if (pl) pl.remove(); }
+  else {
+    try { sessionStorage.setItem('griffner-b-pl', '1'); } catch (e) {}
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0); document.documentElement.style.overflow = 'hidden'; if (lenis) lenis.stop();
+    const W = innerWidth, H = innerHeight, fw = Math.min(W * .26, H * .4), fh = fw * .8, l = (W - fw) / 2, t = (H - fh) / 2, r = l + fw, b = t + fh;
+    const ov = Math.max(14, fw * .09), gap = fw * 7 / 90, ws = fw / 1000, wy = b + gap, wh = 127.11 * ws;
+    const wmPath = $('#logoWm path').getAttribute('d');
+    pl.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <defs><clipPath id="plClip" clipPathUnits="userSpaceOnUse"><rect id="plClipR" x="${l}" y="${wy - 2}" width="0" height="${wh + 4}"/></clipPath></defs>
+      <g fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1">
+        <line class="g" x1="0" y1="${t}" x2="${W}" y2="${t}"/><line class="g" x1="${W}" y1="${b}" x2="0" y2="${b}"/>
+        <line class="g" x1="${l}" y1="${H}" x2="${l}" y2="0"/><line class="g" x1="${r}" y1="0" x2="${r}" y2="${H}"/>
+        <line class="g" x1="0" y1="${(t + b) / 2}" x2="${W}" y2="${(t + b) / 2}" stroke-dasharray="2 6"/>
+      </g>
+      <g fill="none" stroke="#CACACA" stroke-width="1.2" stroke-linecap="round">
+        <line class="s" x1="${l - ov}" y1="${t}" x2="${r + ov}" y2="${t}"/><line class="s" x1="${r}" y1="${t - ov}" x2="${r}" y2="${b + ov}"/>
+        <line class="s" x1="${r + ov}" y1="${b}" x2="${l - ov}" y2="${b}"/><line class="s" x1="${l}" y1="${b + ov}" x2="${l}" y2="${t - ov}"/>
+      </g>
+      <rect id="plFill" x="${l}" y="${t}" width="${fw}" height="${fh}" fill="#FFB200"/>
+      <g clip-path="url(#plClip)"><path id="plWm" d="${wmPath}" fill="#FFFFFF" transform="translate(${l} ${wy - 878.45 * ws}) scale(${ws})"/></g>
+    </svg>
+    <span class="preload-i at-l info">${esc(C.footer.place)}</span><span class="preload-i at-r info" id="plN">000</span>`;
+    const guides = $$('.g', pl), sk = $$('.s', pl), fill = $('#plFill'), num = $('#plN');
+    [...guides, ...sk].forEach(ln => { const L = Math.hypot(ln.x2.baseVal.value - ln.x1.baseVal.value, ln.y2.baseVal.value - ln.y1.baseVal.value); if (!ln.getAttribute('stroke-dasharray')) ln.style.strokeDasharray = L; ln.style.strokeDashoffset = L; ln.__L = L; });
+    const rnd = (a, b2) => a + Math.random() * (b2 - a);
+    sk.forEach(ln => gsap.set(ln, { rotation: rnd(-2.6, 2.6), x: rnd(-7, 7), y: rnd(-7, 7), svgOrigin: `${(ln.x1.baseVal.value + ln.x2.baseVal.value) / 2} ${(ln.y1.baseVal.value + ln.y2.baseVal.value) / 2}` }));
+    gsap.set(fill, { scaleY: 0, transformOrigin: '50% 100%' });
+    const done = () => {
+      conn.style.transition = 'none'; window.__plActive = false;        // Connector übernimmt ohne Überblendung
+      requestAnimationFrame(() => requestAnimationFrame(() => { pl.remove(); conn.style.transition = ''; }));
+      document.documentElement.style.overflow = ''; if (lenis) lenis.start();
+    };
+    const tl = gsap.timeline({ onComplete: done, onUpdate() { num.textContent = String(Math.round(this.progress() * 100)).padStart(3, '0'); } });
+    tl.to('.preload-i', { opacity: .7, duration: .6 }, .1)
+      .to(guides, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut', stagger: .12 }, .1)
+      .to(sk, { strokeDashoffset: 0, duration: .9, ease: 'power2.out', stagger: .14 }, .55)
+      .to(sk, { rotation: 0, x: 0, y: 0, duration: .8, ease: 'power3.inOut' }, 1.75)
+      .to(fill, { scaleY: 1, duration: .9, ease: 'power3.inOut' }, 2.35)
+      .add(() => {}, 2.75);
+    // Überstände ziehen sich auf die Ecken zurück: Striche enden genau am Feld
+    sk.forEach((ln, i) => {
+      const a = i % 2 ? (ln.y1.baseVal.value < ln.y2.baseVal.value ? { y1: t, y2: b } : { y1: b, y2: t }) : (ln.x1.baseVal.value < ln.x2.baseVal.value ? { x1: l, x2: r } : { x1: r, x2: l });
+      tl.to(ln, { attr: a, strokeDasharray: i % 2 ? fh : fw, duration: .6, ease: 'power3.inOut' }, 2.75);
+    });
+    tl
+      .to('#plClipR', { attr: { width: fw }, duration: 1, ease: 'power2.inOut' }, 3.15)
+      .to(guides, { opacity: 0, duration: .7 }, 3.6)
+      .to([...sk, '#plWm', '.preload-i'], { opacity: 0, duration: .55 }, 4.35);
+    const skip = () => tl.timeScale(5);
+    pl.addEventListener('click', skip); addEventListener('keydown', skip, { once: true });
+  }
+
+  // Header kompakt, Menüleiste zeigt Fortschritt und aktives Kapitel
+  const hdr = $('#hdr'), prog = $('#railProg');
+  ScrollTrigger.create({ start: 80, end: 'max', onToggle: s => hdr.classList.toggle('compact', s.isActive) });
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: s => { prog.style.height = (s.progress * 100).toFixed(2) + '%'; } });
+  $$('main > section').forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 50%', end: 'bottom 50%', onToggle: st => {
+    if (st.isActive) $$('#menuItems .mi').forEach(li => li.classList.toggle('on', !!s.dataset.menu && li.dataset.href === s.dataset.menu));
+  } }));
+
+  /* Connector: beginnt als Feld im Hero, baut beim ersten Scrollen das Logo mit der Wortmarke,
+     gleitet mit dem Logo aus dem Bild und wandert dann wie in Version A von Andockpunkt zu Andockpunkt. */
+  const ctaEl = $('#hdr .r'), hdrEl = $('#hdr'), stageEl = $('#stage');
+  const conn = $('#conn'), cTop = conn.firstElementChild, slot = $('#logoSlot'), logoEl = $('#logo'), wm = $('#logoWm'), topSec = $('#top');
+  const fieldRect = () => { const vw = innerWidth, vh = innerHeight, w = Math.min(vw * .26, vh * .4), h = w * .8; return { t: (vh - h) / 2, l: (vw - w) / 2, w, h }; };
+  const sm = (a, b, x) => { const u = Math.max(0, Math.min(1, (x - a) / (b - a))); return u * u * (3 - 2 * u); };
+  const glideEase = t => 1 - Math.pow(1 - t, 4), GLIDE = reduce ? 0 : 1300;
+  const intro = { k: reduce || window.__plActive ? 1 : 0 };
+  if (!reduce && !window.__plActive) gsap.to(intro, { k: 1, duration: 1.6, ease: 'expo.out', delay: .2 });
+  const dockRect = el => {
+    const r = el.getBoundingClientRect(), t = el.dataset.dock;
+    if (t === 'edge') {
+      // data-dock-edge="top": auf der Oberkante statt der Unterkante (wenn unter dem Bild Text steht)
+      // data-dock-x="end": bündig an der rechten Kante; data-dock-w: Anteil an der Breite statt .14
+      const share = parseFloat(el.dataset.dockW || .14), w = Math.min(Math.max(r.width * share, r.width / 12), r.width / 5, innerWidth / 5), h = w * .8;
+      const cx = el.dataset.dockX === 'end' ? r.right - w / 2 : r.left + r.width * parseFloat(el.dataset.dockX || .72);
+      return { x: cx - w / 2, y: (el.dataset.dockEdge === 'top' ? r.top : r.bottom) - h / 2, w, h, top: .5 };
+    }
+    return { x: r.left, y: r.top, w: r.width, h: r.height, top: el.dataset.dockSolid ? 1 : .5 };
+  };
+  const pickDock = () => {
+    let act = null; const lim = innerHeight * .5;
+    $$('[data-dock]').forEach(d => { const trg = d.dataset.dockTrigger ? document.getElementById(d.dataset.dockTrigger) : d.closest('section, footer'); if (trg && trg.getBoundingClientRect().top <= lim) act = d; });
+    return act;
+  };
+  let cur = null, from = null, t0 = 0, mode = '';
+  gsap.ticker.add(() => {
+    const vh = innerHeight, sv = scrollY / vh; // gescrollte Bildschirmhöhen
+    // Logo: Wortmarke erscheint unter dem ankommenden Feld, dann gleitet das ganze Logo nach oben hinaus
+    wm.style.opacity = sm(.15, .31, sv).toFixed(3);
+    logoEl.style.transform = `translateY(${(-sm(.48, .79, sv) * 170).toFixed(1)}px)`;
+    let tgt, key, hide = false;
+    const act = pickDock();
+    if (sv < .13 && !act) { const f = fieldRect(), k = intro.k; tgt = { x: f.l + f.w * (1 - k) / 2, y: f.t + f.h * (1 - k) / 2, w: f.w * k, h: f.h * k, top: 1 }; key = 'hero'; }
+    else if (!act) { const r = slot.getBoundingClientRect(); tgt = { x: r.left, y: r.top, w: r.width, h: r.height, top: 1 }; key = 'logo'; }
+    else { tgt = dockRect(act); key = (act.dataset.dockId || (act.dataset.dockId = Math.random().toString(36).slice(2))) + ':' + (act.dataset.dockKey || ''); hide = !!act.dataset.dockHide; }
+    const now = performance.now();
+    if (key !== mode) { from = cur || tgt; t0 = now; mode = key; }
+    const k = GLIDE ? glideEase(Math.min(1, (now - t0) / GLIDE)) : 1, L = (a, b) => a + (b - a) * k;
+    cur = { x: L(from.x, tgt.x), y: L(from.y, tgt.y), w: L(from.w, tgt.w), h: L(from.h, tgt.h), top: L(from.top, tgt.top) };
+    conn.style.transform = `translate3d(${cur.x.toFixed(2)}px,${cur.y.toFixed(2)}px,0)`;
+    conn.style.width = cur.w.toFixed(2) + 'px'; conn.style.height = cur.h.toFixed(2) + 'px';
+    cTop.style.opacity = cur.top.toFixed(3);
+    conn.style.opacity = hide || window.__plActive ? '0' : '1';
+    stageEl.classList.toggle('filled', act === stageEl && k >= 1); // erst das Feld, dann die Fläche, dann das Formular
+    // Projekt starten liegt über dem gelben Feld oder der gelben Formularfläche: dann schwarz
+    const cta = ctaEl.getBoundingClientRect(), hit = q => q.right > cta.left && q.left < cta.right && q.bottom > cta.top && q.top < cta.bottom;
+    hdrEl.classList.toggle('on-yellow', (!hide && hit(cur && { left: cur.x, right: cur.x + cur.w, top: cur.y, bottom: cur.y + cur.h })) || (stageEl.classList.contains('filled') && hit(stageEl.getBoundingClientRect())));
+  });
+
+  if (reduce) { $('#halEnd').style.opacity = 1; $('#finale').style.display = 'none'; stageEl.classList.add('filled'); return; }
+
+  // Textzeilen und Blöcke: aus der Maske
+  $$('[data-rv]').forEach(el => {
+    const ln = $$('.ln > span', el);
+    if (ln.length) gsap.from(ln, { yPercent: 105, duration: 1.4, ease, stagger: .08, scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
+    else gsap.from(el, { y: 36, opacity: 0, clipPath: 'inset(0% 0% 100% 0%)', duration: 1.5, ease, clearProps: 'clipPath', scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
+  });
+  $$('[data-lux], .card .frame, .nrow .th, .pan').forEach(el => gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
+
+  // Hero: Feld wird Fenster, Fenster wird Bild
+  const heroClip = p => { const r = fieldRect(), vh = innerHeight, vw = innerWidth; const k = gsap.parseEase('power3.inOut')(p); const t = r.t * (1 - k), l = r.l * (1 - k), b = (vh - r.t - r.h) * (1 - k), rr = (vw - r.l - r.w) * (1 - k); return `inset(${t}px ${rr}px ${b}px ${l}px)`; };
+  gsap.set('#heroImg', { clipPath: heroClip(0) });
+  gsap.set('#heroHead .ln > span', { yPercent: 105 }); gsap.set('#heroText', { opacity: 0, y: 20 });
+  const claimOpenState = { e: 1 }, claimOpenG = $('#claimOpen .claim-g');
+  const drawClaimOpen = () => claimOpenG.setAttribute('transform', claimT(innerWidth, innerHeight, claimOpenState.e));
+  drawClaimOpen(); addEventListener('resize', drawClaimOpen);
+  const ht = gsap.timeline({ scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  ht.to({}, { duration: .12 })
+    .to({ p: 0 }, { p: 1, duration: .5, ease: 'none', onUpdate() { gsap.set('#heroImg', { clipPath: heroClip(this.targets()[0].p) }); } }, .1)
+    .to('#heroImg img', { scale: 1, duration: .6, ease: 'none' }, .1)
+    .to('#heroCue', { opacity: 0, duration: .06 }, .05)
+    .to('#heroHead .ln > span', { yPercent: 0, duration: .25, stagger: .06, ease: 'power3.out' }, .58)
+    .to('#heroText', { opacity: 1, y: 0, duration: .2 }, .7)
+    // Claim-Fenster: Headline geht, Schwarz schließt sich um das Bild, bis nur „built different“ bleibt
+    .to(['#heroHead', '#heroText'], { opacity: 0, duration: .1 }, 1.02)
+    .set('#claimOpen', { opacity: 1 }, 1.06)
+    .fromTo(claimOpenState, { e: 1 }, { e: 0, duration: .42, ease: 'power2.inOut', onUpdate: drawClaimOpen }, 1.06)
+    .to({}, { duration: .16 });
+
+  // Haltung: zwei Hälften fahren zusammen, dann das Haus
+  const gap = () => Math.min(innerWidth * .12, 170);
+  gsap.set('#halA', { x: () => -gap() }); gsap.set('#halB', { x: () => gap() });
+  const hl = gsap.timeline({ scrollTrigger: { trigger: '#haltung', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  hl.to('#halA', { x: 0, duration: .4, ease: 'power2.inOut' }, .05)
+    .to('#halB', { x: 0, duration: .4, ease: 'power2.inOut' }, .05)
+    .to('#capA', { x: () => gap() * .4, opacity: 0, duration: .25 }, .25)
+    .to('#capB', { x: () => -gap() * .4, opacity: 0, duration: .25 }, .25)
+    .to('#halHouse', { opacity: 1, duration: .2 }, .5)
+    .fromTo('#halHouse img', { scale: 1.12 }, { scale: 1, duration: .45, ease: 'none' }, .5)
+    .to('#halEnd', { opacity: 1, duration: .15 }, .72)
+    .from('#halEnd > *', { y: 30, duration: .2, stagger: .05 }, .72);
+
+  // Architektur: Vorschaubild folgt dem Cursor
+  const peek = $('#peek'), pim = $$('img', peek);
+  let px = 0, py = 0, tx = 0, ty = 0, showing = false;
+  $$('#rows .row').forEach(r => {
+    r.addEventListener('mouseenter', () => { showing = true; peek.style.opacity = 1; pim.forEach((im, i) => im.classList.toggle('on', i == r.dataset.i)); });
+    r.addEventListener('mouseleave', () => { showing = false; peek.style.opacity = 0; });
+  });
+  addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+  gsap.ticker.add(() => { px += (tx - px) * .12; py += (ty - py) * .12; if (showing || peek.style.opacity !== '0') peek.style.transform = `translate(${px + 28}px,${py - peek.offsetHeight / 2}px)`; });
+
+  // Floating House: Vollbild zieht sich zum Rahmen zusammen
+  const fl = gsap.timeline({ scrollTrigger: { trigger: '#floating', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  fl.fromTo('#flImg', { clipPath: 'inset(0px 0px 0px 0px)' }, { clipPath: () => `inset(${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')} ${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')})`, duration: .55, ease: 'none' }, 0)
+    .to('#flImg img', { scale: 1, duration: .8, ease: 'none' }, 0)
+    .from('#flCopy > *', { y: 50, opacity: 0, duration: .25, stagger: .08 }, .3);
+
+  // Projects: Kontaktbogen läuft quer
+  const track = $('#track');
+  const marginPx = () => parseFloat(getComputedStyle($('#projekte .pj-stick')).paddingLeft) || 0; // --page-margin als Pixelwert
+  const dist = () => Math.max(0, track.scrollWidth - innerWidth + marginPx() * 2);
+  const setPjHeight = () => { $('#projekte').style.height = (innerHeight + dist()) + 'px'; };
+  setPjHeight(); ScrollTrigger.addEventListener('refreshInit', setPjHeight); // Höhe = Weg des Bogens, vor jeder Neuberechnung
+  requestAnimationFrame(() => ScrollTrigger.refresh());
+  gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '#projekte', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+
+  // Weg: Schrittleiste wie Version A. Ladelinien füllen sich, der Connector läuft als Läufer mit, Titel kommen Buchstabe für Buchstabe
+  const stepEls = $$('#steps .step'), fills = $$('#steps .trk i'), texts = $$('#stTexts > *'), words = $$('#stTitles .wword'), N = W.stations.length;
+  const CAPS = ['Entwurf', 'Konstruktion', 'Fertigung in Griffen', 'Montage']; // wie Version A
+  const wDock = $('#wDock'), wStick = wDock.parentElement, cap = $('#wcap');
+  let cur2 = -1;
+  const show = i => {
+    if (i === cur2) return; cur2 = i;
+    texts.forEach((el, k) => gsap.to(el, { opacity: k === i ? 1 : 0, y: k === i ? 0 : (k < i ? -20 : 20), duration: .9, ease }));
+    words.forEach((w, k) => $$('.ch', w).forEach((c, j) => { c.style.transitionDelay = (j * 38 + (k === i ? 160 : 0)) + 'ms'; c.style.transform = k === i ? 'none' : (k < i ? 'translateY(-110%)' : 'translateY(110%)'); }));
+    stepEls.forEach((el, k) => el.classList.toggle('on', k === i));
+    cap.textContent = CAPS[i] || '';
+  };
+  const runner = p => {
+    const idx = Math.min(N - 1, Math.floor(p * N)), k = Math.max(0, Math.min(1, p * N - idx)), ln = fills[idx].parentNode.getBoundingClientRect(), st = wStick.getBoundingClientRect(), sz = 24;
+    Object.assign(wDock.style, { left: (ln.left - st.left + (ln.width - sz) * k).toFixed(1) + 'px', top: (ln.top - st.top - sz * .4).toFixed(1) + 'px', width: sz + 'px', height: (sz * .8) + 'px' });
+    wDock.dataset.dockKey = 'l' + idx;
+    if (p > .9) wDock.dataset.dockHide = '1'; else delete wDock.dataset.dockHide; // am Ende übernimmt das gelbe Fenster im Film
+  };
+  ScrollTrigger.create({ trigger: '#wegPin', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: s => {
+    const p = s.progress;
+    fills.forEach((f, k) => { f.style.transform = `scaleX(${Math.max(0, Math.min(1, p * N - k)).toFixed(3)})`; });
+    show(Math.min(N - 1, Math.floor(p * N * .999)));
+    runner(p);
+  } });
+  show(0); runner(0);
+
+
+  // Kapitel: beim ersten Sichtkontakt schwingen die Türen nacheinander kurz auf
+  ScrollTrigger.create({ trigger: '#doors', start: 'top 75%', once: true, onEnter: () => $$('#doors .door').forEach((d, i) => setTimeout(() => {
+    if (d._h) return; doorSet(d, Math.max(+d.dataset.rest, 18), .55, false); setTimeout(() => { if (!d._h) doorRest(d); }, 1000);
+  }, 250 + i * 140)) });
+
+  // Bilder bewegen sich leicht im Rahmen
+  $$('.card .frame img, .nrow .th img, .pan img, .row .mimg img').forEach(im => gsap.fromTo(im, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+
+  // Finale: Feld (Connector) wird gelbe Fläche, Claim stanzt sich aus, Zoom durchs f in den schwarzen Footer
+  const finSvg = $('#finSvg'), finG = $('#finSvg .claim-g'), finP = $('#finP'), finDock = $('#finDock');
+  const finField = () => { const W = innerWidth, H = innerHeight, w = Math.min(W * .26, H * .4), h = w * .8; return { l: (W - w) / 2, t: (H - h) / 2, w, h }; };
+  const finDraw = q => {
+    const W = innerWidth, H = innerHeight, f = finField(), g = gsap.parseEase('power3.inOut')(Math.min(1, q / .28));
+    Object.assign(finDock.style, { left: f.l + 'px', top: f.t + 'px', width: f.w + 'px', height: f.h + 'px' });
+    if (q > .015) finDock.dataset.dockHide = '1'; else delete finDock.dataset.dockHide;   // ab hier trägt die Fläche selbst
+    finSvg.style.clipPath = `inset(${(f.t * (1 - g)).toFixed(1)}px ${((W - f.l - f.w) * (1 - g)).toFixed(1)}px ${((H - f.t - f.h) * (1 - g)).toFixed(1)}px ${(f.l * (1 - g)).toFixed(1)}px)`;
+    finP.setAttribute('fill-opacity', sm(.32, .46, q).toFixed(3));
+    finG.setAttribute('transform', claimT(W, H, gsap.parseEase('power2.in')(sm(.56, 1, q))));
+    finSvg.style.visibility = q >= .995 ? 'hidden' : 'visible';
+    const fr = $('#finale').getBoundingClientRect();
+    document.body.classList.toggle('fin-yellow', q > .2 && q < .9 && fr.top <= 0 && fr.bottom >= H); // Leiste und Header über der gelben Fläche: schwarz
+  };
+  finDraw(0);
+  ScrollTrigger.create({ trigger: '#finale', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: s => finDraw(s.progress), onRefresh: s => finDraw(s.progress) });
+
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

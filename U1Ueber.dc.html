@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<div>
+<section id="u-hero" data-room="u-hero" data-screen-label="00 Zwei Worte" style="position:relative;color:var(--griffner-weiss)">
+  <div data-dock="rect" data-dock-hide="1" aria-hidden="true" style="position:absolute;left:50%;top:0;width:1px;height:1px"></div>
+  <div id="u-open" data-open="1" style="position:relative;height:360vh">
+    <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+      <p data-o1="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:clamp(110px,20vh,190px);margin:0;max-width:11em;font-size:min(clamp(36px,6.2vw,116px),9.5vh);line-height:.96;font-family:var(--font-display);font-weight:300;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">BEI UNS DREHT SICH ALLES UM ZWEI WORTE.</p>
+      <div data-oclaim="1" style="position:absolute;left:50%;top:62%;width:min(84vw,1180px,160vh);transform:translate(-50%,-50%);transform-origin:50% 50%">
+        <svg viewBox="0 0 6053 977" role="img" aria-label="built different" style="display:block;width:100%;height:auto;overflow:visible"><path data-ocp="1" fill="#FFFFFF" fill-opacity="0" stroke="#FFFFFF" stroke-width="1.3" vector-effect="non-scaling-stroke" d=""></path></svg>
+      </div>
+      <div data-o2="1" aria-label="Anders denken, planen, beraten, fertigen, bauen." style="position:absolute;left:var(--page-margin);right:var(--page-margin);bottom:clamp(56px,11vh,120px);opacity:0;font-size:clamp(44px,8vw,152px);line-height:.92;font-family:var(--font-display);font-weight:300;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">
+        <span aria-hidden="true" style="display:block">ANDERS</span>
+        <span aria-hidden="true" style="display:grid;overflow:hidden;padding-bottom:.06em">
+          <sc-for list="{{ verbs }}" as="v" hint-placeholder-count="0"><span data-ov="1" style="grid-area:1 / 1;display:block;transform:translateY(110%);transition:transform 900ms cubic-bezier(0.22,1,0.36,1)">{{ v }}</span></sc-for>
+        </span>
+      </div>
+      <p data-o3="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);bottom:clamp(56px,11vh,120px);margin:0;max-width:15em;opacity:0;font-size:clamp(28px,4vw,76px);line-height:.98;font-family:var(--font-display);font-weight:300;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">FÜR MENSCHEN, DIE ANDERE VORSTELLUNGEN VOM WOHNEN UND LEBEN HABEN.</p>
+      <p data-o4="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);bottom:clamp(56px,11vh,120px);margin:0;max-width:15em;opacity:0;font-size:clamp(28px,4vw,76px);line-height:.98;font-family:var(--font-display);font-weight:300;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">NICHT, UM ANDERS ZU SEIN. SONDERN WEIL HAUSBAU BESSER GEHT.</p>
+    </div>
+  </div>
+</section>
+
+<section id="u-proof" data-room="u-heisst" data-screen-label="01 Was alles anders ist" class="gri-sand" style="position:relative;color:var(--griffner-schwarz);padding:var(--section-pad) var(--page-margin)">
+  <div data-dock="rect" data-dock-hide="1" aria-hidden="true" style="position:absolute;left:50%;top:0;width:1px;height:1px"></div>
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 clamp(32px,6vw,120px)">
+    <div data-catcol="1" style="flex:1 1 380px;position:sticky;top:clamp(100px,24vh,240px);z-index:2;display:grid;gap:clamp(20px,3vh,32px)">
+      <div style="display:grid;font-size:clamp(40px,5.6vw,106px);line-height:.92;font-family:var(--font-display);font-weight:300;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="0">
+          <div data-cw="1" style="grid-area:1 / 1;opacity:0;transform:translateY(24px);transition:opacity 700ms var(--ease),transform 900ms var(--ease)"><span style="display:block">{{ c.a }}</span><span style="display:block">{{ c.b }}</span></div>
+        </sc-for>
+      </div>
+      <svg viewBox="0 0 6053 977" role="img" aria-label="built different" style="display:block;width:clamp(150px,16vw,240px);height:auto"><path data-ccl="1" fill="#000000" d=""></path></svg>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="7"><span data-cd="1" style="display:block;width:22px;height:1px;background:var(--griffner-schwarz);opacity:.25;transition:opacity 600ms var(--ease)"></span></sc-for>
+      </div>
+    </div>
+    <div style="flex:1.2 1 380px;min-width:0;display:grid">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="3">
+        <article data-cat="1" style="position:relative;min-height:92vh;box-sizing:border-box;display:grid;align-content:center;gap:clamp(18px,3vh,28px);border-top:1px solid var(--griffner-schwarz);padding:clamp(40px,7vh,72px) 0">
+          <span id="{{ c.trig }}" aria-hidden="true" style="position:absolute;left:0;top:28vh;width:1px;height:1px"></span>
+          <div data-cimgw="1" data-dock="edge" data-dock-x=".72" data-dock-trigger="{{ c.trig }}" style="position:relative;aspect-ratio:16 / 10;max-height:46vh;overflow:hidden;background:var(--griffner-schwarz);clip-path:inset(0 0 100% 0)">
+            <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img data-cimg="1" src="{{ c.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.1);transform-origin:50% 60%"></img></sc-if>
+            <sc-if value="{{ c.ph }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);color:var(--griffner-weiss);padding:8px 10px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ c.ph }}</span></sc-if>
+          </div>
+          <p style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(26px,2.8vw,48px);line-height:1.1;letter-spacing:0;text-wrap:pretty">{{ c.lead }}</p>
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px">
+            <span data-cnum="1" style="font-family:var(--font-display);font-weight:300;font-size:clamp(44px,5vw,96px);line-height:.88;font-variant-numeric:tabular-nums">{{ c.num }}</span>
+            <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ c.numLabel }}</span>
+          </div>
+          <p style="margin:0;max-width:28em;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ c.text }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="u-wer" data-room="u-wer" data-screen-label="01 Wer wir sind" style="position:relative;color:var(--griffner-weiss)">
+  <div style="padding:var(--section-pad-sm) var(--page-margin) clamp(24px,4vh,48px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:28px;align-items:end">
+    <div style="grid-column:1 / span 7;display:grid;gap:20px;min-width:min(100%,300px)">
+      <h2 data-reveal="80" style="margin:0;font-family:var(--font-display);font-weight:300;font-size:var(--fs-headline-xl);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">WIR DENKEN ARCHITEKTUR UND BAUEN ALS EINS.</h2>
+    </div>
+    <p data-reveal="160" style="grid-column:9 / span 4;margin:0;min-width:min(100%,280px);font-size:var(--fs-text-web);line-height:var(--leading-body);color:var(--griffner-kalk);text-wrap:pretty">Was andere zwischen Architekt, Werk und Baustelle aufteilen, verbinden wir. Bei uns entwerfen Profis dein Haus, unser Werk in Griffen fertigt es, und unsere eigenen Teams bauen es auf. Eine Verantwortung, vom ersten Strich bis zum Schlüssel.</p>
+  </div>
+  <div id="u-merge" data-merge="1" style="position:relative;height:420vh">
+    <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+      <dc-import name="U1Film" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+      <div data-dock="rect" data-dock-hide="1" data-dock-trigger="u-merge" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:1px;height:1px"></div>
+      <div aria-hidden="true" data-mshade="1" style="position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.7));pointer-events:none"></div>
+      <div style="position:absolute;left:var(--page-margin);right:var(--page-margin);bottom:clamp(32px,7vh,80px);display:grid;pointer-events:none">
+        <sc-for list="{{ cols }}" as="c" hint-placeholder-count="0">
+          <div data-mcap="1" style="grid-area:1 / 1;display:grid;gap:10px;max-width:380px;opacity:0;transform:translateY(16px)">
+            <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ c.k }}</span>
+            <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);color:var(--griffner-kalk);text-wrap:pretty">{{ c.v }}</p>
+          </div>
+        </sc-for>
+        <p data-mst="1" style="grid-area:1 / 1;margin:0;max-width:16em;opacity:0;font-family:var(--font-display);font-weight:300;font-size:clamp(28px,4vw,76px);line-height:.98;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance;color:var(--griffner-weiss)">DIE FREIHEIT EINES ARCHITEKTEN. DIE SICHERHEIT EINES HERSTELLERS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="u-haltung" data-room="u-haltung" data-screen-label="04 Fünf Fragen" class="gri-kalk" style="position:relative;color:var(--griffner-schwarz);padding-top:var(--section-pad)">
+  <div data-dock="rect" data-dock-hide="1" aria-hidden="true" style="position:absolute;left:50%;top:0;width:1px;height:1px"></div>
+  <div style="padding:0 var(--page-margin) clamp(40px,8vh,96px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:28px;align-items:end">
+    <h2 data-reveal="0" style="grid-column:1 / span 7;margin:0;min-width:min(100%,300px);font-family:var(--font-display);font-weight:300;font-size:var(--fs-headline-xl);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">BEVOR ETWAS GRIFFNER VERLÄSST.</h2>
+    <p data-reveal="120" style="grid-column:9 / span 4;margin:0;min-width:min(100%,280px);font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">Fünf Fragen gelten für jeden Entwurf, jeden Prozess, jede Beratung und jeden Satz, den wir schreiben. Auch für diese Seite.</p>
+  </div>
+  <div style="padding:0 var(--page-margin)">
+    <sc-for list="{{ questions }}" as="q" hint-placeholder-count="5">
+      <div data-q="1" style="min-height:62vh;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:clamp(16px,3vw,48px);align-content:center;align-items:start;border-top:1px solid var(--griffner-schwarz);padding:clamp(32px,6vh,64px) 0">
+        <svg viewBox="0 0 60 48" aria-hidden="true" style="display:block;width:clamp(34px,4.4vw,72px);height:auto;margin-top:clamp(26px,3vw,50px);overflow:visible"><path data-tp="1" d="M4 27 C 10 30, 15 35, 21 43 C 29 28, 40 14, 57 3" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div data-qt="1" style="display:grid;gap:clamp(12px,2vh,20px);opacity:.28;transition:opacity 900ms var(--ease)">
+          <p aria-label="{{ q.text }}" style="margin:0;max-width:15em;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:var(--font-display);font-weight:300;font-size:clamp(28px,4vw,76px);line-height:1.02;letter-spacing:0"><sc-for list="{{ q.words }}" as="w" hint-placeholder-count="0"><span data-qw="1" aria-hidden="true" style="opacity:.16">{{ w }}</span></sc-for></p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="padding:var(--section-pad) var(--page-margin)">
+    <p data-reveal="0" style="margin:0;max-width:12em;font-family:var(--font-display);font-weight:300;font-size:var(--fs-statement-web);line-height:var(--leading-statement-web);letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">WENN NICHT, IST ES NICHT FERTIG.</p>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => window.GW && document.getElementById('u-hero') && document.querySelectorAll('[data-q]').length === 5 && document.querySelectorAll('[data-mcap]').length === 3 && document.querySelectorAll('[data-ov]').length === 5 && document.querySelectorAll('[data-cat]').length === 7 ? GW.ready(() => this.setup()) : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); (this.tm || []).forEach(clearTimeout); }
+
+  setup() {
+    if (this.ok) return; this.ok = 1;
+    const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+    const at = (ms, fn) => { this.tm = this.tm || []; this.tm.push(setTimeout(fn, GW.reduce ? 0 : ms)); };
+    const NS0 = window.GRIFFNERDesignSystem_559bd8 || {};
+    this.o = { pin: $('[data-open]'), o1: $('[data-o1]'), claim: $('[data-oclaim]'), cp: $('[data-ocp]'), o2: $('[data-o2]'), vs: $$('[data-ov]'), o3: $('[data-o3]'), o4: $('[data-o4]') };
+    if (NS0.CLAIM_D) { this.o.cp.setAttribute('d', NS0.CLAIM_D); this.olen = this.o.cp.getTotalLength(); this.o.cp.style.strokeDasharray = this.olen; this.o.cp.style.strokeDashoffset = this.olen; const cc = $('[data-ccl]'); if (cc) cc.setAttribute('d', NS0.CLAIM_D); }
+    this.k = { col: $('[data-catcol]'), ws: $$('[data-cw]'), arts: $$('[data-cat]'), ds: $$('[data-cd]') };
+    this.k.it = this.k.arts.map(ar => { const n = ar.querySelector('[data-cnum]'); const m = n && n.textContent.match(/^(\d+)(.*)$/); return { ar, w: ar.querySelector('[data-cimgw]'), im: ar.querySelector('[data-cimg]'), n, to: m ? +m[1] : null, rest: m ? m[2] : '', t0: 0 }; });
+    this.k.it.forEach(x => { if (x.to !== null && !GW.reduce) x.n.textContent = '0' + x.rest; });
+    if (innerWidth < 760) { const c = this.k.col; c.style.top = '56px'; c.style.background = 'var(--griffner-sand)'; c.style.padding = '12px 0 16px'; c.firstElementChild.style.fontSize = '34px'; }
+    this.m = { pin: $('[data-merge]'), caps: $$('[data-mcap]'), shade: $('[data-mshade]'), st: $('[data-mst]') };
+    const cp = $('[data-cpath]'), NS = window.GRIFFNERDesignSystem_559bd8 || {};
+    if (cp && NS.CLAIM_D) { cp.setAttribute('d', NS.CLAIM_D); this.clen = cp.getTotalLength(); cp.style.strokeDasharray = this.clen; cp.style.strokeDashoffset = this.clen; }
+    this.c = { wrap: $('[data-claimwrap]'), p: cp };
+    this.q = { items: $$('[data-q]'), ticks: $$('[data-tp]'), txt: $$('[data-qt]') };
+    this.q.wds = this.q.items.map(it => [...it.querySelectorAll('[data-qw]')]);
+    this.q.txt.forEach(t => { t.style.opacity = '1'; });
+    this.q.ticks.forEach(t => { t._l = t.getTotalLength(); t.style.strokeDasharray = t._l; t.style.strokeDashoffset = t._l; });
+    if (GW.reduce) this.m.pin.style.height = '100vh';
+    ['u-proof', 'u-wer', 'u-haltung'].forEach(id => GW.reveal(document.getElementById(id)));
+    this.pr = $$('[data-prow]').map(r => ({ r, o: r.querySelector('[data-pold]'), n: r.querySelector('[data-pnew]') }));
+    const loop = () => { try { this.frame(); } catch (e) { if (!this.errd) { this.errd = 1; console.error('U1 frame', e); } } this.raf = requestAnimationFrame(loop); };
+    loop();
+  }
+
+  frame() {
+    const vh = innerHeight, RD = GW.reduce, E = GW.E;
+    const O = this.o, or = O.pin.getBoundingClientRect();
+    if (or.bottom > -vh && or.top < vh * 2) {
+      const p = RD ? 1 : GW.clamp(-or.top / Math.max(1, or.height - vh)), L = GW.lerp;
+      const a1 = 1 - E(p, .3, .36); O.o1.style.opacity = a1.toFixed(3); O.o1.style.transform = 'translateY(' + (-(1 - a1) * 24).toFixed(1) + 'px)';
+      if (this.olen) { O.cp.style.strokeDashoffset = (this.olen * (1 - E(p, .04, .26))).toFixed(1); O.cp.setAttribute('fill-opacity', E(p, .22, .32).toFixed(3)); }
+      const hd = document.querySelector('[data-wm]') || document.querySelector('[data-dock="home"]');
+      const hb = hd ? hd.getBoundingClientRect().bottom : 110, t1 = Math.max(hb + 28, vh * .2);
+      if (Math.abs((this.o1t || 0) - t1) > 1) { this.o1t = t1; O.o1.style.top = t1.toFixed(1) + 'px'; }
+      const ob = t1 + O.o1.offsetHeight, ch = O.claim.offsetHeight;
+      const y0 = Math.max(vh * .62, ob + 32 + ch / 2), y1 = Math.max(vh * .32, hb + 28 + ch * .31);
+      const mv = E(p, .34, .44);
+      O.claim.style.top = L(y0, y1, mv).toFixed(1) + 'px'; O.claim.style.transform = 'translate(-50%,-50%) scale(' + L(1, .62, mv).toFixed(4) + ')';
+      const vis = (el, x0, x1) => { const k = Math.min(E(p, x0, x0 + .03), 1 - E(p, x1 - .03, x1)); el.style.opacity = k.toFixed(3); el.style.transform = 'translateY(' + ((1 - k) * 24).toFixed(1) + 'px)'; };
+      vis(O.o2, .42, .7); vis(O.o3, .7, .84); vis(O.o4, .85, 1.04);
+      const vi = Math.max(0, Math.min(4, Math.floor((p - .44) / .052)));
+      if (this.vIdx !== vi) { this.vIdx = vi; O.vs.forEach((v, i) => { v.style.transform = i === vi ? 'none' : (i < vi ? 'translateY(-110%)' : 'translateY(110%)'); }); }
+    }
+    const K = this.k; let best = 0, bd = 1e9;
+    K.arts.forEach((ar, i) => { const r0 = ar.getBoundingClientRect(), d = Math.abs(r0.top + r0.height / 2 - vh * .55); if (d < bd) { bd = d; best = i; } });
+    if (this.cIdx !== best) { this.cIdx = best; K.ws.forEach((w, i) => { w.style.opacity = i === best ? '1' : '0'; w.style.transform = i === best ? 'none' : (i < best ? 'translateY(-24px)' : 'translateY(24px)'); }); K.ds.forEach((d, i) => { d.style.opacity = i <= best ? '1' : '.25'; }); }
+    const now = performance.now();
+    K.it.forEach(x => {
+      const r0 = x.ar.getBoundingClientRect(); if (r0.bottom < -80 || r0.top > vh + 80) return;
+      const p = RD ? 1 : GW.clamp((vh * .95 - r0.top) / (vh * .55));
+      const k = E(p, 0, .7); x.w.style.clipPath = 'inset(0 0 ' + ((1 - k) * 100).toFixed(2) + '% 0)';
+      if (x.im) x.im.style.transform = 'scale(' + (1.1 - .1 * E(p, 0, 1)).toFixed(4) + ')';
+      if (x.to !== null && !RD) { if (!x.t0 && p > .55) x.t0 = now; if (x.t0) { const u = GW.ease(Math.min(1, (now - x.t0) / 1400)); const v = Math.round(x.to * u); const txt = v + x.rest; if (x.n.textContent !== txt) x.n.textContent = txt; } }
+    });
+    const M = this.m, r = M.pin.getBoundingClientRect();
+    if (r.bottom > -vh && r.top < vh * 2) {
+      const p = RD ? 1 : GW.clamp(-r.top / Math.max(1, r.height - vh));
+      const win = [[.03, .17], [.2, .33], [.37, .5]];
+      M.caps.forEach((c, i) => { const k = Math.min(E(p, win[i][0], win[i][0] + .03), 1 - E(p, win[i][1] - .03, win[i][1])); c.style.opacity = (RD ? 0 : k).toFixed(3); c.style.transform = 'translateY(' + ((1 - k) * 16).toFixed(1) + 'px)'; });
+      const st = E(p, .9, .97);
+      M.st.style.opacity = st.toFixed(3); M.st.style.transform = 'translateY(' + ((1 - st) * 28).toFixed(1) + 'px)';
+      M.shade.style.opacity = Math.max(st, ...M.caps.map(c => +c.style.opacity)).toFixed(3);
+    }
+
+    if (this.c.p && this.clen) {
+      const cr = this.c.wrap.getBoundingClientRect();
+      if (cr.bottom > 0 && cr.top < vh) {
+        const p = RD ? 1 : GW.clamp((vh * .85 - cr.top) / (vh * .75));
+        this.c.p.style.strokeDashoffset = (this.clen * (1 - E(p, 0, .8))).toFixed(1);
+        this.c.p.setAttribute('fill-opacity', E(p, .65, 1).toFixed(3));
+      }
+    }
+
+    (this.pr || []).forEach(x => {
+      const rr = x.r.getBoundingClientRect(); if (rr.bottom < -50 || rr.top > vh + 50) return;
+      const p = RD ? 1 : GW.clamp((vh * .82 - rr.top) / (vh * .42));
+      x.o.style.backgroundSize = (E(p, 0, .5) * 100).toFixed(1) + '% 1px';
+      x.o.style.opacity = (1 - .45 * E(p, .3, .6)).toFixed(3);
+      const k = E(p, .35, .85); x.n.style.opacity = k.toFixed(3); x.n.style.transform = 'translateY(' + ((1 - k) * 24).toFixed(1) + 'px)';
+    });
+    this.q.items.forEach((it, i) => {
+      const qr = it.getBoundingClientRect(); if (qr.bottom < -50 || qr.top > vh + 50) return;
+      const p = RD ? 1 : GW.clamp((vh * .72 - qr.top) / (vh * .32));
+      const tp = this.q.ticks[i]; tp.style.strokeDashoffset = (tp._l * (1 - E(p, .35, 1))).toFixed(2);
+      const ws = this.q.wds[i], n = ws.length; ws.forEach((w, j) => { w.style.opacity = (.16 + .84 * E(p * (n + 1) * .9 - j, 0, 1)).toFixed(3); });
+    });
+  }
+
+  renderVals() {
+    return {
+      verbs: ['DENKEN.', 'PLANEN.', 'BERATEN.', 'FERTIGEN.', 'BAUEN.'],
+      cats: [
+        { trig: 'uc1', img: 'assets/photos/weiss-tag.jpg', ph: '', a: 'UNSER', b: 'PRODUKT.', lead: 'Es gibt kein GRIFFNER Haus von der Stange. Jedes antwortet auf seinen Ort und auf die Menschen, die darin leben.', num: '0', numLabel: 'Hausmodelle', text: 'Keine tragenden Innenwände, bis zu 9,80 m Raumbreite ohne Wand. Der Grundriss folgt deinem Leben, nicht umgekehrt.' },
+        { trig: 'uc2', img: 'assets/photos/skizze.png', ph: '', a: 'UNSERE', b: 'PLANUNG.', lead: 'Andere geben dir einen Grundriss. Wir geben dir einen Stift.', num: '1', numLabel: 'Architekturteam im eigenen Haus', text: 'Profis entwerfen dein Haus frei, aus der Frage, wie du leben möchtest. Kein Katalog, keine Nummer.' },
+        { trig: 'uc3', img: 'assets/photos/strasse-003.jpg', ph: '', a: 'UNSERE', b: 'PROZESSE.', lead: 'Ein Ansprechpartner. Ein Festpreis. Ein Termin, der hält.', num: '10 Monate', numLabel: 'Bis zum Einzug', text: 'Ein Projektmanager begleitet dich vom ersten Gespräch bis zum Schlüssel. Du entscheidest, wir übernehmen die Komplexität dahinter.' },
+        { trig: 'uc4', img: '', ph: 'Platzhalter / Werk in Griffen', a: 'UNSERE', b: 'FERTIGUNG.', lead: 'Wir fertigen selbst. Weil wir Verantwortung nicht an der Werkstür abgeben.', num: '95 %', numLabel: 'Aus der eigenen Manufaktur', text: 'Unter Dach und auf den Millimeter, im Werk in Griffen. Was hier gelöst wird, muss auf deiner Baustelle nicht mehr gelöst werden.' },
+        { trig: 'uc5', img: 'assets/photos/wald-fassade.jpg', ph: '', a: 'UNSER', b: 'MINDSET.', lead: 'Wir dürfen widersprechen. Auch der Branche. Auch uns selbst.', num: '5', numLabel: 'Fragen, bevor etwas GRIFFNER verlässt', text: 'Wir machen nichts mehr so, nur weil es immer so gemacht wurde.' },
+        { trig: 'uc6', img: '', ph: 'Platzhalter / Team in Griffen', a: 'UNSER', b: 'TEAM.', lead: 'Die Menschen, die dein Haus entwerfen, kennen die Menschen, die es fertigen und aufbauen.', num: '[ZAHL]', numLabel: 'Menschen in Griffen', text: 'Architektur, Werk und Montage unter einem Dach. Eine Verantwortung, vom ersten Strich bis zum Schlüssel.' },
+        { trig: 'uc7', img: 'assets/photos/wohnen-dunkel.jpg', ph: '', a: 'UNSERE', b: 'KUNDEN.', lead: 'Sie kommen nicht mit einem Katalog. Sie kommen mit einer Vorstellung vom Leben.', num: '[ZAHL]', numLabel: 'Gebaute Häuser', text: 'Menschen, die wissen wollen, warum etwas so ist. Und die ein Haus suchen, das zu ihnen passt.' }
+      ],
+      proofs: [
+        { k: 'Grundriss', old: 'Tragende Innenwände. Jede Änderung kostet extra.', neu: 'Keine tragenden Innenwände. Der Grundriss folgt deinem Leben.', num: '9,80 m', numLabel: 'Raumbreite ohne Wand' },
+        { k: 'Entwurf', old: 'Ein Hausmodell aus dem Katalog.', neu: 'Jedes Haus wird neu entworfen, von unserem eigenen Architekturteam.', num: '0', numLabel: 'Hausmodelle' },
+        { k: 'Ansprechpartner', old: 'Viele Firmen, viele Schnittstellen.', neu: 'Ein Projektmanager vom ersten Schritt bis zum Schlüssel.', num: '1', numLabel: 'Ansprechpartner für alles' },
+        { k: 'Zeit und Preis', old: 'Endloses Warten und offene Kosten.', neu: 'Ein garantierter Festpreis und ein Termin, der hält.', num: '10 Monate', numLabel: 'Bis zum Einzug' },
+        { k: 'Fertigung', old: 'Gebaut im Regen, Teile von überall.', neu: 'Gefertigt unter Dach, im eigenen Werk in Griffen.', num: '95 %', numLabel: 'Aus der eigenen Manufaktur' },
+        { k: 'Wand', old: 'Dünne Wand mit Kunststoffdämmung.', neu: 'Die GRIFFNER Wand aus Holz, Holzfaser und Zellulose. Keine Folien.', num: '42,25 cm', numLabel: 'Wandstärke' },
+        { k: 'Raum', old: '2,50 m Raumhöhe.', neu: '2,72 m in jedem Raum, auf Wunsch 2,92 m.', num: '+22 cm', numLabel: 'Raumhöhe' }
+      ],
+      cols: [
+        { k: 'ARCHITEKTUR', v: 'Frei geplant, aus deinem Leben heraus. Kein Katalog, keine Nummer.' },
+        { k: 'WERK', v: 'In Griffen gefertigt, unter Dach und auf den Millimeter.' },
+        { k: 'BAUSTELLE', v: 'Von unseren eigenen Teams aufgebaut, bis zum Schlüssel.' }
+      ],
+      questions: [
+        { nr: '01', text: 'Erkennt man uns auch ohne Logo?', words: ['Erkennt','man','uns','auch','ohne','Logo?'] },
+        { nr: '02', text: 'Ist das besser, oder nur anders?', words: ['Ist','das','besser,','oder','nur','anders?'] },
+        { nr: '03', text: 'Was würden wir weglassen, wenn wir mutig wären?', words: ['Was','würden','wir','weglassen,','wenn','wir','mutig','wären?'] },
+        { nr: '04', text: 'Ist das unser Bestes, oder nur genug?', words: ['Ist','das','unser','Bestes,','oder','nur','genug?'] },
+        { nr: '05', text: 'Erzählst du davon, ohne dass wir dich bitten?', words: ['Erzählst','du','davon,','ohne','dass','wir','dich','bitten?'] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

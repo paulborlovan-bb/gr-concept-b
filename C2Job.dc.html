@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+
+<section id="j-hero" data-room="c-karriere" data-screen-label="01 Stelle" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:clamp(140px,22vh,220px) var(--page-margin) var(--section-pad-sm)">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(28px,4vh,48px)">
+    <div data-reveal="0" style="grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">
+      <a href="GRIFFNER%20Karriere.dc.html#stellen" style="color:inherit;text-decoration:none" style-hover="opacity:.64">← {{ d.back }}</a>
+      <span>{{ info }}</span>
+    </div>
+    <h1 data-reveal="80" style="grid-column:1 / span 8;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(36px,4.4vw,80px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ j.title }}</h1>
+    <div data-reveal="160" style="grid-column:{{ sideCol }};margin-top:clamp(16px,4vh,48px);display:grid;gap:18px;max-width:460px;align-content:start">
+      <span style="font-weight:600;font-size:var(--fs-text-web);line-height:1.3">{{ k.lead }}</span>
+      <sc-for list="{{ intro }}" as="p" hint-placeholder-count="3">
+        <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ p }}</p>
+      </sc-for>
+      <div style="margin-top:10px"><x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" arrow="{{ true }}" href="#bewerbung" hint-size="200px,32px">{{ f.submit }}</x-import></div>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ hasFacts }}" hint-placeholder-val="{{ true }}">
+  <section id="j-facts" data-room="c-karriere" data-screen-label="02 Das Wichtigste" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad-sm) var(--page-margin)">
+    <div data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px">
+      <h2 style="grid-column:{{ labelCol }};margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.15vw,18px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase">{{ j.factsHead }}</h2>
+      <div style="grid-column:{{ listCol }};border-top:1px solid var(--griffner-weiss)">
+        <sc-for list="{{ facts }}" as="x" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:6px 24px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--griffner-anthrazit)">
+            <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ x.label }}</span>
+            <span style="grid-column:span 2;font-size:clamp(16px,1.2vw,20px);line-height:1.4;font-variant-numeric:tabular-nums;text-wrap:pretty">{{ x.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<section id="j-detail" data-room="c-karriere" data-screen-label="03 Aufgaben" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad-sm) var(--page-margin) var(--section-pad)">
+  <div style="display:grid;gap:clamp(56px,9vh,104px)">
+    <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
+      <div data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px">
+        <h2 style="grid-column:{{ labelCol }};margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.15vw,18px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase;text-wrap:balance">{{ s.head }}</h2>
+        <ul style="grid-column:{{ listCol }};list-style:none;margin:0;padding:0;border-top:1px solid var(--griffner-weiss)">
+          <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4">
+            <li style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:6px 24px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--griffner-anthrazit)">
+              <span style="font-weight:600;font-size:var(--fs-text-web);line-height:1.3;text-wrap:balance">{{ it.b }}</span>
+              <span style="grid-column:{{ it.span }};font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ it.t }}</span>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </sc-for>
+    <sc-if value="{{ hasOutro }}" hint-placeholder-val="{{ true }}">
+      <div data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:24px;align-items:end">
+        <h2 style="grid-column:1 / span 7;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(32px,3.6vw,64px);line-height:1;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ j.outro.head }}</h2>
+        <p style="grid-column:{{ sideCol }};margin:0;max-width:460px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ j.outro.text }}</p>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<dc-import name="KarriereForm" job="{{ j.slug }}" hint-size="100%,720px"></dc-import>
+
+<section id="j-more" data-room="c-karriere" data-screen-label="05 Weitere Stellen" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:0 var(--page-margin) var(--section-pad)">
+  <div data-reveal="0" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px">
+    <span style="grid-column:{{ labelCol }};font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.15vw,18px);letter-spacing:.04em;text-transform:uppercase">{{ d.more }}</span>
+    <div style="grid-column:{{ listCol }};border-top:1px solid var(--griffner-weiss)">
+      <sc-for list="{{ more }}" as="m" hint-placeholder-count="3">
+        <a href="{{ m.href }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 32px;padding:clamp(18px,2.6vh,26px) 0;border-bottom:1px solid var(--griffner-anthrazit);color:inherit;text-decoration:none" style-hover="opacity:.64">
+          <span style="flex:1 1 320px;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.5vw,24px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase;font-feature-settings:'liga' 0">{{ m.title }} <span style="font-family:var(--font-text);font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);vertical-align:.2em">{{ k.mwd }}</span></span>
+          <span style="flex:0 0 auto;display:flex;gap:32px;align-items:baseline;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">
+            <span style="min-width:110px">{{ m.bereich }}</span>
+            <span style="min-width:170px">{{ m.art }}</span>
+            <span style="font-size:18px;letter-spacing:0">→</span>
+          </span>
+        </a>
+      </sc-for>
+      <a href="GRIFFNER%20Karriere.dc.html#stellen" style="display:inline-block;margin-top:28px;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px" style-hover="opacity:.64">{{ d.back }} →</a>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: typeof innerWidth === 'number' ? innerWidth : 1200 };
+  componentDidMount() {
+    this.onRes = () => this.setState({ w: innerWidth });
+    addEventListener('resize', this.onRes);
+    const go = () => window.GW && window.GRIFFNER_CONTENT && document.getElementById('j-more')
+      ? (this.forceUpdate(), GW.ready(() => ['j-hero', 'j-facts', 'j-detail', 'j-more'].forEach(id => { const s = document.getElementById(id); if (s) GW.reveal(s); })))
+      : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onRes); }
+  renderVals() {
+    const C = window.GRIFFNER_CONTENT || {}, k = C.karriere || {}, d = k.detail || {}, wide = this.state.w >= 900;
+    const jobs = k.jobs || [];
+    let slug = ''; try { slug = new URLSearchParams(location.search).get('job') || ''; } catch (e) {}
+    const j = jobs.find(x => x.slug === slug) || jobs[0] || {};
+    const lehre = j.group === 'lehre';
+    if (j.title && typeof document !== 'undefined') document.title = j.title + ' / Careers / GRIFFNER';
+    const sections = j.sections
+      ? j.sections.map(s => ({ head: s.head, items: s.items.map(([b, t]) => ({ b, t, span: 'span 2' })) }))
+      : [{ head: d.tasks, items: j.tasks || [] }, { head: d.profile, items: j.profile || [] }, { head: d.benefits, items: k.benefits || [] }]
+          .map(s => ({ head: s.head, items: s.items.map(t => ({ b: '', t, span: '1 / -1' })) }));
+    const others = jobs.filter(x => x.slug !== j.slug);
+    const more = [...others.filter(x => x.group === j.group), ...others.filter(x => x.group !== j.group)].slice(0, 3)
+      .map(x => ({ ...x, title: (x.group === 'lehre' ? 'Lehre ' : '') + x.title, href: 'GRIFFNER%20Job.dc.html?job=' + x.slug }));
+    return {
+      k, d, f: k.form || {},
+      j: { ...j, title: (lehre ? 'Lehre ' : '') + (j.title || ''), outro: j.outro || {} },
+      info: [j.bereich, k.ort, j.art, k.mwd].filter(Boolean).join(' / '),
+      intro: j.intro || k.sharedIntro || [],
+      hasFacts: !!(j.facts && j.facts.length), facts: (j.facts || []).map(([label, value]) => ({ label, value })),
+      hasOutro: !!j.outro,
+      sideCol: wide ? '8 / span 5' : '1 / -1',
+      labelCol: wide ? '1 / span 3' : '1 / -1',
+      listCol: wide ? '4 / -1' : '1 / -1',
+      sections, more
+    };
+  }
+}
+</script>
+</body>
+</html>

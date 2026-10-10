@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<div class="gri-sand" style="background:transparent;color:var(--griffner-schwarz)">
+<section id="ideas" data-room="architektur" data-screen-label="03 Architektur" style="position:relative;padding:clamp(140px,18vh,200px) var(--page-margin) 0">
+  <div data-amb="1" aria-hidden="true" style="position:absolute;top:clamp(110px,14vh,170px);left:35%;width:18%;height:clamp(150px,15vw,240px);pointer-events:none"></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px">
+    <h2 style="margin:0;display:grid;font-family:var(--font-display);font-weight:300;font-size:clamp(44px,5.6vw,104px);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0">
+      <sc-for list="{{ head }}" as="l" hint-placeholder-count="3"><span>{{ l }}</span></sc-for>
+    </h2>
+    <p style="margin:0 clamp(0px,6vw,120px) .3em 0;max-width:460px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ text }}</p>
+  </div>
+  <div data-pin="1" style="position:relative;height:300vh;margin:clamp(80px,13vh,152px) calc(-1 * var(--page-margin)) 0">
+  <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;box-sizing:border-box;padding:clamp(80px,11vh,110px) var(--page-margin) clamp(24px,4vh,40px);display:flex;flex-direction:column">
+  <div data-amb="1" aria-hidden="true" style="position:absolute;right:calc(var(--page-margin) + 4%);top:calc(clamp(80px,11vh,110px) + 64px);width:20%;height:22vh;pointer-events:none"></div>
+  <div style="padding-top:20px;border-top:1px solid var(--griffner-schwarz);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 32px">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px">
+      <h3 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ rowTitle }}</h3>
+      <span style="font-size:var(--fs-text-web);line-height:1.3">{{ rowSub }}</span>
+    </div>
+    <a href="{{ rowHref }}" style="display:flex;gap:10px;color:inherit;text-decoration:none;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>{{ rowLink }}</span><span>→</span></a>
+  </div>
+  <div style="flex:1;min-height:0;margin-top:clamp(20px,3vh,36px);container-type:size">
+  <div data-track="1" style="height:100%;display:flex;align-items:flex-start;gap:clamp(72px,9vw,168px);width:max-content;will-change:transform">
+    <figure style="flex:none;width:min(calc(min(62cqh, 100cqh - 90px) * .8),70vw);margin:0;align-self:flex-start;display:grid;gap:16px">
+      <div data-lux="1" style="width:100%;aspect-ratio:4 / 5;overflow:hidden;background:var(--griffner-schwarz)"><img src="{{ c0.img }}" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img></div>
+      <figcaption style="display:grid;gap:8px;max-width:100%">
+        <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ c0.name }}</span>
+        <span style="font-size:var(--fs-text-sm);line-height:1.4;max-width:34ch;text-wrap:pretty">{{ c0.text }}</span>
+      </figcaption>
+    </figure>
+    <figure style="flex:none;width:min(calc(min(44cqh, 100cqh - 90px) * 1.9),70vw);margin:0;align-self:flex-end;display:grid;gap:16px">
+      <div data-lux="1" style="width:100%;aspect-ratio:19 / 10;overflow:hidden;background:var(--griffner-schwarz)"><img src="{{ c1.img }}" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img></div>
+      <figcaption style="display:grid;gap:8px;max-width:100%">
+        <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ c1.name }}</span>
+        <span style="font-size:var(--fs-text-sm);line-height:1.4;max-width:34ch;text-wrap:pretty">{{ c1.text }}</span>
+      </figcaption>
+    </figure>
+    <div style="flex:none;align-self:center;width:min(440px,78vw);display:grid;gap:20px">
+      <p style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(28px,2.8vw,48px);line-height:.95;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ question }}</p>
+      <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ answer }}</p>
+    </div>
+    <figure style="flex:none;width:min(calc(min(66cqh, 100cqh - 90px) * .94),70vw);margin:0;align-self:flex-start;display:grid;gap:16px">
+      <div data-lux="1" style="width:100%;aspect-ratio:47 / 50;overflow:hidden;background:var(--griffner-schwarz)"><img src="{{ c2.img }}" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img></div>
+      <figcaption style="display:grid;gap:8px;max-width:100%">
+        <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ c2.name }}</span>
+        <span style="font-size:var(--fs-text-sm);line-height:1.4;max-width:34ch;text-wrap:pretty">{{ c2.text }}</span>
+      </figcaption>
+    </figure>
+    <figure style="flex:none;width:min(calc(min(48cqh, 100cqh - 90px) * 1.6),70vw);margin:0;align-self:center;display:grid;gap:16px">
+      <div data-lux="1" style="width:100%;aspect-ratio:8 / 5;overflow:hidden;background:var(--griffner-schwarz)"><img src="{{ c3.img }}" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img></div>
+      <figcaption style="display:grid;gap:8px;max-width:100%">
+        <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ c3.name }}</span>
+        <span style="font-size:var(--fs-text-sm);line-height:1.4;max-width:34ch;text-wrap:pretty">{{ c3.text }}</span>
+      </figcaption>
+    </figure>
+    <div aria-hidden="true" style="flex:none;width:1px"></div>
+  </div>
+  </div>
+  <div data-line="1" style="position:relative;flex:none;margin-top:clamp(24px,3.5vh,40px);height:1px;background:var(--griffner-schwarz)">
+    <div data-dock="box" data-pdock="1" aria-hidden="true" style="position:absolute;left:0;top:0;width:40px;height:32px;transform:translateY(-50%);pointer-events:none"></div>
+  </div>
+  </div>
+  </div>
+</section>
+<section id="proj" data-room="architektur" data-screen-label="03 Projects" style="position:relative;height:260vh">
+  <span id="proj-trig" aria-hidden="true" style="position:absolute;left:0;top:159vh;width:1px;height:1px"></span>
+  <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden">
+    <div style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:clamp(88px,12vh,120px);height:1px;background:var(--griffner-schwarz)">
+      <div data-dock="box" data-dock-solid="1" aria-hidden="true" style="position:absolute;right:0;top:0;width:clamp(40px,4.2vw,72px);aspect-ratio:5 / 4;transform:translateY(-50%);pointer-events:none"></div>
+    </div>
+    <h2 data-pq="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:calc(clamp(88px,12vh,120px) + clamp(40px,7vh,88px));max-width:11em;margin:0;font-size:min(clamp(38px,5.8vw,108px),11vh);font-family:var(--font-display);font-weight:300;line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ pQ }}</h2>
+    <a data-pimg="1" href="{{ pHref }}" style="position:absolute;inset:0;overflow:hidden;background:var(--griffner-anthrazit);color:var(--griffner-weiss);text-decoration:none;clip-path:inset(76% var(--page-margin) 0 var(--page-margin));will-change:clip-path;opacity:1;filter:none" style-hover="opacity:1;filter:none">
+      <img src="{{ pImg }}" alt="{{ pName }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%"></img>
+      <div style="position:absolute;inset:0 0 auto 0;height:50%;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0))"></div>
+      <h2 data-pa="1" style="position:absolute;left:var(--page-margin);right:var(--page-margin);top:clamp(96px,14vh,150px);max-width:10em;margin:0;font-size:min(clamp(34px,5vw,92px),10vh);opacity:0;font-family:var(--font-display);font-weight:300;line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ pA }}</h2>
+      <div data-dock="box" data-dock-trigger="proj-trig" aria-hidden="true" style="position:absolute;left:58%;bottom:0;width:clamp(48px,5vw,88px);aspect-ratio:5 / 4;transform:translateY(50%);pointer-events:none"></div>
+    </a>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = () => document.querySelector('#ideas [data-pin]') && window.GRIFFNER_CONTENT ? this.setup() : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { removeEventListener('scroll', this.tick); removeEventListener('resize', this.rs); this.ro && this.ro.disconnect(); cancelAnimationFrame(this.raf); }
+  setup() {
+    const root = document.getElementById('ideas');
+    this.pin = root.querySelector('[data-pin]'); this.t = root.querySelector('[data-track]'); this.line = root.querySelector('[data-line]'); this.dock = root.querySelector('[data-pdock]');
+    const pr = document.getElementById('proj');
+    this.P = { sec: pr, img: pr.querySelector('[data-pimg]'), q: pr.querySelector('[data-pq]'), a: pr.querySelector('[data-pa]'), bar: pr.querySelector('[data-pbar]') };
+    this.tick = () => { if (this.q) return; this.q = 1; this.raf = requestAnimationFrame(() => { this.q = 0; this.update(); }); };
+    this.rs = () => { this.size(); this.update(); };
+    addEventListener('scroll', this.tick, { passive: true });
+    addEventListener('resize', this.rs);
+    if (window.ResizeObserver) { this.ro = new ResizeObserver(this.rs); this.ro.observe(this.t); }
+    this.size(); this.update();
+  }
+  size() {
+    this.max = Math.max(0, this.t.scrollWidth - this.line.clientWidth);
+    const hgt = Math.round(innerHeight + this.max * 1.15);
+    if (this.pinH !== hgt) { this.pinH = hgt; this.pin.style.height = hgt + 'px'; if (window.ScrollTrigger) ScrollTrigger.refresh(); }
+  }
+  update() {
+    const r = this.pin.getBoundingClientRect(), run = r.height - innerHeight;
+    this.apply(run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0);
+    this.proj();
+  }
+  proj() {
+    const P = this.P; if (!P) return;
+    const r = P.sec.getBoundingClientRect(), run = r.height - innerHeight;
+    if (this.line) { const k = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .45))); this.line.style.background = 'rgba(0,0,0,' + (1 - k).toFixed(3) + ')'; }
+    const p = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
+    const seg = (x, s, e) => Math.min(1, Math.max(0, (x - s) / (e - s)));
+    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const g = ease(seg(p, .12, .58));
+    const m = parseFloat(getComputedStyle(P.q).left) || 24, H = innerHeight;
+    P.img.style.clipPath = 'inset(' + ((1 - g) * H * .76).toFixed(1) + 'px ' + ((1 - g) * m).toFixed(1) + 'px 0 ' + ((1 - g) * m).toFixed(1) + 'px)';
+    P.q.style.opacity = (1 - seg(p, .3, .5)).toFixed(3);
+    const ta = ease(seg(p, .58, .7));
+    P.a.style.opacity = ta.toFixed(3);
+    P.a.style.transform = 'translateY(' + ((1 - ta) * 16).toFixed(1) + 'px)';
+    if (P.bar) P.bar.style.transform = 'translateY(' + ((1 - ease(seg(p, .6, .7))) * 101).toFixed(1) + '%)';
+    const room = g > .6 ? 'projects' : 'architektur';
+    if (P.sec.dataset.room !== room) P.sec.dataset.room = room;
+  }
+  apply(p) {
+    this.p = p;
+    const W = this.line.clientWidth; if (!W) return;
+    this.t.style.transform = 'translate3d(' + (-p * (this.max || 0)).toFixed(1) + 'px,0,0)';
+    const w = Math.min(Math.max(W / 24, 40), 72), h = w * .8;
+    Object.assign(this.dock.style, { width: w.toFixed(1) + 'px', height: h.toFixed(1) + 'px', left: (p * (W - w)).toFixed(1) + 'px' });
+  }
+  renderVals() {
+    const A = (window.GRIFFNER_CONTENT || {}).architektur || {}, P = A.projects || {};
+    return { head: A.head || [], text: A.text, rowTitle: A.rowTitle, rowSub: A.rowSub, rowLink: A.rowLink, rowHref: A.rowHref || '#', c0: (A.concepts || [])[0] || {}, c1: (A.concepts || [])[1] || {}, c2: (A.concepts || [])[2] || {}, c3: (A.concepts || [])[3] || {}, question: A.question, answer: A.answer,
+      pLabel: P.label, pHead: P.head, pText: P.text, pLink: P.link, pHref: P.href || '#', pImg: P.img, pName: P.name, pInfo: P.info, pLead: P.lead, pAll: P.all, pAllHref: P.allHref || '#', pQ: P.q, pA: P.a };
+  }
+}
+</script>
+</body>
+</html>

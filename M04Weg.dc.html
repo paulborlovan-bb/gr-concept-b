@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="weg" data-room="weg" data-screen-label="04 Dein Weg zum Haus" class="gri-anthrazit" style="position:relative;background:transparent;color:var(--griffner-weiss)">
+  <div style="position:relative;padding:var(--section-pad) var(--page-margin) clamp(40px,8vh,96px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px clamp(32px,5vw,96px)">
+    <div data-amb="1" aria-hidden="true" style="position:absolute;top:calc(var(--section-pad) - 20px);left:46%;width:16%;height:clamp(140px,13vw,210px);pointer-events:none"></div>
+    <h2 style="margin:0;max-width:11em;font-family:var(--font-display);font-weight:300;font-size:var(--fs-headline-xl);line-height:.95;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ statement }}</h2>
+    <div style="display:grid;gap:clamp(20px,3vh,32px);max-width:400px;margin-bottom:.4em">
+      <p style="margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);color:var(--griffner-kalk);text-wrap:pretty">{{ text }}</p>
+      <a href="#dein-weg-zum-haus" style="display:flex;gap:10px;width:max-content;color:var(--griffner-weiss);text-decoration:none;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;transition:opacity 400ms var(--ease)" style-hover="opacity:.64"><span>Dein Weg zum Haus</span><span>→</span></a>
+    </div>
+  </div>
+  <div id="weg-proof" data-st="proof" style="position:relative;height:540vh">
+    <div style="position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;box-sizing:border-box;padding:clamp(96px,14vh,150px) var(--page-margin) clamp(32px,6vh,64px);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(12px,3vh,32px)">
+      <dc-import name="M04WegFilm" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+      <div data-wband="top" style="position:relative;z-index:1;display:flex;justify-content:space-between;align-items:start;gap:24px;flex-wrap:wrap;pointer-events:none">
+        <div style="display:flex;gap:clamp(16px,2.4vw,40px);flex-wrap:wrap">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <span data-pw="1" style="display:grid;gap:12px;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk);transition:color 700ms var(--ease)">
+              <span>{{ s.title }}</span>
+              <span style="display:block;width:clamp(64px,8vw,140px);height:1px;background:rgba(255,255,255,.24)"><span data-pfill="1" style="display:block;height:100%;background:var(--griffner-weiss);transform-origin:left;transform:scaleX(0)"></span></span>
+            </span>
+          </sc-for>
+        </div>
+        <span data-pcap="1" style="font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">Entwurf</span>
+      </div>
+      <div style="position:relative;min-height:0">
+        
+      </div>
+      <div data-wband="bot" style="position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px clamp(24px,5vw,96px);pointer-events:none">
+        <h2 aria-label="Design. Engineer. Make. Build." style="margin:0;display:grid;overflow:hidden;padding-bottom:.04em;font-family:var(--font-display);font-weight:300;font-size:min(clamp(40px,7.2vw,136px),13vh);line-height:1.04;letter-spacing:.02em;text-transform:uppercase;font-feature-settings:'liga' 0">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="0">
+            <span data-pword="1" aria-hidden="true" style="grid-area:1 / 1;display:flex">
+              <sc-for list="{{ s.chars }}" as="c" hint-placeholder-count="0">
+                <span data-pch="1" style="display:block;transform:translateY(110%);transition:transform 1000ms cubic-bezier(0.22,1,0.36,1)">{{ c }}</span>
+              </sc-for>
+            </span>
+          </sc-for>
+        </h2>
+        <div style="display:grid;flex:0 1 380px;padding-bottom:.6em">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="0">
+            <p data-ptext="1" style="grid-area:1 / 1;margin:0;font-size:var(--fs-text-web);line-height:var(--leading-body);color:var(--griffner-kalk);opacity:0;transform:translateY(24px);transition:opacity 900ms var(--ease),transform 1200ms var(--ease)">{{ s.text }}</p>
+          </sc-for>
+        </div>
+      </div>
+      <div data-dock="box" data-dock-solid="1" data-dock-trigger="weg-proof" data-wdock="1" aria-hidden="true" style="position:absolute;left:0;top:0;width:24px;height:19px;pointer-events:none"></div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const loop = () => { this.frame(); this.raf = requestAnimationFrame(loop); };
+    loop();
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  E(t) { t = Math.min(1, Math.max(0, t)); return 1 - Math.pow(1 - t, 4); }
+  cl(v, a = 0, b = 1) { return Math.min(b, Math.max(a, v)); }
+
+  frame() {
+    const el = document.querySelector('[data-st="proof"]'); if (!el) return;
+    const r = el.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < -vh || r.top > vh * 2) return;
+    const p = this.reduce ? 1 : this.cl(-r.top / Math.max(1, r.height - vh));
+    this.fProof(el, p);
+    this.fField(el, p);
+  }
+
+  fField(el, p) {
+    const D = el.querySelector('[data-wdock]'); if (!D || !D.offsetParent) return;
+    const st = D.offsetParent.getBoundingClientRect();
+    let t = null;
+    if (p < .88 || !this.proc) {
+      const idx = Math.min(3, Math.floor(p * 4)), f = el.querySelectorAll('[data-pfill]')[idx];
+      if (f) { const ln = f.parentNode.getBoundingClientRect(), k = this.cl(p * 4 - idx), sz = 24; t = { x: ln.left + (ln.width - sz) * k, y: ln.top - sz * .4, w: sz, h: sz * .8, key: 'l' + idx }; }
+    } else { const b = this.proc.panels.find(q => q.win).winEl.getBoundingClientRect(); t = { x: b.left, y: b.top, w: b.width, h: b.height, key: 'win' }; }
+    if (!t) return;
+    D.style.left = (t.x - st.left).toFixed(1) + 'px'; D.style.top = (t.y - st.top).toFixed(1) + 'px';
+    D.style.width = t.w.toFixed(1) + 'px'; D.style.height = t.h.toFixed(1) + 'px';
+    if (D.dataset.dockKey !== t.key) D.dataset.dockKey = t.key;
+    const hide = p > .9 ? '1' : '';
+    if (D.dataset.dockHide !== hide) D.dataset.dockHide = hide;
+  }
+
+  buildProc(svg) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const el = (t, at, par) => { const n = document.createElementNS(NS, t); for (const k in at) n.setAttribute(k, at[k]); par.appendChild(n); return n; };
+    const rn = v => { const l = Math.hypot(...v); return v.map(x => x / l); };
+    const mixH = (a, b, t) => { const A = [1, 3, 5].map(i => parseInt(a.substr(i, 2), 16)), B = [1, 3, 5].map(i => parseInt(b.substr(i, 2), 16)); return 'rgb(' + A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',') + ')'; };
+    const box = (w, t) => [[0, 0], [w, 0], [w, t], [0, t]];
+    const win = [[1.2, .5], [3.7, .5], [3.7, 2.5], [1.2, 2.5]];
+    const defs = [
+      { name: 'Bodenplatte', label: 1, slab: 1, o: [-5.4, 0, 3.4], u: [1, 0, 0], v: [0, 0, -1], n: [0, -1, 0], pts: box(10.8, 6.8), f: [0, 0], h: 6.8 },
+      { name: 'Außenwand', o: [5, 0, -3], u: [-1, 0, 0], v: [0, 1, 0], n: [0, 0, -1], pts: box(10, 3), holes: [[[3, 1], [7, 1], [7, 2.5], [3, 2.5]]], f: [10.6, 4.4], h: 3 },
+      { name: 'Seitenwand', o: [-5, 0, -3], u: [0, 0, 1], v: [0, 1, 0], n: [-1, 0, 0], pts: box(6, 3), f: [21.2, 4.4], h: 3 },
+      { name: 'Außenwand', o: [-5, 0, 3], u: [1, 0, 0], v: [0, 1, 0], n: [0, 0, 1], pts: box(10, 3), holes: [[[1, .2], [4.5, .2], [4.5, 2.7], [1, 2.7]], [[5.5, .2], [9, .2], [9, 2.7], [5.5, 2.7]]], f: [0, 4.4], h: 3 },
+      { name: 'Seitenwand', o: [5, 0, 3], u: [0, 0, -1], v: [0, 1, 0], n: [1, 0, 0], pts: box(6, 3), f: [21.8, 8.8], h: 3 },
+      { name: 'Außenwand', o: [6.5, 3, -3.8], u: [-1, 0, 0], v: [0, 1, 0], n: [0, 0, -1], pts: box(13, 3), holes: [[[1.5, 1], [11.5, 1], [11.5, 2.2], [1.5, 2.2]]], f: [13.6, 0], h: 3 },
+      { name: 'Seitenwand', o: [-6.5, 3, -3.8], u: [0, 0, 1], v: [0, 1, 0], n: [-1, 0, 0], pts: box(7.6, 3), holes: [[[2, .8], [5.6, .8], [5.6, 2.4], [2, 2.4]]], f: [13.6, 8.8], h: 3 },
+      { name: 'Außenwand', label: 1, front: 1, o: [-6.5, 3, 3.8], u: [1, 0, 0], v: [0, 1, 0], n: [0, 0, 1], pts: box(13, 3), holes: [win, [[5.4, .6], [12, .6], [12, 2.5], [5.4, 2.5]]], win, f: [0, 0], h: 3 },
+      { name: 'Seitenwand', label: 1, side: 1, o: [6.5, 3, 3.8], u: [0, 0, -1], v: [0, 1, 0], n: [1, 0, 0], pts: box(7.6, 3), f: [13.6, 13.2], h: 3 },
+      { name: 'Dach', label: 1, roof: 1, o: [-6.5, 6, 3.8], u: [1, 0, 0], v: [0, 0, -1], n: [0, 1, 0], pts: box(13, 7.6), f: [0, 8.8], h: 7.6 }
+    ];
+    defs.forEach((P, i) => { P.ord = i; P.st = i * 6 / (defs.length - 1); });
+    this.plan = [27.8, 16.4];
+    const L = rn([.35, .7, 1]);
+    svg.innerHTML = '';
+    const gp = el('g', {}, svg), top = el('g', {}, svg);
+    const panels = defs.map(P => {
+      const xs = P.pts.map(q => q[0]), ys = P.pts.map(q => q[1]);
+      P.cu = (Math.min(...xs) + Math.max(...xs)) / 2; P.cv = (Math.min(...ys) + Math.max(...ys)) / 2;
+      const d = Math.max(0, P.n[0] * L[0] + P.n[1] * L[1] + P.n[2] * L[2]);
+      P.shade = P.slab ? '#000000' : P.roof ? mixH('#000000', '#444442', d) : mixH('#444442', '#CACACA', .2 + .8 * d);
+      P.holes = P.holes || [];
+      P.g = el('g', {}, gp);
+      P.fill = el('polygon', { fill: '#CACACA', 'fill-opacity': '0', stroke: 'none' }, P.g);
+      P.layers = [0, 1].map(() => el('polygon', { fill: 'none', stroke: '#CACACA', 'stroke-width': '.8' }, P.g));
+      P.edges = P.pts.map(() => [el('line', { stroke: '#FFFFFF', 'stroke-width': '1.2', 'stroke-linecap': 'round' }, P.g), el('line', { stroke: '#FFFFFF', 'stroke-width': '.7', 'stroke-linecap': 'round' }, P.g)]);
+      P.jit = P.pts.map((q, i) => ((P.ord * 7 + i * 13) % 5 - 2) * .045 + .03);
+      P.holeEls = P.holes.map(() => el('polygon', { fill: '#000000', 'fill-opacity': '0', stroke: '#FFFFFF', 'stroke-width': '1' }, P.g));
+      if (P.win) P.winEl = el('polygon', { fill: 'none', stroke: 'none' }, P.g);
+      P.lab = el('text', { fill: '#FFFFFF', 'font-family': 'Ofelia Text', 'font-weight': '500', 'font-size': '10', 'letter-spacing': '2.2', 'text-anchor': 'middle' }, P.g);
+      P.lab.style.opacity = '0';
+      return P;
+    });
+    const ln = () => el('line', { stroke: '#CACACA', 'stroke-width': '1' }, top);
+    const tx = (anchor) => el('text', { fill: '#CACACA', 'font-family': 'Ofelia Text', 'font-weight': '500', 'font-size': '10', 'letter-spacing': '2', 'text-anchor': anchor }, top);
+    const dims = { h: [ln(), ln(), ln()], v: [ln(), ln(), ln()], ht: tx('middle'), vt: tx('start'), g: top };
+    dims.ht.textContent = '13,00'; dims.vt.textContent = '6,00';
+    const scan = el('line', { stroke: '#FFFFFF', 'stroke-width': '1.4' }, top);
+    this.proc = { panels, gp, top, dims, scan, key: '' };
+  }
+
+  fProof(el, p) {
+    const idx = Math.min(3, Math.floor(p * 4));
+    if (this.pIdx !== idx) {
+      this.pIdx = idx;
+      el.querySelectorAll('[data-ptext]').forEach((t, i) => { t.style.opacity = i === idx ? '1' : '0'; t.style.transform = i === idx ? 'none' : (i < idx ? 'translateY(-24px)' : 'translateY(24px)'); });
+      el.querySelectorAll('[data-pw]').forEach((w, i) => { w.style.color = i === idx ? '#FFFFFF' : ''; });
+      el.querySelectorAll('[data-pword]').forEach((w, i) => w.querySelectorAll('[data-pch]').forEach((c, j) => { c.style.transitionDelay = (j * 38 + (i === idx ? 160 : 0)) + 'ms'; c.style.transform = i === idx ? 'none' : (i < idx ? 'translateY(-110%)' : 'translateY(110%)'); }));
+      const cap = el.querySelector('[data-pcap]'); if (cap) cap.textContent = ['Entwurf', 'Konstruktion', 'Fertigung in Griffen', 'Montage'][idx];
+    }
+    el.querySelectorAll('[data-pfill]').forEach((b, i) => { b.style.transform = 'scaleX(' + this.cl(p * 4 - i).toFixed(3) + ')'; });
+    const svg = el.querySelector('[data-proc]'); if (!svg) return;
+    if (!this.proc || !svg.firstChild) this.buildProc(svg);
+    const r = svg.getBoundingClientRect(), W = r.width, H = r.height; if (!W || !H) return;
+    svg.setAttribute('viewBox', `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
+    const mob = W < 600;
+    if (mob !== this.mob) { this.mob = mob; svg.querySelectorAll('line,polygon').forEach(n => { const w = parseFloat(n.getAttribute('stroke-width')); if (w) n.style.strokeWidth = mob ? (w * 1.4).toFixed(2) : ''; }); }
+    const E = x => this.E(x), cl = x => this.cl(x), F = n => n.toFixed(1);
+    const tl = E((p - .09) / .16), yS = Math.max(.001, E((p - .12) / .13));
+    const th = (-64 * tl + 30 * E(p)) * Math.PI / 180, ph = (88 - 64 * tl) * Math.PI / 180;
+    const ct = Math.cos(th), st = Math.sin(th), cp = Math.cos(ph), sp = Math.sin(ph);
+    const s = (mob ? Math.min(W / 14.5, H / 12) : Math.min(W / 19, H / 13.5)) * (1 + .1 * E((p - .8) / .2)), cx = W / 2, cy = H * .56;
+    const proj = q => { const y = q[1] * yS, x1 = q[0] * ct + q[2] * st, z1 = -q[0] * st + q[2] * ct; return [cx + s * x1, cy - s * (y * cp - z1 * sp - 3 * cp), z1 * cp + y * sp]; };
+    const PW = this.plan[0], PH = this.plan[1], sf = Math.min(W * (mob ? .99 : .94) / PW, H * .92 / PH), fx0 = (W - PW * sf) / 2, fy0 = (H - PH * sf) / 2;
+    const ov = 1 - E((p - .25) / .1), e2 = E((p - .33) / .1), fillK = E((p - .86) / .08), lineOp = 1 - .8 * fillK;
+    const scanX = fx0 + cl((p - .6) / .13) * PW * sf, scanOp = E((p - .58) / .03) * (1 - E((p - .74) / .03));
+    const setL = (l, A, B, o) => { l.setAttribute('x1', F(A[0])); l.setAttribute('y1', F(A[1])); l.setAttribute('x2', F(B[0])); l.setAttribute('y2', F(B[1])); l.style.opacity = o.toFixed(3); };
+    const order = [];
+    this.proc.panels.forEach(P => {
+      const b = E((p - .76 - P.st * .022) / .1);
+      const ex = E((p - .27) / .15) * (1 - b) * 1.8; P.ex = ex;
+      const mk = P.slab ? 0 : E((p - .5 - P.st * .012) / .12) * (1 - b);
+      const S = (u, v, o = 0) => {
+        const a = proj([0, 1, 2].map(k => P.o[k] + P.u[k] * u + P.v[k] * v + P.n[k] * (ex - o)));
+        if (mk <= 0) return a;
+        const fx = fx0 + (P.f[0] + u) * sf, fy = fy0 + (P.f[1] + P.h - v) * sf;
+        return [a[0] + (fx - a[0]) * mk, a[1] + (fy - a[1]) * mk, a[2]];
+      };
+      const poly = (arr, o) => arr.map(q => { const t = S(q[0], q[1], o); return F(t[0]) + ',' + F(t[1]); }).join(' ');
+      const c = S(P.cu, P.cv); order.push([c[2], P]);
+      P.g.style.opacity = (P.slab ? cl(1 - E((p - .5) / .06) + E((p - .75) / .05)) : 1).toFixed(3);
+      if (fillK > .001) { P.fill.setAttribute('fill', P.shade); P.fill.setAttribute('fill-opacity', fillK.toFixed(3)); }
+      else { const sc = mk > .5 && fx0 + (P.f[0] + P.cu) * sf < scanX ? 1 : 0; P.fill.setAttribute('fill', '#CACACA'); P.fill.setAttribute('fill-opacity', (.12 * sc * mk).toFixed(3)); }
+      P.fill.setAttribute('points', poly(P.pts));
+      const n = P.pts.length, ext = ov * .7;
+      P.edges.forEach((pair, i) => {
+        const a = P.pts[i], q = P.pts[(i + 1) % n], dx = q[0] - a[0], dy = q[1] - a[1], len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len;
+        const dr = E((p - .02 - P.st * .02 - i * .008) / .1), A = S(a[0] - ux * ext, a[1] - uy * ext), B = S(q[0] + ux * ext, q[1] + uy * ext);
+        setL(pair[0], A, [A[0] + (B[0] - A[0]) * dr, A[1] + (B[1] - A[1]) * dr], lineOp);
+        const j = P.jit[i], e3 = ext * 1.35, dr2 = E((p - .05 - P.st * .02 - i * .008) / .1);
+        const A2 = S(a[0] - ux * e3 - uy * j, a[1] - uy * e3 + ux * j), B2 = S(q[0] + ux * e3 - uy * j, q[1] + uy * e3 + ux * j);
+        setL(pair[1], A2, [A2[0] + (B2[0] - A2[0]) * dr2, A2[1] + (B2[1] - A2[1]) * dr2], .45 * ov);
+      });
+      const lo = .2 + 1.1 * E((p - .3) / .12) * (1 - mk);
+      P.layers.forEach((pl, k) => { pl.setAttribute('points', poly(P.pts, lo * (k + 1))); pl.style.opacity = (P.slab ? 0 : E((p - .05 - P.st * .02) / .1) * (1 - mk) * (1 - fillK) * .6).toFixed(3); });
+      const hd = E((p - .14 - P.st * .01) / .08);
+      P.holeEls.forEach((he, k) => { he.setAttribute('points', poly(P.holes[k])); he.style.strokeOpacity = (hd * lineOp).toFixed(3); he.setAttribute('fill-opacity', fillK.toFixed(3)); });
+      if (P.winEl) P.winEl.setAttribute('points', poly(P.win));
+      const lp = mk > .5 ? S(P.cu, P.h + .5) : c;
+      P.lab.setAttribute('x', F(lp[0])); P.lab.setAttribute('y', F(lp[1] + (mk > .5 ? 0 : 4)));
+      P.lab.textContent = (mk > .5 ? 'Element ' + String(P.ord).padStart(2, '0') : P.name).toUpperCase();
+      P.lab.style.opacity = ((mk > .5 ? (mob ? 0 : (mk - .5) * 2) : (P.label ? e2 : 0) * cl(1 - mk * 2)) * (1 - b) * (1 - fillK)).toFixed(3);
+    });
+    order.sort((x, y) => x[0] - y[0]);
+    const key = order.map(o => o[1].ord).join();
+    if (key !== this.proc.key) { this.proc.key = key; order.forEach(o => this.proc.gp.appendChild(o[1].g)); }
+    const Pf = this.proc.panels.find(q => q.front), Pg = this.proc.panels.find(q => q.side), D = this.proc.dims;
+    const dop = e2 * (1 - E((p - .5) / .06)), tk = 5;
+    const hA = proj([-6.5, 0, 3.8 + Pf.ex + 1.4]), hB = proj([6.5, 0, 3.8 + Pf.ex + 1.4]);
+    setL(D.h[0], hA, hB, dop); setL(D.h[1], [hA[0] - tk, hA[1] + tk], [hA[0] + tk, hA[1] - tk], dop); setL(D.h[2], [hB[0] - tk, hB[1] + tk], [hB[0] + tk, hB[1] - tk], dop);
+    D.ht.setAttribute('x', F((hA[0] + hB[0]) / 2)); D.ht.setAttribute('y', F((hA[1] + hB[1]) / 2 + 22)); D.ht.style.opacity = dop.toFixed(3);
+    const vA = proj([6.5 + Pg.ex + 1.4, 0, 0]), vB = proj([6.5 + Pg.ex + 1.4, 6, 0]);
+    setL(D.v[0], vA, vB, dop); setL(D.v[1], [vA[0] - tk, vA[1] + tk], [vA[0] + tk, vA[1] - tk], dop); setL(D.v[2], [vB[0] - tk, vB[1] + tk], [vB[0] + tk, vB[1] - tk], dop);
+    D.vt.setAttribute('x', F((vA[0] + vB[0]) / 2 + 14)); D.vt.setAttribute('y', F((vA[1] + vB[1]) / 2 + 4)); D.vt.style.opacity = dop.toFixed(3);
+    setL(this.proc.scan, [scanX, fy0 - 14], [scanX, fy0 + PH * sf + 14], scanOp);
+  }
+
+  renderVals() {
+    const W = (window.GRIFFNER_CONTENT || {}).weg || {};
+    return {
+      statement: W.statement, text: W.text,
+      steps: [
+        { title: 'Design.', text: 'Du erzählst uns, wie du leben möchtest. Unser Architekturteam macht daraus dein Haus.' },
+        { title: 'Engineer.', text: 'Wir denken jedes Detail durch und stimmen Architektur, Konstruktion und Technik aufeinander ab. Die Komplexität bleibt bei uns.' },
+        { title: 'Make.', text: 'Wir fertigen dein Haus im eigenen Werk in Griffen. Präzise geplant, sorgfältig gefertigt und bereit für die Montage.' },
+        { title: 'Build.', text: 'Unsere eigenen Teams bringen dein Haus auf dein Grundstück. Wir koordinieren die Umsetzung, du musst es nicht.' }
+      ].map(s => ({ ...s, chars: [...s.title] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

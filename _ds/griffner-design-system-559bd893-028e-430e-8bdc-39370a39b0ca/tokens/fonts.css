@@ -1,0 +1,25 @@
+/* GRIFFNER, Ofelia Display + Ofelia Text. 24 Schnitte, Umlaute und ß geprüft. Lizenz separat. */
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Thin.otf") format("opentype");font-weight:100;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-ThinItalic.otf") format("opentype");font-weight:100;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Extralight.otf") format("opentype");font-weight:200;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-ExtralightItalic.otf") format("opentype");font-weight:200;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-LightItalic.otf") format("opentype");font-weight:300;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Italic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-MediumItalic.otf") format("opentype");font-weight:500;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-BoldItalic.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-Extrabold.otf") format("opentype");font-weight:800;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Display";src:url("../fonts/OfeliaDisplay-ExtraboldItalic.otf") format("opentype");font-weight:800;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-LightItalic.otf") format("opentype");font-weight:300;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Italic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-MediumItalic.otf") format("opentype");font-weight:500;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Semibold.otf") format("opentype");font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-SemiboldItalic.otf") format("opentype");font-weight:600;font-style:italic;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Ofelia Text";src:url("../fonts/OfeliaText-BoldItalic.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap;}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<header data-header="1" style="position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:12px;padding:20px var(--page-margin) 0;color:var(--header-ink);transition:color var(--dur-small) var(--ease), padding var(--dur-small) var(--ease), transform var(--dur-small) var(--ease);pointer-events:none">
+  <button data-hside="1" onClick="{{ toggle }}" onMouseEnter="{{ hovOn }}" onMouseLeave="{{ hovOff }}" aria-expanded="{{ menuOpen }}" style="opacity:0;transition:opacity var(--dur-big) var(--ease) 250ms;pointer-events:auto;justify-self:start;margin:-16px 0 0;background:none;border:0;padding:16px 0;line-height:11.2px;color:inherit;cursor:pointer;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;display:flex;align-items:center;gap:14px"><span aria-hidden="true" style="position:relative;display:block;width:28px;height:8px"><span style="position:absolute;left:0;top:0;display:block;height:1px;background:currentColor;transform-origin:50% 50%;width:{{ l1w }};transform:{{ l1t }};transition:width var(--dur-small) var(--ease), transform var(--dur-small) var(--ease)"></span><span style="position:absolute;left:0;top:7px;display:block;height:1px;background:currentColor;transform-origin:50% 50%;width:{{ l2w }};transform:{{ l2t }};transition:width var(--dur-small) var(--ease), transform var(--dur-small) var(--ease)"></span></span><span>{{ menuLabel }}</span></button>
+  <a href="#top" aria-label="GRIFFNER Startseite" style="pointer-events:auto;display:grid;width:90px;gap:7px;opacity:0;transition:opacity var(--dur-small) var(--ease), gap var(--dur-small) var(--ease)" data-logo="1">
+    <div data-dock="home" style="width:90px;height:72px;background:transparent;transition:height var(--dur-small) var(--ease)"></div>
+    <div data-wm="1" style="color:inherit;height:11.2px">
+      <svg viewBox="0 878.45 1000 127.11" role="img" aria-label="GRIFFNER" style="display:block;width:90px;height:auto"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"></path></svg>
+    </div>
+  </a>
+  <a data-hside="1" href="{{ ctaHref }}" style="opacity:0;transition:opacity var(--dur-big) var(--ease) 400ms;pointer-events:auto;justify-self:end;margin-top:-16px;padding:16px 0 6px;line-height:11.2px;border-bottom:1px solid currentColor;white-space:nowrap;font-family:var(--font-text);font-weight:500;font-size:{{ ctaSize }};letter-spacing:{{ ctaTrack }};text-transform:uppercase" style-hover="opacity:.64">{{ cta }}</a>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, w: innerWidth };
+  componentDidMount() {
+    this.onMenu = e => this.setState({ menuOpen: e.detail.open }, () => this.paint());
+    this.onRes = () => this.setState({ w: innerWidth });
+    addEventListener('griffner:menu-state', this.onMenu);
+    addEventListener('resize', this.onRes);
+    this.onDate = () => this.forceUpdate(); addEventListener('griffner:date', this.onDate);
+    this.lastY = scrollY;
+    this.onScroll = () => this.band();
+    addEventListener('scroll', this.onScroll, { passive: true });
+    this.band();
+    this.onIntro = () => this.paint();
+    this.onReplay = () => { document.querySelectorAll('[data-logo],[data-hside]').forEach(e => e.style.opacity = '0'); };
+    addEventListener('griffner:intro', this.onIntro);
+    addEventListener('griffner:replay', this.onReplay);
+    const go = () => window.GW ? (GW.introDone && this.paint()) : setTimeout(go, 40);
+    go();
+  }
+  componentWillUnmount() { removeEventListener('griffner:menu-state', this.onMenu); removeEventListener('resize', this.onRes); removeEventListener('griffner:date', this.onDate); removeEventListener('scroll', this.onScroll); removeEventListener('griffner:intro', this.onIntro); removeEventListener('griffner:replay', this.onReplay); }
+  band() {
+    const hd = document.querySelector('[data-header]'), logo = document.querySelector('[data-logo]'), f = document.querySelector('[data-dock="home"]');
+    if (!hd || !logo || !f) return;
+    const y = scrollY, dy = y - this.lastY, open = this.state.menuOpen;
+    const compact = y > 80 && !open;
+    if (Math.abs(dy) > 6 || y < 80 || open) {
+      this.hidden = compact && dy > 0 && y > innerHeight * .5;
+      this.lastY = y;
+    }
+    hd.style.paddingTop = compact ? '6px' : '20px';
+    f.style.height = compact ? '0px' : '72px';
+    logo.style.gap = compact ? '0px' : '7px';
+    hd.style.transform = this.hidden && !open ? 'translateY(-110%)' : 'none';
+  }
+  paint() {
+    this.band();
+    const logo = document.querySelector('[data-logo]');
+    const on = GW.introDone ? '1' : '0';
+    if (logo) logo.style.opacity = on;
+    document.querySelectorAll('[data-hside]').forEach(e => e.style.opacity = on);
+    const f = document.querySelector('[data-dock="home"]');
+    if (f) f.style.background = this.state.menuOpen ? 'var(--griffner-gelb)' : 'transparent';
+  }
+  renderVals() {
+    const C = (window.GRIFFNER_CONTENT || {}).header || {};
+    const narrow = this.state.w < 600;
+    const S = (window.GRIFFNER_CONTENT || {}).season, G = window.GW;
+    let chapter = '';
+    if (S && G && G.today() <= S.hideAfter && !this.state.menuOpen) {
+      const op = S.chapters.filter(c => G.isOpen(c.iso)); chapter = (op[op.length - 1] || S.chapters[0]).nr + '/05';
+    }
+    const op = this.state.menuOpen, hv = this.state.hov;
+    return {
+      chapter,
+      l1w: op ? '22px' : '28px', l2w: op ? '22px' : (hv ? '28px' : '16px'),
+      l1t: op ? 'translate(3px,3.5px) rotate(45deg)' : 'none',
+      l2t: op ? 'translate(3px,-3.5px) rotate(-45deg)' : 'none',
+      hovOn: () => this.setState({ hov: true }), hovOff: () => this.setState({ hov: false }),
+      menuOpen: this.state.menuOpen ? 'true' : 'false',
+      menuLabel: this.state.menuOpen ? C.close : C.menu,
+      cta: C.cta, ctaHref: C.ctaHref || '#kontakt',
+      ctaSize: narrow ? '10px' : 'var(--fs-info-web)',
+      ctaTrack: narrow ? '.12em' : 'var(--tracking-info-web)',
+      toggle: () => dispatchEvent(new CustomEvent('griffner:menu-toggle'))
+    };
+  }
+}
+</script>
+</body>
+</html>

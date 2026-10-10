@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+
+<section id="b-hero" data-room="b-hero" data-screen-label="01 Beitrag" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:clamp(140px,22vh,220px) var(--page-margin) 0">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(24px,4vh,40px)">
+    <a href="GRIFFNER%20News.dc.html" data-reveal="0" style="grid-column:1 / -1;justify-self:start;display:flex;gap:10px;color:inherit;text-decoration:none;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>←</span><span>Alle News</span></a>
+    <span data-reveal="0" style="grid-column:1 / -1;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums">{{ a.date }}</span>
+    <h1 data-reveal="80" style="grid-column:1 / span 9;margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(36px,4.4vw,80px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ a.title }}</h1>
+  </div>
+  <div data-dock="edge" data-dock-x=".72" style="margin-top:clamp(48px,8vh,96px);position:relative;aspect-ratio:16 / 9;max-height:86vh;overflow:hidden;background:var(--griffner-anthrazit)">
+    <img src="{{ a.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></img>
+  </div>
+</section>
+
+<section id="b-text" data-room="b-text" data-screen-label="02 Text" style="position:relative;background:transparent;color:var(--griffner-schwarz);padding:var(--section-pad) var(--page-margin)">
+  <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:clamp(48px,7vh,72px);align-items:start">
+    <aside style="grid-column:{{ metaCol }};position:{{ metaPos }};top:clamp(96px,14vh,140px);display:grid;border-bottom:1px solid var(--griffner-kalk)">
+      <sc-for list="{{ meta }}" as="m" hint-placeholder-count="3">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:14px 0;border-top:1px solid var(--griffner-kalk);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums">
+          <span>{{ m.k }}</span><span>{{ m.v }}</span>
+        </div>
+      </sc-for>
+      <button type="button" onClick="{{ share }}" style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border:0;border-top:1px solid var(--griffner-kalk);background:transparent;color:inherit;cursor:pointer;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;text-align:left" style-hover="opacity:.64"><span>{{ shareLabel }}</span><span>→</span></button>
+    </aside>
+
+    <div style="grid-column:{{ bodyCol }};display:grid;gap:clamp(40px,6vh,64px);max-width:720px">
+      <p style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(22px,2vw,32px);line-height:1.35;letter-spacing:0;text-wrap:pretty">{{ lead }}</p>
+      <sc-for list="{{ intro }}" as="tx" hint-placeholder-count="1">
+        <p style="margin:0;font-size:clamp(16px,1.15vw,18px);line-height:1.6;text-wrap:pretty">{{ tx }}</p>
+      </sc-for>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
+        <div style="display:grid;gap:20px">
+          <h2 style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(26px,2.4vw,40px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ s.head }}</h2>
+          <sc-if value="{{ s.hasSub }}" hint-placeholder-val="{{ true }}">
+            <p style="margin:0;font-weight:600;font-size:clamp(17px,1.3vw,20px);line-height:1.3;text-wrap:pretty">{{ s.sub }}</p>
+          </sc-if>
+          <p style="margin:0;font-size:clamp(16px,1.15vw,18px);line-height:1.6;text-wrap:pretty">{{ s.text }}</p>
+          <sc-if value="{{ s.hasQuote }}" hint-placeholder-val="{{ true }}">
+            <figure style="margin:20px 0 0;padding-top:28px;border-top:1px solid var(--griffner-kalk);display:grid;gap:18px">
+              <blockquote style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(20px,1.8vw,28px);line-height:1.4;text-wrap:pretty">{{ s.quote }}</blockquote>
+              <figcaption style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ s.by }}</figcaption>
+            </figure>
+          </sc-if>
+        </div>
+      </sc-for>
+      <sc-if value="{{ hasLink }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ link.href }}" target="_blank" rel="noopener" style="justify-self:start;display:flex;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--griffner-schwarz);color:inherit;text-decoration:none;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>{{ link.label }}</span><span>↗</span></a>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="b-mehr" data-room="b-mehr" data-screen-label="03 Weiterlesen" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad) var(--page-margin)">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
+    <h2 data-reveal="0" style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(32px,3.6vw,64px);line-height:1;letter-spacing:0;text-transform:uppercase;font-feature-settings:'liga' 0">Weiterlesen.</h2>
+    <a href="GRIFFNER%20News.dc.html" style="display:flex;gap:10px;color:inherit;text-decoration:none;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64"><span>Alle News</span><span>→</span></a>
+  </div>
+  <div style="margin-top:clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(40px,6vh,64px) var(--gap-col)">
+    <sc-for list="{{ more }}" as="n" hint-placeholder-count="3">
+      <a href="{{ n.href }}" style="display:grid;gap:16px;align-content:start;color:inherit;text-decoration:none">
+        <span style="position:relative;display:block;aspect-ratio:4 / 3;overflow:hidden;background:var(--griffner-anthrazit)">
+          <img src="{{ n.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)" style-hover="transform:scale(1.03)"></img>
+        </span>
+        <span style="display:grid;gap:10px">
+          <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums">{{ n.date }}</span>
+          <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.15;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:pretty">{{ n.title }}</span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { wide: true, copied: false };
+  componentDidMount() {
+    this.onR = () => { const w = innerWidth >= 900; if (w !== this.state.wide) this.setState({ wide: w }); };
+    addEventListener('resize', this.onR); this.onR();
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onR); clearTimeout(this.ct); }
+  renderVals() {
+    const P = (window.GRIFFNER_CONTENT || {}).newsPage || {};
+    const all = P.items || [];
+    const slug = new URLSearchParams(location.search).get('b') || 'neue-kampagne-hausbau-geht-besser';
+    const a = all.find(i => i.slug === slug) || all[0] || {};
+    const body = (P.articles || {})[a.slug] || null;
+    const sections = (body ? body.sections : []).map(s => ({ ...s, hasSub: !!s.sub, hasQuote: !!s.quote }));
+    const words = [body ? body.lead : a.teaser, ...(body ? body.intro : []), ...sections.map(s => [s.sub, s.text, s.quote].join(' '))].join(' ').split(/\s+/).length;
+    const base = 'GRIFFNER%20News%20Beitrag.dc.html?b=';
+    const idx = all.indexOf(a);
+    const more = [1, 2, 3].map(k => all[(idx + k) % all.length]).filter(Boolean).map(n => ({ ...n, href: base + n.slug }));
+    const wide = this.state.wide;
+    return {
+      a, lead: body ? body.lead : a.teaser, intro: body ? body.intro : [],
+      sections, hasLink: !!(body && body.link) || !body, link: body && body.link ? body.link : { label: 'Beitrag auf griffner.com', href: a.src },
+      meta: [{ k: 'Datum', v: a.date }, { k: 'Lesezeit', v: Math.max(1, Math.round(words / 200)) + ' Min.' }],
+      shareLabel: this.state.copied ? 'Link kopiert' : 'Link teilen',
+      share: () => { try { navigator.clipboard.writeText(location.href); } catch (e) {} this.setState({ copied: true }); clearTimeout(this.ct); this.ct = setTimeout(() => this.setState({ copied: false }), 2400); },
+      more,
+      metaCol: wide ? '1 / span 3' : '1 / -1', metaPos: wide ? 'sticky' : 'static', bodyCol: wide ? '5 / span 7' : '1 / -1'
+    };
+  }
+}
+</script>
+</body>
+</html>

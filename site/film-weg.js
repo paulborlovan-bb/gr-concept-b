@@ -1,0 +1,279 @@
+// Automatisch erzeugt aus M04WegFilm.dc.html durch tools/export-films.py. Nicht von Hand bearbeiten.
+const cl = x => Math.max(0, Math.min(1, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eo = x => 1 - Math.pow(1 - x, 3);
+const lerp = (a, b, t) => a + (b - a) * t;
+const CAM = [
+  [0, [0, 74, -2.4], [0, 0, 0]],
+  [.22, [0, 66, -2.4], [0, 0, 0]],
+  [.42, [-30, 26, 30], [0, 3, 0]],
+  [.6, [-4, 22, 40], [0, 0, 0]],
+  [.72, [2, 20, 40], [0, 0, 0]],
+  [.86, [-26, 12, 32], [0, 3, 0]],
+  [1, [-19, 8, 34], [0, 3.5, 0]]
+];
+const crv = (K, t, j) => {
+  let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++;
+  const u = cl((t - K[i][0]) / (K[i + 1][0] - K[i][0]));
+  const P0 = K[Math.max(0, i - 1)][j], P1 = K[i][j], P2 = K[i + 1][j], P3 = K[Math.min(K.length - 1, i + 2)][j];
+  return [0, 1, 2].map(c => .5 * (2 * P1[c] + (-P0[c] + P2[c]) * u + (2 * P0[c] - 5 * P1[c] + 4 * P2[c] - P3[c]) * u * u + (-P0[c] + 3 * P1[c] - 3 * P2[c] + P3[c]) * u * u * u));
+};
+const ELS = (() => {
+  const E = [
+    { n: 'Bodenplatte', t: 's', c: [0, .15, 0], s: [14.4, .3, 10.4], m: 'concrete', off: [0, 0, 0], lab: 1, site: 1 },
+    { n: 'Außenwand', t: 'z', c: [0, 1.9, -5.05], s: [14.4, 3.2, .3], m: 'wood', off: [0, 0, -2.6], lab: 1 },
+    { n: 'Seitenwand', t: 'x', c: [-7.05, 1.9, 0], s: [.3, 3.2, 9.8], m: 'wood', off: [-2.6, 0, 0] },
+    { n: 'Seitenwand', t: 'x', c: [7.05, 1.9, 0], s: [.3, 3.2, 9.8], m: 'wood', off: [2.6, 0, 0] },
+    { n: 'Außenwand', t: 'z', c: [-5.65, 1.9, 5.05], s: [3.1, 3.2, .3], m: 'wood', off: [0, 0, 2.6] },
+    { n: 'Außenwand', t: 'z', c: [5.15, 1.9, 5.05], s: [4.1, 3.2, .3], m: 'wood', off: [0, 0, 2.6] },
+    { n: 'Verglasung', t: 'z', c: [-.5, 1.9, 5], s: [7.2, 3.2, .1], m: 'glass', off: [0, 0, 3.6], lab: 1 }
+  ];
+  for (let i = 0; i < 3; i++) E.push({ n: 'Decke', t: 's', c: [-4.2 + 5.133 * (i + .5), 3.65, 0], s: [5.1, .3, 11.4], m: 'clt', off: [0, 1.8, 0], lab: i === 1 });
+  E.push(
+    { n: 'Außenwand', t: 'z', c: [3.5, 5.3, -5.55], s: [15.4, 3, .3], m: 'dark', off: [0, 3, -2.6] },
+    { n: 'Seitenwand', t: 'x', c: [-4.05, 5.3, 0], s: [.3, 3, 10.8], m: 'dark', off: [-2.6, 3, 0] },
+    { n: 'Seitenwand', t: 'x', c: [11.05, 5.3, 0], s: [.3, 3, 10.8], m: 'dark', off: [2.6, 3, 0] },
+    { n: 'Außenwand', t: 'z', c: [.15, 5.3, 5.55], s: [8.7, 3, .3], m: 'dark', off: [0, 3, 2.6] },
+    { n: 'Außenwand', t: 'z', c: [9.35, 5.3, 5.55], s: [3.7, 3, .3], m: 'dark', off: [0, 3, 2.6] },
+    { n: 'Brüstung', t: 'z', c: [6, 3.95, 5.55], s: [3, .3, .3], m: 'dark', off: [0, 3, 2.6] },
+    { n: 'Sturz', t: 'z', c: [6, 6.65, 5.55], s: [3, .3, .3], m: 'dark', off: [0, 3, 2.6] }
+  );
+  for (let i = 0; i < 3; i++) E.push({ n: 'Dach', t: 's', c: [-4.8 + 5.533 * (i + .5), 6.975, 0], s: [5.5, .35, 12.6], m: 'roof', off: [0, 4.6, 0], lab: i === 1 });
+  return E;
+})();
+const WIN = { c: [6, 5.3, 5.62], s: [3, 2.4, .06] };
+
+class Film {
+  state = {};
+  setState(o, cb) { this.state = { ...this.state, ...o }; if (cb) cb(); }
+  t = 0;
+  componentDidMount() { this.boot(); }
+  componentWillUnmount() { this.stop && this.stop(); }
+
+  stripes(base, gap, len) { return this.FX.slats(this.T, this.r, base, gap, len); }
+
+  async boot() {
+    const T = this.T = await import('https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js');
+    const FX = this.FX = await import(new URL('site/griffner-film.js', document.baseURI).href);
+    if (this.dead) return;
+    const host = this.host = document.querySelector('[data-wstage]');
+    if (!host) return;
+    this.labHost = document.querySelector('[data-wlabels]');
+    if (window.__wfilmStop) window.__wfilmStop();
+    this.stop = window.__wfilmStop = () => { this.dead = true; cancelAnimationFrame(this.raf); if (this.ro) this.ro.disconnect(); if (this.r) { this.r.dispose(); this.r.domElement.remove(); } };
+    host.querySelectorAll('canvas').forEach(c => c.remove());
+    if (this.labHost) this.labHost.innerHTML = '';
+
+    const r = this.r = new T.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    r.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
+    r.toneMapping = T.NoToneMapping; r.autoClear = false;
+    r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
+    r.domElement.style.cssText = 'display:block;width:100%;height:100%';
+    host.appendChild(r.domElement);
+
+    const AN = new T.Color('#000000');
+    const scene = this.scene = new T.Scene();
+    scene.background = AN.clone();
+    const cam = this.cam = new T.PerspectiveCamera(30, 16 / 9, .5, 500);
+    scene.add(new T.HemisphereLight(0xffffff, 0x2a2a28, .8));
+    const key = new T.DirectionalLight(0xffffff, 2.0);
+    key.position.set(-30, 50, 40); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+    Object.assign(key.shadow.camera, { left: -32, right: 32, top: 32, bottom: -32, near: 1, far: 160 });
+    key.shadow.bias = -0.0004; key.shadow.normalBias = .02; scene.add(key);
+    const rim = new T.DirectionalLight(0xdfe4ea, .6); rim.position.set(60, 30, -60); scene.add(rim);
+    const ground = new T.Mesh(new T.PlaneGeometry(500, 500).rotateX(-Math.PI / 2), new T.ShadowMaterial({ color: 0x000000, opacity: .28 }));
+    ground.receiveShadow = true; scene.add(ground);
+    const V = (x, y, z) => new T.Vector3(x, y, z);
+
+    const ps = [], L = (x1, z1, x2, z2) => ps.push(x1, .03, z1, x2, .03, z2);
+    const rect = (x0, z0, x1, z1) => { L(x0, z0, x1, z0); L(x1, z0, x1, z1); L(x1, z1, x0, z1); L(x0, z1, x0, z0); };
+    const arc = (cx, cz, rr, a0, a1) => { const n = 14; for (let i = 0; i < n; i++) { const a = a0 + (a1 - a0) * i / n, b = a0 + (a1 - a0) * (i + 1) / n; L(cx + rr * Math.cos(a), cz + rr * Math.sin(a), cx + rr * Math.cos(b), cz + rr * Math.sin(b)); } L(cx, cz, cx + rr * Math.cos(a1), cz + rr * Math.sin(a1)); };
+    rect(-7.2, -5.2, 7.2, 5.2); rect(-6.9, -4.9, 6.9, 4.9);
+    L(-1, -4.9, -1, 1.2); L(-1.3, -4.9, -1.3, 1.2); L(-6.9, 1.2, -1, 1.2); L(-6.9, 1.5, -1.3, 1.5);
+    arc(-1.15, 2.2, 1, Math.PI / 2, Math.PI); arc(-3.2, 1.35, .9, 0, Math.PI / 2);
+    L(-4.1, 5.2, 3.1, 5.2); L(-4.1, 5.05, 3.1, 5.05); L(-4.1, 4.9, 3.1, 4.9);
+    for (let k = 0; k < 8; k++) L(3.6, -4.4 + k * .4, 6.4, -4.4 + k * .4);
+    L(3.6, -4.4, 3.6, -1.6);
+    L(-7.2, 5.6, -7.2, 8.8); L(7.2, 5.6, 7.2, 8.8); L(-7.2, 8.4, 7.2, 8.4); L(-7.45, 8.65, -6.95, 8.15); L(6.95, 8.65, 7.45, 8.15);
+    L(-7.6, -5.2, -10.2, -5.2); L(-7.6, 5.2, -10.2, 5.2); L(-9.7, -5.2, -9.7, 5.2); L(-9.95, -4.95, -9.45, -5.45); L(-9.95, 5.45, -9.45, 4.95);
+    for (let x = -4.2; x < 11.2; x += 1.2) { L(x, -5.7, Math.min(11.2, x + .6), -5.7); L(x, 5.7, Math.min(11.2, x + .6), 5.7); }
+    for (let z = -5.7; z < 5.7; z += 1.2) L(11.2, z, 11.2, Math.min(5.7, z + .6));
+    L(7.2, -7.8, 11.2, -7.8); L(7.2, -7.1, 7.2, -8.2); L(11.2, -6.1, 11.2, -8.2); L(6.95, -7.55, 7.45, -8.05); L(10.95, -7.55, 11.45, -8.05);
+    const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.Float32BufferAttribute(ps, 3));
+    this.planMat = new T.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 });
+    this.plan = new T.LineSegments(pg, this.planMat); this.planN = ps.length / 3; scene.add(this.plan);
+
+    const QX = new T.Quaternion().setFromAxisAngle(V(1, 0, 0), -Math.PI / 2), QZ = new T.Quaternion().setFromAxisAngle(V(0, 0, 1), Math.PI / 2), QI = new T.Quaternion();
+    let cx = 0, cz = 0, rowD = 0; const MAXW = 64, GAP = 1.4;
+    const fac = ELS.filter(e => !e.site);
+    fac.forEach(e => {
+      const dx = e.t === 'x' ? e.s[1] : e.s[0], dz = e.t === 'z' ? e.s[1] : e.s[2], th = e.t === 'x' ? e.s[0] : e.t === 'z' ? e.s[2] : e.s[1];
+      if (cx + dx > MAXW) { cx = 0; cz += rowD + GAP; rowD = 0; }
+      e.L = [cx + dx / 2 - MAXW / 2, th / 2 + .05, cz + dz / 2]; e.dx = dx; cx += dx + GAP; rowD = Math.max(rowD, dz);
+    });
+    const depth = cz + rowD; fac.forEach(e => { e.L[2] -= depth / 2; });
+    this.scanX = [-MAXW / 2 - 1, MAXW / 2 + 1]; this.scanZ = depth;
+
+    const mats = {
+      concrete: () => new T.MeshStandardMaterial({ color: '#8C8C88', roughness: .95 }),
+      clt: () => new T.MeshStandardMaterial({ color: '#D8CDBD', roughness: .7 }),
+      roof: () => new T.MeshStandardMaterial({ color: '#5A5853', roughness: .7 }),
+      glass: () => new T.MeshStandardMaterial({ color: '#b8c0c8', roughness: .04, metalness: 1 }),
+      wood: e => new T.MeshStandardMaterial({ map: this.stripes('#CFC3B3', '#8F8678', e.t === 'x' ? e.s[2] : e.s[0]), roughness: .7 }),
+      dark: e => new T.MeshStandardMaterial({ map: this.stripes('#5C5952', '#2E2C29', e.t === 'x' ? e.s[2] : e.s[0]), roughness: .7 })
+    };
+    let num = 0;
+    this.els = ELS.map((e, i) => {
+      const geo = new T.BoxGeometry(e.s[0], e.s[1], e.s[2]);
+      const mat = mats[e.m](e); mat.transparent = true; mat.opacity = 0;
+      const mesh = new T.Mesh(geo, mat); mesh.castShadow = true; mesh.receiveShadow = true;
+      const edge = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 }));
+      mesh.add(edge); scene.add(mesh);
+      const lab = document.createElement('span');
+      lab.style.cssText = 'position:absolute;left:0;top:0;white-space:nowrap;opacity:0;will-change:transform,opacity';
+      if (this.labHost) this.labHost.appendChild(lab);
+      const no = e.site ? '' : 'Element ' + String(++num).padStart(2, '0');
+      return { ...e, i, mesh, edge, mat, lab, no, named: !!e.lab, C: V(...e.c), X: V(e.c[0] + e.off[0], e.c[1] + e.off[1], e.c[2] + e.off[2]), LL: e.L ? V(...e.L) : null, FQ: e.t === 'z' ? QX : e.t === 'x' ? QZ : QI };
+    });
+    this.QI = QI;
+    const sg = new T.BoxGeometry(.08, .02, 1);
+    this.scan = new T.Mesh(sg, new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 })); this.scan.scale.z = depth + 2; scene.add(this.scan);
+    this.plate = new T.Mesh(new T.BoxGeometry(1, 1, 1), new T.MeshStandardMaterial({ color: 0x000000, emissive: 0xffb200, emissiveIntensity: 1 }));
+    this.plate.position.set(...WIN.c); scene.add(this.plate);
+    this.warm = new T.PointLight(0xffb200, 0, 40, 1.4); this.warm.position.set(6, 5.3, 9); scene.add(this.warm);
+    this.up0 = V(0, 0, -1); this.up1 = V(0, 1, 0); this.box3 = new T.Box3(); this.q = new T.Quaternion();
+
+    FX.upgrade(T, r, scene, { env: .4, rim: 1.4, floor: { radius: 19, strength: .1 } });
+    this.els.forEach(e => { if (e.m === 'glass') e.mat.envMapIntensity = .45; }); // Verglasung spiegelt den Himmel
+
+    const fit = () => { const w = host.clientWidth || 1, h = host.clientHeight || 1; r.setSize(w, h, false); cam.aspect = w / h; this.vo = 0; cam.clearViewOffset(); cam.updateProjectionMatrix(); this.last = -1; };
+    this.ro = new ResizeObserver(fit); this.ro.observe(host); fit();
+    window.__wfilm = { seek: p => { this.t = p; this.last = -1; this.manual = true; this.draw(p); }, auto: () => { this.manual = false; }, dbg: () => ({ band: this.band(), view: this.cam.view && { ...this.cam.view }, aspect: this.cam.aspect, pin: !!this.pin, vo: this.vo }) };
+
+    this.prev = performance.now();
+    const loop = now => {
+      if (this.dead) return;
+      const dt = Math.min(.064, (now - this.prev) / 1000); this.prev = now;
+      const pin = this.pin || (this.pin = host.closest('[data-st="proof"]'));
+      if (pin && !this.manual) {
+        const rc = pin.getBoundingClientRect(), vh = innerHeight;
+        if (rc.bottom < -50 || rc.top > vh + 50) { this.raf = requestAnimationFrame(loop); return; }
+        const target = cl(-rc.top / Math.max(1, rc.height - vh));
+        this.t += (target - this.t) * Math.min(1, dt * 5);
+        if (Math.abs(target - this.t) < .0005) this.t = target;
+      } else if (!pin && !this.manual) { this.t = (this.t + dt / 24) % 1.08; }
+      const p = Math.min(1, this.t);
+      if (p !== this.last) { this.last = p; this.draw(p); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  draw(p) {
+    const T = this.T, n = this.els.length;
+    const planDraw = eio(seg(p, .02, .2));
+    this.plan.geometry.setDrawRange(0, Math.floor(this.planN * planDraw / 2) * 2);
+    this.planMat.opacity = 1 - .7 * eio(seg(p, .48, .58)) - .3 * eio(seg(p, .74, .84));
+    const scanK = seg(p, .6, .72), scanPos = lerp(this.scanX[0], this.scanX[1], scanK);
+    this.scan.visible = scanK > 0 && scanK < 1;
+    this.scan.position.set(scanPos, .32, 0); this.scan.material.opacity = .9;
+    const names = p < .55;
+    for (const e of this.els) {
+      const k = e.i;
+      const a = eo(seg(p, .27 + k * .006, .4 + k * .006));
+      const m = e.site ? 0 : eio(seg(p, .5 + k * .005, .58 + k * .005));
+      const bs = .76 + k * (.17 / n), b = eio(seg(p, bs, bs + .05));
+      const pos = e.mesh.position;
+      if (e.site) {
+        pos.copy(e.C);
+        const hide = 1 - eio(seg(p, .5, .56)), sb = eio(seg(p, .74, .78));
+        e.edge.material.opacity = a * Math.max(hide, sb) * (1 - b);
+        e.mat.opacity = sb; e.mesh.visible = a > 0 && (hide > 0 || sb > 0);
+        e.mesh.scale.set(1, Math.max(.001, a), 1);
+      } else {
+        pos.copy(e.X).lerp(e.LL, m).lerp(e.C, b); pos.y += Math.sin(Math.PI * b) * 3.2;
+        e.mesh.quaternion.copy(this.QI).slerp(e.FQ, m * (1 - b));
+        const fill = m > .99 ? eio(cl((scanPos - (e.LL.x - e.dx / 2)) / Math.max(.5, e.dx))) : 0;
+        const f = Math.max(fill, b > 0 ? 1 : 0, p > .74 ? 1 : 0);
+        e.mat.opacity = f; e.edge.material.opacity = a * (1 - .75 * f) * (1 - b);
+        e.mesh.visible = a > 0; e.mesh.scale.set(1, Math.max(.001, m > 0 ? 1 : a), 1);
+      }
+      e.mat.transparent = e.mat.opacity < .999; e.mat.depthWrite = e.mat.opacity > .5;
+    }
+    const w = eo(seg(p, .93, .985));
+    this.plate.visible = w > 0; this.plate.scale.set(WIN.s[0] * w, WIN.s[1] * w, WIN.s[2]);
+    this.warm.intensity = 30 * eio(seg(p, .95, 1));
+
+    const cp = crv(CAM, p, 1), tp = crv(CAM, p, 2), uk = eio(seg(p, .24, .42));
+    this.cam.up.copy(this.up0).lerp(this.up1, uk).normalize();
+    const b = this.band();
+    const fc = this.fitCam || (this.fitCam = new T.PerspectiveCamera(30, 1, .5, 500));
+    fc.aspect = b ? b.W / (b.y1 - b.y0) : this.cam.aspect; fc.up.copy(this.cam.up); fc.updateProjectionMatrix();
+    const tgt = new T.Vector3(tp[0], tp[1], tp[2]), dir = new T.Vector3(cp[0] - tp[0], cp[1] - tp[1], cp[2] - tp[2]);
+    let d = dir.length(); dir.normalize();
+    const pts = this.fitPts || (this.fitPts = []); pts.length = 0;
+    if (this.planMat.opacity > .3 && p < .5) [[-10.2, -8.2], [11.45, -8.2], [-10.2, 8.8], [11.45, 8.8]].forEach(q => pts.push(q[0], 0, q[1]));
+    for (const e of this.els) {
+      if (!e.mesh.visible || (e.mat.opacity < .05 && e.edge.material.opacity < .05)) continue;
+      this.box3.setFromObject(e.mesh); const A = this.box3.min, B = this.box3.max;
+      pts.push(A.x, A.y, A.z, B.x, B.y, B.z, A.x, B.y, B.z, B.x, A.y, A.z, A.x, A.y, B.z, B.x, B.y, A.z);
+    }
+    if (pts.length) {
+      const mn = [1e9, 1e9, 1e9], mx = [-1e9, -1e9, -1e9];
+      for (let k = 0; k < pts.length; k += 3) for (let c = 0; c < 3; c++) { mn[c] = Math.min(mn[c], pts[k + c]); mx[c] = Math.max(mx[c], pts[k + c]); }
+      tgt.set((mn[0] + mx[0]) / 2, (mn[1] + mx[1]) / 2, (mn[2] + mx[2]) / 2);
+      const v = new T.Vector3();
+      for (let it = 0; it < 3; it++) {
+        fc.position.copy(tgt).addScaledVector(dir, d); fc.lookAt(tgt); fc.updateMatrixWorld();
+        let ex = 0;
+        for (let k = 0; k < pts.length; k += 3) { v.set(pts[k], pts[k + 1], pts[k + 2]).project(fc); ex = Math.max(ex, Math.abs(v.x), Math.abs(v.y)); }
+        d *= ex / .9;
+      }
+    }
+    this.cam.position.copy(tgt).addScaledVector(dir, d);
+    this.cam.lookAt(tgt);
+    this.cam.updateMatrixWorld();
+
+    const r = this.r;
+    r.setScissorTest(false); r.setClearColor(this.scene.background, 1); r.clear();
+    if (b) { r.setScissorTest(true); r.setScissor(0, b.H - b.y1, b.W, b.y1 - b.y0); }
+    r.render(this.scene, this.cam);
+    r.setScissorTest(false);
+
+    const W = this.host.clientWidth, H = this.host.clientHeight, v = new T.Vector3();
+    const nameOp = seg(p, .34, .4) * (1 - seg(p, .5, .54)), numOp = seg(p, .6, .64) * (1 - seg(p, .73, .76));
+    const placed = [];
+    for (const e of this.els) {
+      const show = names ? (e.named ? nameOp : 0) : (e.no ? numOp : 0);
+      if (show <= .01 || !e.mesh.visible) { if (e.lab.style.opacity !== '0') e.lab.style.opacity = '0'; continue; }
+      const txt = names ? e.n : e.no; if (e.lab.textContent !== txt) e.lab.textContent = txt;
+      v.copy(e.mesh.position); if (names) v.y += e.t === 's' ? .4 : e.s[1] / 2 + .6; else v.y += .5;
+      v.project(this.cam);
+      const x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H;
+      const inBand = !b || (y > b.y0 + 8 && y < b.y1 - 8);
+      const lw = (e.lab.offsetWidth || txt.length * 8) + 12, lh = 20, rc = [x - lw / 2, y - lh / 2, x + lw / 2, y + lh / 2];
+      const hit = placed.some(o => rc[0] < o[2] && rc[2] > o[0] && rc[1] < o[3] && rc[3] > o[1]);
+      if (inBand && !hit) placed.push(rc);
+      e.lab.style.opacity = inBand && !hit ? show.toFixed(3) : '0';
+      e.lab.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+    }
+  }
+
+  band() {
+    const pin = this.pin || (this.pin = this.host.closest('[data-st="proof"]')), hr = this.host.getBoundingClientRect(), W = hr.width, H = hr.height;
+    const top = pin && pin.querySelector('[data-wband="top"]'), bot = pin && pin.querySelector('[data-wband="bot"]');
+    if (!top || !bot || !W || !H) { if (this.vo) { this.cam.aspect = W / H; this.cam.clearViewOffset(); this.vo = 0; } return null; }
+    const pad = Math.max(16, H * .03);
+    const y0 = top.getBoundingClientRect().bottom - hr.top + pad;
+    const y1 = Math.max(y0 + H * .3, bot.getBoundingClientRect().top - hr.top - pad);
+    const bh = y1 - y0;
+    const key = W.toFixed(0) + ':' + bh.toFixed(0) + ':' + y0.toFixed(0);
+    if (key !== this.vo) { this.vo = key; this.cam.aspect = W / bh; this.cam.setViewOffset(W, bh, 0, -y0, W, H); }
+    return { W, H, y0, y1 };
+  }
+
+  renderVals() { return {}; }
+}
+
+export function mount() { const f = new Film(); f.componentDidMount(); return f; }

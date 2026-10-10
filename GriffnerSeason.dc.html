@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<sc-if value="{{ visible }}" hint-placeholder-val="{{ false }}">
+  <button data-season-btn="1" onClick="{{ openOv }}" style="opacity:0;pointer-events:none;position:fixed;left:var(--page-margin);bottom:18px;z-index:55;background:none;border:0;padding:8px 0;cursor:pointer;color:var(--season-ink);transition:color var(--dur-small) var(--ease), opacity var(--dur-small) var(--ease);display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--font-text);font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;text-align:left;max-width:calc(100vw - 2 * var(--page-margin))" style-hover="opacity:.64">
+    <span>{{ bar }}</span><span>{{ next }}</span>
+  </button>
+</sc-if>
+<sc-if value="{{ ov }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-label="Kapitel" style="position:fixed;inset:0;z-index:80;background:var(--griffner-schwarz);color:var(--griffner-weiss);overflow:auto;padding:28px var(--page-margin) 48px;box-sizing:border-box;display:grid;align-content:start;gap:clamp(48px,10vh,120px)">
+    <div style="display:flex;justify-content:flex-end">
+      <button onClick="{{ closeOv }}" style="background:none;border:0;color:inherit;cursor:pointer;padding:8px 0;font-family:var(--font-text);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64">{{ closeLabel }}</button>
+    </div>
+    <div style="display:grid">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="5">
+        <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px var(--gap-col);align-items:center;padding:clamp(18px,3vh,32px) 0;border-top:1px solid var(--line-dark);opacity:{{ c.op }}">
+          <div style="display:flex;gap:24px;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--griffner-kalk)"><span>{{ c.nr }}</span><span>{{ c.date }}</span></div>
+          <div style="min-height:28px;display:flex;align-items:center">
+            <sc-if value="{{ c.claim }}" hint-placeholder-val="{{ false }}">
+              <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="weiss" width="170" hint-size="170px,28px"></x-import>
+            </sc-if>
+            <sc-if value="{{ c.typed }}" hint-placeholder-val="{{ true }}">
+              <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2vw,30px);line-height:var(--leading-headline-web);letter-spacing:var(--tracking-headline);text-transform:uppercase">{{ c.title }}</span>
+            </sc-if>
+          </div>
+          <span style="font-size:var(--fs-text-web);line-height:var(--leading-body)">{{ c.question }}</span>
+          <div style="position:relative;aspect-ratio:16 / 9;overflow:hidden;background:var(--griffner-anthrazit);max-width:240px">
+            <img src="{{ c.teaser }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transform:{{ c.zoom }};transition:transform 3000ms linear"></img>
+          </div>
+          <a href="{{ c.href }}" onClick="{{ c.act }}" style="justify-self:start;padding:8px 0 6px;border-bottom:1px solid currentColor;font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase" style-hover="opacity:.64">{{ c.action }}</a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ov: false, hover: -1, reminded: {} };
+  componentDidMount() {
+    this.onDate = () => this.forceUpdate();
+    addEventListener('griffner:date', this.onDate);
+    this.onOpen = () => this.ovSet(true);
+    addEventListener('griffner:season-open', this.onOpen);
+    const go = () => window.GW && window.GRIFFNER_CONTENT ? this.forceUpdate() : setTimeout(go, 40);
+    go();
+    const loop = () => {
+      const b = document.querySelector('[data-season-btn]');
+      if (b) {
+        const vh = innerHeight, ft = document.querySelector('footer');
+        const zone = window.GW && GW.introDone && document.documentElement.dataset.menu !== 'open' && (scrollY < vh * .25 || (ft && ft.getBoundingClientRect().top < vh * .85));
+        const hit = !zone || [...document.querySelectorAll('[data-season-hide]')].some(e => { const r = e.getBoundingClientRect(); return r.top < vh - 8 && r.bottom > vh - 56 && r.height > 0; });
+        if (hit !== this.hid) { this.hid = hit; b.style.opacity = hit ? '0' : '1'; b.style.pointerEvents = hit ? 'none' : ''; }
+      }
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  componentWillUnmount() { removeEventListener('griffner:date', this.onDate); removeEventListener('griffner:season-open', this.onOpen); clearTimeout(this.ht); cancelAnimationFrame(this.raf); }
+  ovSet(ov) { this.setState({ ov }); document.documentElement.style.overflow = ov ? 'hidden' : ''; }
+  renderVals() {
+    const S = (window.GRIFFNER_CONTENT || {}).season;
+    const G = window.GW;
+    if (!S || !G) return { visible: false, ov: false, chapters: [] };
+    const today = G.today();
+    const open = S.chapters.filter(c => G.isOpen(c.iso));
+    const cur = open[open.length - 1] || S.chapters[0];
+    const nxt = S.chapters.find(c => !G.isOpen(c.iso));
+    return {
+      visible: today <= S.hideAfter,
+      bar: G.fill(S.bar, { nr: cur.nr }),
+      next: nxt ? '· ' + G.fill(S.next, { title: nxt.title, date: nxt.date }) : '',
+      ov: this.state.ov,
+      closeLabel: S.close,
+      openOv: () => this.ovSet(true),
+      closeOv: () => this.ovSet(false),
+      chapters: S.chapters.map((c, i) => {
+        const isOpen = G.isOpen(c.iso);
+        return {
+          ...c, claim: !!c.claim, typed: !c.claim,
+          op: isOpen ? '1' : '.72',
+          zoom: this.state.hover === i ? 'scale(1.12)' : 'scale(1)',
+          enter: () => { clearTimeout(this.ht); this.setState({ hover: i }); this.ht = setTimeout(() => this.setState({ hover: -1 }), 3000); },
+          leave: () => {},
+          href: isOpen ? c.href : '#top',
+          action: isOpen ? S.open + ' →' : (this.state.reminded[i] ? S.reminded : S.remind),
+          act: e => {
+            if (isOpen) { this.ovSet(false); return; }
+            e.preventDefault();
+            this.setState(s => ({ reminded: { ...s.reminded, [i]: true } }));
+          }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

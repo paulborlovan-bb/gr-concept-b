@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+<style>
+[data-cf] input::placeholder { color: #444442; opacity: 1; }
+</style>
+</helmet>
+<section id="bewerben" data-room="c-karriere" data-screen-label="Bewerben" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:0 0 var(--section-pad) var(--page-margin)">
+  <div id="bewerbung" data-stage="1" data-dock="rect" data-dock-solid="1" data-dock-trigger="bewerbung" style="position:relative;margin-left:{{ stageInset }};padding:clamp(32px,4.4vw,72px) clamp(24px,4.4vw,72px) clamp(36px,4.8vw,80px);box-sizing:border-box;color:var(--griffner-schwarz)">
+    <div style="position:relative;z-index:6;display:grid;gap:clamp(28px,4.5vh,48px);max-width:920px">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px">
+        <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ f.info }}</span>
+        <h2 style="margin:0;font-family:var(--font-display);font-weight:500;font-size:clamp(17px,1.4vw,22px);letter-spacing:.04em;line-height:1.05;text-transform:uppercase">{{ f.head }}</h2>
+      </div>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form data-cf="1" onSubmit="{{ submit }}" noValidate="{{ true }}" style="--line:#000000;--text-primary:#000000;--surface-page:#FFB200;--text-secondary:#444442;--text-tertiary:#444442;--fs-body:16px;display:grid;gap:clamp(28px,4.5vh,40px);margin:0">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(28px,4.5vh,40px) clamp(24px,3vw,48px)">
+            <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.TextField" label="{{ f.name }}" name="name" placeholder="{{ f.namePh }}" value="{{ name }}" on-change="{{ setName }}" hint-size="100%,70px"></x-import>
+            <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.TextField" label="{{ f.contact }}" name="contact" value="{{ contact }}" on-change="{{ setContact }}" hint-size="100%,70px"></x-import>
+            <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Select" label="{{ f.stelle }}" name="stelle" options="{{ options }}" value="{{ stelle }}" on-change="{{ setStelle }}" hint-size="100%,70px"></x-import>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-family:var(--font-text);font-weight:500;font-size:var(--fs-label);letter-spacing:var(--tracking-info);text-transform:uppercase;color:#444442">{{ f.cv }}</span>
+              <label style="position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:8px 0 12px;border-bottom:{{ cvLine }};cursor:pointer;font-weight:500;font-size:16px;line-height:1.45">
+                <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:{{ cvColor }}">{{ cvName }}</span>
+                <span style="flex:none;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">{{ f.cvPick }} →</span>
+                <input type="file" accept=".pdf,.doc,.docx" onChange="{{ onFile }}" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%"></input>
+              </label>
+            </div>
+          </div>
+          <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:6px;font-size:var(--fs-text-web);line-height:1.45;font-weight:600">
+              <sc-for list="{{ errors }}" as="e" hint-placeholder-count="0"><span>{{ e }}</span></sc-for>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 48px;padding-top:clamp(20px,3vh,32px);border-top:1px solid #000000">
+            <div style="--fs-body:14px;display:grid;gap:8px;flex:1 1 320px;max-width:520px">
+              <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Checkbox" label="{{ f.consent }}" checked="{{ consent }}" on-change="{{ setConsent }}" hint-size="100%,40px"></x-import>
+              <a href="{{ f.privacyHref }}" style="padding-left:32px;font-size:14px;line-height:1.45;color:inherit;text-decoration:underline;text-underline-offset:3px">{{ f.privacy }}</a>
+            </div>
+            <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="primary" size="lg" arrow="{{ true }}" type="submit" hint-size="260px,58px">{{ f.submit }}</x-import>
+          </div>
+        </form>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gap:clamp(20px,3vh,32px);max-width:880px;min-height:clamp(240px,32vh,380px);align-content:end">
+          <h3 style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(32px,3.4vw,60px);line-height:1;text-transform:uppercase;font-feature-settings:'liga' 0">{{ thanksHead }}</h3>
+          <p style="margin:0;max-width:560px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ f.thanksText }}</p>
+          <div><x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Button" variant="line" on-click="{{ reset }}" hint-size="180px,32px">{{ f.again }}</x-import></div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;job&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;initiativ&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { name: '', contact: '', stelle: null, file: '', consent: false, tried: false, sent: false, w: typeof innerWidth === 'number' ? innerWidth : 1200 };
+  componentDidMount() {
+    this.onRes = () => this.setState({ w: innerWidth });
+    addEventListener('resize', this.onRes);
+    this.onPick = e => { this.setState({ stelle: e.detail || 'initiativ' }); };
+    addEventListener('griffner:stelle', this.onPick);
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onRes); removeEventListener('griffner:stelle', this.onPick); }
+  K() { return (window.GRIFFNER_CONTENT || {}).karriere || {}; }
+  check(s) {
+    const F = this.K().form || {}, c = s.contact.trim(), ok = /\S+@\S+\.\S+/.test(c) || c.replace(/[^\d]/g, '').length >= 6;
+    return [!s.name.trim() && F.errName, !ok && F.errContact, !s.file && F.errCv, !s.consent && F.errConsent].filter(Boolean);
+  }
+  renderVals() {
+    const K = this.K(), F = K.form || {}, s = this.state, wide = s.w >= 900;
+    const errs = s.tried ? this.check(s) : [];
+    const options = [{ value: 'initiativ', label: F.initiativ || 'Initiativbewerbung' }, ...(K.jobs || []).map(j => ({ value: j.slug, label: (j.group === 'lehre' ? 'Lehre ' : '') + j.title + ' (' + (K.mwd || 'm/w/d') + ')' }))];
+    return {
+      f: F, options,
+      stelle: s.stelle || this.props.job || 'initiativ',
+      stageInset: wide ? 'calc((100vw - 2 * var(--page-margin)) / 12 * 4)' : '0px',
+      name: s.name, contact: s.contact, consent: s.consent,
+      cvName: s.file || F.cvHint, cvColor: s.file ? '#000000' : '#444442',
+      cvLine: s.tried && !s.file ? '3px solid #000000' : '1px solid #000000',
+      errors: errs, hasErrors: errs.length > 0,
+      notSent: !s.sent, sent: s.sent,
+      thanksHead: (F.thanksHead || 'Danke, {name}.').replace('{name}', s.name.trim().split(' ')[0] || ''),
+      setName: v => this.setState({ name: v }),
+      setContact: v => this.setState({ contact: v }),
+      setStelle: v => this.setState({ stelle: v }),
+      setConsent: v => this.setState({ consent: v }),
+      onFile: e => { const f = e.target.files && e.target.files[0]; this.setState({ file: f ? f.name : '' }); },
+      submit: e => { e.preventDefault(); if (this.check(this.state).length) { this.setState({ tried: true }); return; } this.setState({ sent: true }); },
+      reset: () => this.setState({ name: '', contact: '', stelle: null, file: '', consent: false, tried: false, sent: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

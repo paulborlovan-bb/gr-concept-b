@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<footer data-footer="1" data-room="footer" data-screen-label="Footer" style="position:relative;background:transparent;color:var(--griffner-weiss);overflow:clip">
+
+  <sc-if value="{{ isSignal }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ isStanze }}" hint-placeholder-val="{{ true }}">
+      <div data-fk="1" aria-hidden="true" style="position:sticky;top:0;z-index:40;height:100vh;margin-bottom:-100vh;pointer-events:none">
+        <svg width="100%" height="100%" style="display:block;width:100%;height:100%">
+          <defs>
+            <mask id="gri-fk-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+              <rect x="0" y="0" width="100%" height="100%" fill="#FFFFFF"></rect>
+              <g data-fk-g="1" transform="translate(-99999 0)"><path data-fk-p="1" fill="#000000"></path></g>
+            </mask>
+          </defs>
+          <sc-if value="{{ fkGelb }}" hint-placeholder-val="{{ true }}"><rect x="0" y="0" width="100%" height="100%" fill="#FFB200" mask="url(#gri-fk-mask)"></rect></sc-if>
+          <sc-if value="{{ fkWeiss }}" hint-placeholder-val="{{ false }}"><rect x="0" y="0" width="100%" height="100%" fill="#FFFFFF" mask="url(#gri-fk-mask)"></rect></sc-if>
+        </svg>
+      </div>
+      <div data-fk-space="1" aria-hidden="true" style="height:150vh"></div>
+    </sc-if>
+    <div style="padding:clamp(96px,14vh,160px) var(--page-margin) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:48px var(--gap-col)">
+      <sc-for list="{{ columns }}" as="c" hint-placeholder-count="3">
+        <nav aria-label="{{ c.title }}" style="display:grid;align-content:start;gap:12px">
+          <span style="padding-bottom:14px;border-bottom:1px solid var(--griffner-anthrazit);font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">{{ c.title }}</span>
+          <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="4">
+            <a href="{{ l.href }}" style="color:inherit;text-decoration:none;font-size:var(--fs-text-sm);line-height:1.4" style-hover="opacity:.64">{{ l.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-for>
+      <div style="display:grid;align-content:start;gap:12px">
+        <span style="padding-bottom:14px;border-bottom:1px solid var(--griffner-anthrazit);font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">Griffen</span>
+        <sc-for list="{{ address }}" as="a" hint-placeholder-count="3"><span style="font-size:var(--fs-text-sm);line-height:1.4">{{ a }}</span></sc-for>
+      </div>
+    </div>
+    <div data-fwm-box="1" style="position:relative;margin:clamp(96px,16vh,200px) var(--page-margin) 0">
+    <div data-fclaim="1" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;line-height:0;pointer-events:none">
+      <div data-fclaim-in="1" style="line-height:0;clip-path:inset(0 100% 0 0);transition:clip-path 1600ms var(--ease), opacity 600ms var(--ease)">
+        <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="weiss" width="{{ claimW }}" hint-size="400px,60px"></x-import>
+      </div>
+    </div>
+    <div data-fwm="1" style="color:var(--griffner-gelb);line-height:0;clip-path:inset(100% 0 0 0);transition:clip-path 1300ms var(--ease)">
+      <div data-fwm-in="1" style="transform:translateY(40%);width:100%;transition:transform 1300ms var(--ease)">
+        <svg viewBox="0 878.45 1000 127.11" role="img" aria-label="GRIFFNER" style="display:block;width:100%;height:auto"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"></path></svg>
+      </div>
+    </div>
+    </div>
+    <div style="margin:clamp(20px,3vh,32px) var(--page-margin) 0;padding:18px 0 clamp(88px,10vh,112px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 28px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">
+      <div style="display:flex;gap:28px;margin-left:auto">
+        <sc-for list="{{ legal }}" as="g" hint-placeholder-count="2"><a href="#" style="color:var(--griffner-weiss);text-decoration:none" style-hover="opacity:.64">{{ g }}</a></sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAbend }}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative;height:min(82vh,820px);min-height:420px;overflow:hidden">
+      <img data-fimg="1" src="assets/photos/wald-abend.jpg" alt="GRIFFNER Haus am Waldrand zur Blauen Stunde" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.14);transform-origin:50% 100%"></img>
+      <div style="position:absolute;inset:0;background:var(--bildschutz)"></div>
+      <div style="position:absolute;left:var(--page-margin);right:var(--page-margin);bottom:clamp(56px,10vh,110px);display:grid;gap:18px;max-width:900px">
+        <span style="font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase">Griffen / Kärnten / seit 1950</span>
+        <span style="font-family:var(--font-display);font-weight:300;font-size:var(--fs-statement-web, clamp(44px,6.4vw,120px));line-height:.95;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">Built here.</span>
+      </div>
+      <span style="position:absolute;left:0;bottom:0;background:var(--griffner-schwarz);padding:8px 12px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase">Project / Kärnten / AT</span>
+    </div>
+    <div aria-hidden="true" style="position:relative;height:0">
+      <div data-fconn="1" style="position:absolute;right:calc(var(--page-margin) + 8vw);top:0;width:clamp(120px,14vw,240px);aspect-ratio:5 / 4;transform:translateY(-50%)">
+        <div style="position:absolute;left:0;right:0;top:0;height:50%;background:var(--griffner-gelb);opacity:.5"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:50%;background:var(--griffner-gelb)"></div>
+      </div>
+    </div>
+    <div style="padding:clamp(140px,20vh,200px) var(--page-margin) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:48px var(--gap-col)">
+      <sc-for list="{{ columns }}" as="c" hint-placeholder-count="3">
+        <nav aria-label="{{ c.title }}" style="display:grid;align-content:start;gap:12px">
+          <span style="padding-bottom:14px;border-bottom:1px solid var(--griffner-anthrazit);font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">{{ c.title }}</span>
+          <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="4">
+            <a href="{{ l.href }}" style="color:inherit;text-decoration:none;font-size:var(--fs-text-sm);line-height:1.4" style-hover="opacity:.64">{{ l.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-for>
+    </div>
+    <div style="margin:clamp(72px,12vh,140px) var(--page-margin) 0;padding:20px 0 clamp(88px,10vh,112px);border-top:1px solid var(--griffner-anthrazit);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 28px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">
+      <div style="display:flex;flex-wrap:wrap;gap:8px 28px">
+        <sc-for list="{{ address }}" as="a" hint-placeholder-count="3"><span>{{ a }}</span></sc-for>
+        <sc-for list="{{ legal }}" as="g" hint-placeholder-count="2"><a href="#" style="color:var(--griffner-weiss);text-decoration:none" style-hover="opacity:.64">{{ g }}</a></sc-for>
+      </div>
+      <div style="line-height:0;color:var(--griffner-weiss)">
+        <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="weiss" width="130" hint-size="130px,22px"></x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isOrt }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:clamp(110px,16vh,180px) var(--page-margin) 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:56px var(--gap-col);align-items:start">
+      <nav aria-label="Seiten" style="display:grid;gap:clamp(4px,1vh,12px)">
+        <sc-for list="{{ main }}" as="l" hint-placeholder-count="5">
+          <a href="{{ l.href }}" style="color:inherit;text-decoration:none;font-family:var(--font-display);font-weight:300;font-size:clamp(28px,3.4vw,60px);line-height:1;text-transform:uppercase;font-feature-settings:'liga' 0;justify-self:start" style-hover="opacity:.64">{{ l.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:grid;gap:40px">
+        <div style="display:grid;gap:6px;padding-bottom:20px;border-bottom:1px solid var(--griffner-anthrazit)">
+          <span style="font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">Jetzt in Griffen</span>
+          <span style="font-family:var(--font-display);font-weight:300;font-size:clamp(40px,4vw,64px);line-height:1;font-variant-numeric:tabular-nums">{{ time }}</span>
+        </div>
+        <div style="display:grid;gap:10px">
+          <sc-for list="{{ service }}" as="l" hint-placeholder-count="4">
+            <a href="{{ l.href }}" style="color:inherit;text-decoration:none;font-size:var(--fs-text-sm);line-height:1.4;justify-self:start" style-hover="opacity:.64">{{ l.label }}</a>
+          </sc-for>
+        </div>
+        <div style="display:grid;gap:4px;font-size:var(--fs-text-sm);line-height:1.4;color:var(--griffner-kalk)">
+          <sc-for list="{{ address }}" as="a" hint-placeholder-count="3"><span>{{ a }}</span></sc-for>
+        </div>
+      </div>
+    </div>
+    <div data-fsig="1" style="margin:clamp(96px,16vh,200px) 0 0;line-height:0;border-top:1px solid var(--griffner-anthrazit)">
+      <svg width="100%" viewBox="0 0 1000 150" preserveAspectRatio="none" style="display:block;height:clamp(90px,15vw,280px)" aria-label="Griffen">
+        <text data-fsig-t="1" x="0" y="138" textLength="1000" lengthAdjust="spacing" fill="var(--griffner-weiss)" style="font-family:var(--font-display);font-weight:300;font-size:180px;letter-spacing:0">GRIFFEN</text>
+      </svg>
+    </div>
+    <div style="margin:0 var(--page-margin);padding:18px 0 clamp(88px,10vh,112px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 28px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">
+      <div style="display:flex;gap:28px">
+        <sc-for list="{{ legal }}" as="g" hint-placeholder-count="2"><a href="#" style="color:var(--griffner-weiss);text-decoration:none" style-hover="opacity:.64">{{ g }}</a></sc-for>
+      </div>
+      <div style="line-height:0">
+        <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Claim" color="weiss" width="130" hint-size="130px,22px"></x-import>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAlt }}" hint-placeholder-val="{{ false }}">
+    <div style="padding-bottom:clamp(88px,10vh,112px)">
+      <x-import component-from-global-scope="GRIFFNERDesignSystem_559bd8.Pattern" columns="{{ cols }}" rows="{{ rows }}" cell="{{ cell }}" tone="dunkel" with-logo="{{ true }}" hint-size="100%,20vw"></x-import>
+      <div style="padding:clamp(56px,9vh,104px) var(--page-margin) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:48px var(--gap-col)">
+        <sc-for list="{{ columns }}" as="c" hint-placeholder-count="3">
+          <nav aria-label="{{ c.title }}" style="display:grid;align-content:start;gap:14px">
+            <span style="padding-bottom:14px;border-bottom:1px solid var(--griffner-anthrazit);font-weight:500;font-size:var(--fs-info-web);letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">{{ c.title }}</span>
+            <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="4">
+              <a href="{{ l.href }}" style="font-size:var(--fs-text-sm);line-height:1.4">{{ l.label }}</a>
+            </sc-for>
+          </nav>
+        </sc-for>
+      </div>
+      <div style="margin:clamp(56px,9vh,96px) var(--page-margin) 0;padding-top:20px;border-top:1px solid var(--griffner-anthrazit);display:flex;flex-wrap:wrap;gap:8px 28px;font-weight:500;font-size:10px;letter-spacing:var(--tracking-info-web);text-transform:uppercase;color:var(--griffner-kalk)">
+        <sc-for list="{{ address }}" as="a" hint-placeholder-count="3"><span>{{ a }}</span></sc-for>
+        <sc-for list="{{ legal }}" as="g" hint-placeholder-count="2"><a href="#" style="color:var(--griffner-weiss)">{{ g }}</a></sc-for>
+      </div>
+    </div>
+  </sc-if>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;finaleFarbe&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;gelb&quot;,&quot;weiss&quot;],&quot;default&quot;:&quot;gelb&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;finale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;stanze&quot;,&quot;wechsel&quot;],&quot;default&quot;:&quot;stanze&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signal&quot;,&quot;abend&quot;,&quot;ort&quot;,&quot;aktuell&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { w: document.documentElement.clientWidth || innerWidth, time: '' };
+  componentDidMount() {
+    this.onRes = () => {
+      const w = document.documentElement.clientWidth, el = document.querySelector('[data-fwm]');
+      const wm = el ? el.clientWidth : this.state.wm;
+      if (w !== this.state.w || wm !== this.state.wm) this.setState({ w, wm });
+    };
+    setTimeout(this.onRes, 300);
+    this.onScroll = () => { cancelAnimationFrame(this.raf); this.raf = requestAnimationFrame(() => this.scroll()); };
+    addEventListener('resize', this.onRes);
+    addEventListener('scroll', this.onScroll, { passive: true });
+    this.tick(); this.iv = setInterval(() => this.tick(), 1000);
+    this.onRes(); setTimeout(() => this.scroll(), 50);
+  }
+  componentDidUpdate(prev) { if ((prev.variant) !== this.props.variant) setTimeout(() => this.scroll(), 50); }
+  componentWillUnmount() { clearTimeout(this.t1); clearTimeout(this.t2); removeEventListener('resize', this.onRes); removeEventListener('scroll', this.onScroll); clearInterval(this.iv); cancelAnimationFrame(this.raf); }
+  stanze(f, fk, vh) {
+    const g = fk.querySelector('[data-fk-g]'), p = fk.querySelector('[data-fk-p]'), sp = f.querySelector('[data-fk-space]');
+    if (window.GW && GW.reduce) { fk.style.display = 'none'; if (sp) sp.style.height = '0px'; return; }
+    if (!p.getAttribute('d')) {
+      if (!this.fkLoad) this.fkLoad = fetch('assets/logo/griffner-claim-maske.svg').then(r => r.text()).then(t => { const m = t.match(/\sd="([^"]+)"/); if (m) { p.setAttribute('d', m[1]); this.scroll(); } }).catch(() => {});
+      return;
+    }
+    const VW = 6053, VH = 977, FX = .5225, FY = .303, R = .009;
+    const vw = fk.clientWidth, y = -f.getBoundingClientRect().top;
+    const W0 = Math.min(vw * .84, 1200), H0 = W0 * VH / VW;
+    const px = (vw - W0) / 2 + FX * W0, py = (vh - H0) / 2 + FY * H0;
+    const far = Math.max(Math.hypot(px, py), Math.hypot(vw - px, py), Math.hypot(px, vh - py), Math.hypot(vw - px, vh - py));
+    const smax = far / (R * W0) * 1.2;
+    const q = Math.min(1, Math.max(0, (y / (vh * 1.3) - .12) / .88)), e = q * q * (3 - 2 * q);
+    const s = Math.exp(Math.log(smax) * e), k = W0 * s / VW;
+    g.setAttribute('transform', 'translate(' + px.toFixed(2) + ' ' + py.toFixed(2) + ') scale(' + k.toFixed(5) + ') translate(' + (-FX * VW).toFixed(1) + ' ' + (-FY * VH).toFixed(1) + ')');
+    fk.style.visibility = q >= 1 ? 'hidden' : 'visible';
+  }
+  fitWm() {
+    const sv = document.querySelector('[data-fwm] svg');
+    if (sv && sv.style.width !== '100%') { sv.style.width = '100%'; sv.style.height = 'auto'; sv.style.display = 'block'; }
+  }
+  tick() {
+    this.fitWm();
+    let t = '';
+    try { t = new Intl.DateTimeFormat('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Vienna' }).format(new Date()); } catch (e) {}
+    if (t !== this.state.time) this.setState({ time: t });
+  }
+  scroll() {
+    const f = document.querySelector('[data-footer]'); if (!f) return;
+    const vh = innerHeight, cl = v => Math.min(1, Math.max(0, v)), ease = t => 1 - Math.pow(1 - t, 3);
+    const fk = f.querySelector('[data-fk]');
+    if (fk) this.stanze(f, fk, vh);
+    const wm = f.querySelector('[data-fwm]'), cin0 = f.querySelector('[data-fclaim-in]'), cin = fk ? null : cin0;
+    if (fk && cin0) cin0.style.display = 'none'; else if (cin0) cin0.style.display = '';
+    if (wm) {
+      this.fitWm();
+      const showWm = () => { wm.style.clipPath = 'inset(0% 0 0 0)'; wm.firstElementChild.style.transform = 'translateY(0%)'; };
+      if (!wm.dataset.on && wm.getBoundingClientRect().top < vh * .85) {
+        wm.dataset.on = '1';
+        if (!cin || (window.GW && GW.reduce)) { if (cin) cin.style.opacity = '0'; showWm(); }
+        else {
+          cin.style.clipPath = 'inset(0 0% 0 0)';
+          this.t1 = setTimeout(() => { cin.style.opacity = '0'; }, 2700);
+          this.t2 = setTimeout(showWm, 3100);
+        }
+      }
+    }
+    const img = f.querySelector('[data-fimg]');
+    if (img) {
+      const r = img.parentElement.getBoundingClientRect(), k = cl((vh - r.top) / (vh + r.height * .6));
+      img.style.transform = 'scale(' + (1.14 - .14 * ease(k)).toFixed(4) + ')';
+      const c = f.querySelector('[data-fconn]');
+      if (c) c.style.transform = 'translateY(' + (-50 + (1 - ease(k)) * 60).toFixed(2) + '%)';
+    }
+    const sig = f.querySelector('[data-fsig-t]');
+    if (sig) {
+      const r = sig.closest('[data-fsig]').getBoundingClientRect(), k = ease(cl((vh - r.top) / (r.height + vh * .3)));
+      sig.setAttribute('textLength', (560 + 440 * k).toFixed(1));
+      sig.setAttribute('x', ((1 - k) * 220).toFixed(1));
+    }
+  }
+  renderVals() {
+    const F = (window.GRIFFNER_CONTENT || {}).footer || {};
+    const v = this.props.variant ?? 'signal', cols = F.cols || [];
+    const vw = this.state.w, m = Math.max(24, Math.min(vw / 12, 120));
+    return {
+      fkGelb: (this.props.finaleFarbe ?? 'gelb') === 'gelb', fkWeiss: (this.props.finaleFarbe ?? 'gelb') !== 'gelb',
+      isSignal: v === 'signal', isStanze: (this.props.finale ?? 'stanze') === 'stanze', isAbend: v === 'abend', isOrt: v === 'ort', isAlt: v === 'aktuell',
+      cols: 5, rows: 1, cell: Math.floor(vw / 5),
+      wmW: this.state.wm || Math.round(vw - 2 * m),
+      columns: cols, address: F.address || [], legal: F.legal || [],
+      coords: '46.70 N / 14.73 E',
+      addrLine: (F.address || []).join(' / '),
+      sigMain: ((window.GRIFFNER_CONTENT || {}).menu || { items: [] }).items.map(it => ({ label: it.label, href: it.href })),
+      sigService: (((window.GRIFFNER_CONTENT || {}).menu || {}).links || []).map(([label, href]) => ({ label, href })),
+      sgA: vw < 760 ? '1 / span 6' : '7 / span 2', sgB: vw < 760 ? '7 / span 6' : '9 / span 2', sgC: vw < 760 ? '1 / -1' : '11 / span 2',
+      main: (cols[1] || {}).links || [],
+      service: [...((cols[0] || {}).links || []), ...((cols[2] || {}).links || [])],
+      time: this.state.time,
+      claimW: Math.round(Math.min(720, Math.max(220, (this.state.wm || vw) * .42)))
+    };
+  }
+}
+</script>
+</body>
+</html>

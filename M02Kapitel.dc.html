@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/styles.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<script src="site/content.js"></script>
+<script src="site/griffner-web.js"></script>
+<script src="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/_ds_bundle.js"></script>
+</helmet>
+<section id="kapitel" data-room="kapitel" data-screen-label="Kapitel" style="position:relative;background:transparent;color:var(--griffner-weiss);padding:var(--section-pad) 0">
+  <div style="padding:0 var(--page-margin);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px;margin-bottom:clamp(40px,7vh,80px)">
+    <div style="display:grid;gap:clamp(20px,3vh,32px);max-width:min(100%,58rem)">
+      <h2 data-reveal="0" style="margin:0;max-width:12em;font-family:var(--font-display);font-weight:300;font-size:clamp(36px,5vw,96px);line-height:.92;letter-spacing:.02em;text-transform:uppercase;font-feature-settings:'liga' 0;text-wrap:balance">{{ k.head }}</h2>
+      <p data-reveal="120" style="margin:0;max-width:440px;font-size:var(--fs-text-web);line-height:var(--leading-body);text-wrap:pretty">{{ k.sub }}</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button type="button" onClick="{{ prev }}" aria-label="Zurück" style="width:48px;height:48px;display:grid;place-items:center;background:transparent;border:0;padding:0;color:inherit;cursor:pointer;font-size:22px;line-height:1" style-hover="opacity:.64">←</button>
+      <button type="button" onClick="{{ next }}" aria-label="Weiter" style="width:48px;height:48px;display:grid;place-items:center;background:transparent;border:0;padding:0;color:inherit;cursor:pointer;font-size:22px;line-height:1" style-hover="opacity:.64">→</button>
+    </div>
+  </div>
+
+  <div data-ktrack="1" style="display:flex;gap:clamp(12px,1.6vw,24px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:var(--page-margin);padding:8px var(--page-margin) 40px;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab">
+    <sc-for list="{{ doors }}" as="d" hint-placeholder-count="6">
+      <a href="{{ d.href }}" data-door="1" data-open="{{ d.openStr }}" data-rest="{{ d.rest }}" onClick="{{ d.click }}" aria-disabled="{{ d.locked }}" draggable="false" style="flex:none;scroll-snap-align:start;width:clamp(220px,min(22vw,40vh),360px);display:block;color:inherit;text-decoration:none;cursor:{{ d.cursor }}">
+        <span style="position:relative;display:block;aspect-ratio:5 / 8;perspective:1600px;perspective-origin:0% 50%">
+          <span style="position:absolute;inset:0;overflow:hidden;background:var(--griffner-anthrazit)">
+            <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+              <img data-dimg="1" src="{{ d.teaser }}" alt="" loading="lazy" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform 1800ms cubic-bezier(.22,1,.36,1)"></img>
+            </sc-if>
+            <sc-if value="{{ d.locked }}" hint-placeholder-val="{{ true }}">
+              <span style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cg fill='none' stroke='%23FFF' stroke-opacity='.14'%3E%3Cpath d='M0 48A48 48 0 0 1 48 0'/%3E%3Cpath d='M48 96A24 24 0 0 1 96 96'/%3E%3Ccircle cx='72' cy='24' r='5'/%3E%3C/g%3E%3C/svg%3E&quot;)"></span>
+              <span data-dq="1" style="position:absolute;right:clamp(16px,1.6vw,24px);bottom:clamp(16px,1.6vw,24px);max-width:62%;text-align:right;font-family:var(--font-display);font-weight:300;font-size:clamp(17px,1.4vw,22px);line-height:1.2;opacity:0;transform:translate3d(24px,0,0);transition:opacity 1200ms cubic-bezier(.22,1,.36,1), transform 1600ms cubic-bezier(.22,1,.36,1)">{{ d.question }}</span>
+            </sc-if>
+            <span data-dlight="1" style="position:absolute;inset:0;background:var(--griffner-schwarz);opacity:.92;transition:opacity 1400ms cubic-bezier(.22,1,.36,1)"></span>
+          </span>
+          <span data-dpanel="1" style="position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform 1400ms cubic-bezier(.22,1,.36,1);will-change:transform">
+            <span style="position:absolute;inset:0;background:var(--griffner-schwarz);display:grid;align-content:space-between;padding:clamp(16px,1.6vw,24px);backface-visibility:hidden">
+              <span style="position:absolute;top:0;bottom:0;right:0;width:1px;background:linear-gradient(180deg,#E2D7C4,#B3A180 50%,#826B4E)"></span>
+              <span style="position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,#826B4E,#B3A180 50%,#E2D7C4)"></span>
+              <span style="position:absolute;right:16px;top:50%;width:1px;height:36px;margin-top:-18px;background:#B3A180"></span>
+              <span style="font-weight:500;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#B3A180;font-variant-numeric:tabular-nums">{{ d.label }}</span>
+              <span style="display:grid;gap:12px">
+                <span style="font-family:var(--font-display);font-weight:300;font-size:clamp(40px,3.6vw,64px);line-height:.85;font-variant-numeric:tabular-nums">{{ d.nr }}</span>
+                <span style="font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.2vw,19px);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;font-feature-settings:'liga' 0">{{ d.title }}</span>
+              </span>
+            </span>
+            <span style="position:absolute;top:0;bottom:0;right:0;width:10px;background:#826B4E;transform-origin:right center;transform:rotateY(-90deg)"></span>
+          </span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+
+  <div style="margin:0 var(--page-margin);position:relative;height:1px;background:var(--griffner-anthrazit)">
+    <span data-kbar="1" style="position:absolute;top:0;left:0;height:1px;width:30%;background:var(--griffner-weiss);transition:width 300ms var(--ease)"></span>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.fine = matchMedia('(pointer:fine)').matches;
+    this.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onD = () => this.forceUpdate();
+    addEventListener('griffner:date', this.onD);
+    this.boot();
+  }
+  componentDidUpdate() { this.bindDoors(); this.restAll(); this.bar(); }
+  componentWillUnmount() { removeEventListener('griffner:date', this.onD); this.io && this.io.disconnect(); removeEventListener('resize', this.onR); (this.tm || []).forEach(clearTimeout); }
+
+  track() { return document.querySelector('#kapitel [data-ktrack]'); }
+  doors() { return [...document.querySelectorAll('#kapitel [data-door]')]; }
+  set(d, ang, light, q) {
+    const p = d.querySelector('[data-dpanel]'), l = d.querySelector('[data-dlight]'), img = d.querySelector('[data-dimg]'), qq = d.querySelector('[data-dq]');
+    if (p) p.style.transform = 'rotateY(' + (this.reduce ? 0 : -ang) + 'deg)';
+    if (l) l.style.opacity = String(light);
+    if (img) img.style.transform = 'scale(' + (ang > 40 ? 1 : 1.08) + ')';
+    if (qq) { qq.style.opacity = q ? '1' : '0'; qq.style.transform = q ? 'none' : 'translate3d(24px,0,0)'; }
+  }
+  rest(d) { const r = +d.dataset.rest || 0; this.set(d, r, r ? .5 : .92, false); }
+  restAll() { this.doors().forEach(d => { if (!d._hov) this.rest(d); }); }
+  later(fn, ms) { (this.tm = this.tm || []).push(setTimeout(fn, ms)); }
+
+  bindDoors() {
+    this.doors().forEach(d => {
+      if (d._b) return; d._b = 1;
+      const enter = () => {
+        d._hov = 1;
+        if (d.dataset.open === '1') this.set(d, 74, 0, false); else this.set(d, 24, .4, true);
+      };
+      const leave = () => { d._hov = 0; this.rest(d); };
+      d.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') enter(); });
+      d.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') leave(); });
+      d.addEventListener('focus', enter); d.addEventListener('blur', leave);
+      d.addEventListener('click', e => {
+        if (this.dragged) { e.preventDefault(); e.stopPropagation(); return; }
+        if (!this.fine && d.dataset.open !== '1') { enter(); this.later(leave, 2600); }
+      }, true);
+    });
+  }
+
+  bar() {
+    const t = this.track(), b = document.querySelector('#kapitel [data-kbar]'); if (!t || !b) return;
+    const max = t.scrollWidth - t.clientWidth, vis = t.clientWidth / t.scrollWidth;
+    b.style.width = (Math.min(1, vis) * 100).toFixed(2) + '%';
+    b.style.left = (max > 0 ? (t.scrollLeft / max) * (1 - vis) * 100 : 0).toFixed(2) + '%';
+  }
+
+  boot() {
+    const t = this.track(); if (!t) { setTimeout(() => this.boot(), 60); return; }
+    this.bindDoors(); this.restAll(); this.bar();
+    t.addEventListener('scroll', () => this.bar(), { passive: true });
+    this.onR = () => this.bar(); addEventListener('resize', this.onR);
+    let sx = 0, sl = 0, down = false;
+    t.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; this.dragged = false; sx = e.clientX; sl = t.scrollLeft;
+    });
+    addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - sx;
+      if (!this.dragged && Math.abs(dx) > 6) { this.dragged = true; t.style.scrollSnapType = 'none'; t.style.cursor = 'grabbing'; }
+      if (this.dragged) t.scrollLeft = sl - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (!down) return; down = false; t.style.cursor = 'grab';
+      if (this.dragged) {
+        const w = this.step(), i = Math.round(t.scrollLeft / w);
+        t.scrollTo({ left: i * w, behavior: 'smooth' });
+        this.later(() => { t.style.scrollSnapType = 'x mandatory'; this.dragged = false; }, 500);
+      }
+    });
+    this.io = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting || this.waved) return; this.waved = 1; this.io.disconnect();
+      if (this.reduce) return;
+      this.doors().forEach((d, i) => this.later(() => {
+        if (d._hov) return;
+        const r = +d.dataset.rest || 0;
+        this.set(d, Math.max(r, 18), .55, false);
+        this.later(() => { if (!d._hov) this.rest(d); }, 1000);
+      }, 250 + i * 140));
+    }), { threshold: .35 });
+    this.io.observe(t);
+  }
+  step() { const d = this.doors()[0], t = this.track(); if (!d || !t) return 300; return d.getBoundingClientRect().width + parseFloat(getComputedStyle(t).columnGap || 16); }
+
+  renderVals() {
+    const C = window.GRIFFNER_CONTENT || {}, K = C.kapitel || {};
+    const list = (C.season || {}).chapters || [];
+    const today = window.GW ? GW.today() : '2026-10-23';
+    const cur = list.filter(c => c.iso <= today).length - 1;
+    const doors = list.map((c, i) => {
+      const open = c.iso <= today;
+      return {
+        nr: c.nr, title: c.claim ? (K.first || 'The new GRIFFNER') : c.title, question: c.question, teaser: c.teaser,
+        open, locked: !open, openStr: open ? '1' : '0', rest: i === cur ? 14 : 0,
+        href: open ? c.href : '#kapitel', cursor: open ? 'pointer' : 'grab',
+        label: !open ? (K.coming || 'Coming {date}').replace('{date}', c.date) : i === cur ? K.now : K.open,
+        click: e => { if (!open) e.preventDefault(); }
+      };
+    });
+    const go = dir => () => { const t = this.track(); if (t) t.scrollBy({ left: dir * this.step(), behavior: 'smooth' }); };
+    return { k: K, doors, prev: go(-1), next: go(1) };
+  }
+}
+</script>
+</body>
+</html>
