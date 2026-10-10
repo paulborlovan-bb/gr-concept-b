@@ -697,13 +697,11 @@ html,body{overflow-x:clip}
   /* Preloader (Gegenstück zu Version A „licht“/„skizze“, passend zu „Der Plan“):
      Hilfslinien skizzieren den Plan, das Feld wird von Hand gezeichnet, die Striche ziehen sich gerade,
      das Feld füllt sich gelb, die Wortmarke schreibt sich ein. Endet exakt im Startbild des Hero.
-     Einmal pro Sitzung, ?preloader erzwingt ihn, Klick oder Taste überspringt, reduzierte Bewegung lässt ihn weg. */
+     Läuft bei jedem Aufruf der Startseite, Klick oder Taste überspringt, reduzierte Bewegung lässt ihn weg. */
   const pl = $('#pl');
-  let plSeen = false; try { plSeen = sessionStorage.getItem('griffner-b-pl') === '1'; } catch (e) {}
-  window.__plActive = !!pl && !reduce && (/[?&]preloader/.test(location.search) || !plSeen);
+  window.__plActive = !!pl && !reduce;
   if (!window.__plActive) { if (pl) pl.remove(); }
   else {
-    try { sessionStorage.setItem('griffner-b-pl', '1'); } catch (e) {}
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0); document.documentElement.style.overflow = 'hidden'; if (lenis) lenis.stop();
     const W = innerWidth, H = innerHeight, fw = Math.min(W * .26, H * .4), fh = fw * .8, l = (W - fw) / 2, t = (H - fh) / 2, r = l + fw, b = t + fh;
