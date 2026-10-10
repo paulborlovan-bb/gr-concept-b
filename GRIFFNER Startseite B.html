@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GRIFFNER, Hausbau geht besser. Version B</title>
@@ -11,106 +12,13 @@
 <link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
 <link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
 <link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
 <script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <style>
-:root{--m:var(--page-margin);--rail:64px}
-body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog i{background:#000}
-*{box-sizing:border-box}
-html,body{margin:0;background:#000}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{color:#fff;font-family:var(--font-text);font-weight:400;font-feature-settings:'liga' 1;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit;text-decoration:none;transition:opacity 320ms var(--ease)}
-a:hover{opacity:.64}
-img{display:block;max-width:100%}
-::selection{background:#FFB200;color:#000}
-button,input,select,textarea{font:inherit;color:inherit}
-
-/* Typo-Rollen */
-.info{font-family:var(--font-text);font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.2em;text-transform:uppercase}
-.disp{font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;letter-spacing:0;line-height:.95;margin:0}
-.xl{font-size:clamp(40px,6.2vw,116px)}
-.l{font-size:clamp(30px,4vw,72px)}
-.ml{font-size:clamp(24px,2.4vw,44px);line-height:1}
-.hm{font-family:var(--font-display);font-weight:500;text-transform:uppercase;letter-spacing:.04em;line-height:1.08;font-size:clamp(18px,1.5vw,24px);margin:0;font-feature-settings:'liga' 0}
-.txt{font-size:var(--fs-text-web);line-height:1.45;margin:0;max-width:34em;text-wrap:pretty}
-.lnk{display:inline-flex;gap:10px;align-items:center;padding-bottom:6px;border-bottom:1px solid currentColor}
-.lnk.info{font-size:11px}
-
-/* Raster und Flächen */
-.dark{background:#000;color:#fff}
-.light{background:#fff;color:#000}
-.pad{padding:var(--section-pad) var(--m)}
-.g12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col)}
-.rule{border-top:1px solid currentColor}
-.ph{position:relative;background:#000;overflow:hidden}
-.ph .lab,.lab{position:absolute;left:0;bottom:0;background:#000;color:#fff;padding:8px 10px;font:500 10px/1 var(--font-text);letter-spacing:.2em;text-transform:uppercase}
-.frame{position:relative;overflow:hidden}
-.frame img{width:100%;height:100%;object-fit:cover}
-
-/* Zeilen aus der Maske */
-.ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
-.ln>span{display:block;will-change:transform}
-
-/* ---------- Menü: schmale Leiste links (Symbol, „Menü“, Fortschrittslinie), Klick öffnet das Vollbild-Menü wie Version A ---------- */
-.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:24px;color:#fff;mix-blend-mode:difference;pointer-events:none}
-.rail>*{pointer-events:auto}
-.rail-btn{background:none;border:0;padding:8px;cursor:pointer;display:grid;justify-items:center;gap:18px;color:inherit}
-.glyph{position:relative;width:28px;height:12px;display:block}
-.glyph i{position:absolute;left:0;height:1px;background:currentColor;transition:width 500ms var(--ease),transform 500ms var(--ease),top 500ms var(--ease)}
-.glyph i:first-child{top:2px;width:28px}.glyph i:last-child{top:9px;width:16px}
-.rail-btn:hover .glyph i:last-child{width:28px}
-body.menu-open .glyph i:first-child{top:6px;transform:rotate(45deg);width:24px}
-body.menu-open .glyph i:last-child{top:6px;transform:rotate(-45deg);width:24px}
-.vt{writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity 500ms var(--ease)}
-.rail-prog{position:relative;flex:1;width:1px;margin-bottom:28px;background:rgba(255,255,255,.28);transition:opacity 500ms var(--ease)}
-.rail-prog i{position:absolute;left:-1px;top:0;width:3px;height:0;background:#fff}
-body.menu-open .vt,body.menu-open .rail-prog{opacity:0}
-@media (max-width:820px){:root{--rail:52px}.vt,.rail-prog{display:none}.rail{padding-top:16px}}
-.mnu{position:fixed;inset:0;z-index:49;background:#000;color:#fff;height:100vh;height:100svh;padding:clamp(130px,18vh,190px) var(--m) clamp(24px,4vh,40px) max(var(--m),calc(var(--rail) + 24px));display:none;grid-template-rows:minmax(0,1fr) auto;overflow:auto}
-body.menu-open .mnu{display:grid}
-.mnu-main{display:grid;grid-template-columns:minmax(0,1fr) min(30vw,600px);gap:var(--gap-col);align-items:center}
-.mnu-nav{display:grid;gap:clamp(2px,1.4vh,18px)}
-.mnu-it{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px clamp(16px,1.6vw,28px);transition:opacity 320ms var(--ease)}
-.mnu-it:hover{opacity:1}
-.mnu-nav.hov .mnu-it{opacity:.32}.mnu-nav.hov .mnu-it.on{opacity:1}
-.mnu-it .m{display:block;overflow:hidden;padding:.18em .1em .08em 0;margin:-.18em -.1em -.08em 0;font-size:min(clamp(32px,3.9vw,76px),7.2vh);line-height:.95}
-.mnu-it .m>span{display:block;font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;white-space:nowrap}
-.mnu-it.soon{cursor:default}
-.mnu-season{justify-self:start;margin-top:clamp(28px,5vh,56px);display:flex;flex-wrap:wrap;gap:6px 14px;color:#CACACA}
-.mnu-season span:first-child,.mnu-season span:last-child{color:#fff}
-.mnu-fig{margin:0;display:grid;gap:14px}
-.mnu-img{position:relative;aspect-ratio:5/4;overflow:hidden;background:#141413}
-.mnu-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1000ms var(--ease),transform 3000ms var(--ease)}
-.mnu-img img.on{opacity:1;transform:none}
-.mnu-cap{min-height:12px;font-size:10px}
-.mnu-foot{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:16px 32px;padding-top:24px}
-.mnu-foot .links{display:flex;flex-wrap:wrap;gap:8px 28px}
-.mnu-foot img{justify-self:end;width:130px;height:auto}
-@media (max-width:1099px){.mnu-main{grid-template-columns:minmax(0,1fr)}.mnu-fig{display:none}}
-@media (max-width:600px){.mnu-foot{grid-template-columns:1fr}.mnu-foot img{justify-self:start}}
-
-/* ---------- Header ---------- */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px var(--m) 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}
-.hdr .side{mix-blend-mode:difference;color:#fff;pointer-events:auto}
-.hdr .r{justify-self:end}
-.hdr .r{margin-top:18px}   /* Schriftmitte auf der Mitte des Menü-Glyphs in der Leiste */
-@media (max-width:820px){.hdr .r{margin-top:10px}}
-.hdr.on-yellow .side,body.fin-yellow .hdr .side,body.fin-yellow .rail{mix-blend-mode:normal;color:#000}
-.logo{display:grid;justify-items:center;gap:7px;pointer-events:auto}
-.logo svg{width:72px;height:auto;display:block}
-.logo .wm{mix-blend-mode:difference;color:#fff;opacity:0}
-.logo .slot{display:block;width:72px;height:57.6px}
-.logo{will-change:transform}
-/* Connector wie Version A: gelbes Feld 5:4, oben 50 %, unten voll; gleitet zwischen Andockpunkten */
-.conn{position:fixed;left:0;top:0;width:0;height:0;z-index:5;pointer-events:none;display:grid;grid-template-rows:1fr 1fr;opacity:0;transition:opacity 600ms var(--ease);will-change:transform}
-.conn span{display:block;background:#FFB200}
-.dockpt{position:absolute;pointer-events:none}
-@media (max-width:600px){.hdr .info{font-size:10px;letter-spacing:.12em}}
-
 /* ---------- Hero: das Feld öffnet sich zum Fenster ---------- */
 #top{height:520vh} /* Hero + Claim-Fenster */
 .claim-svg{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
@@ -182,17 +90,13 @@ body.menu-open .mnu{display:grid}
 .ar-line{position:relative;flex:none;margin-top:clamp(24px,3.5vh,40px);height:1px;background:#000}
 .ar-line .dockpt{left:0;top:0;width:40px;height:32px;transform:translateY(-50%)}
 
-/* ---------- Floating House wie Version A: Frage über der Linie, das Bild wächst von unten ins Vollbild ---------- */
-#floating{position:relative;height:260vh}
-.pf-line{position:absolute;left:var(--m);right:var(--m);top:clamp(88px,12vh,120px);height:1px;background:#fff}
-.pf-line .dockpt{right:0;top:0;width:clamp(40px,4.2vw,72px);aspect-ratio:5/4;transform:translateY(-50%)}
-.pf-q{position:absolute;left:var(--m);right:var(--m);top:calc(clamp(88px,12vh,120px) + clamp(40px,7vh,88px));max-width:11em;font-size:min(clamp(38px,5.8vw,108px),11vh);text-wrap:balance}
-.pf-img{position:absolute;inset:0;overflow:hidden;background:#141413;color:#fff;clip-path:inset(76% var(--m) 0 var(--m));will-change:clip-path}
-.pf-img:hover{opacity:1}
-.pf-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
-.pf-img .sh{position:absolute;inset:0 0 auto 0;height:50%;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0))}
-.pf-a{position:absolute;left:var(--m);right:var(--m);top:clamp(96px,14vh,150px);max-width:10em;font-size:min(clamp(34px,5vw,92px),10vh);opacity:0;text-wrap:balance}
-.pf-img .dockpt{left:58%;bottom:0;width:clamp(48px,5vw,88px);aspect-ratio:5/4;transform:translateY(50%)}
+/* ---------- Floating House: Vollbild zieht sich zum Rahmen zusammen (Version B, ohne Link) ---------- */
+#floating{position:relative;height:240vh}
+.fl-img{position:absolute;inset:0;will-change:clip-path}
+.fl-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);will-change:transform}
+.fl-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.18) 50%,rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.6))} /* links dunkler: kleine Zeile und Headline lesbar */
+.fl-copy{position:absolute;left:calc(var(--m) + 3vw);right:calc(var(--m) + 3vw);bottom:clamp(150px,21vh,230px);display:grid;gap:24px}
+.fl-copy .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
 
 /* ---------- Projects wie Version A: Liste links, Bild rechts bleibt stehen ---------- */
 #projekte{padding:var(--section-pad-sm) var(--m) var(--section-pad)}
@@ -266,43 +170,9 @@ body.menu-open .mnu{display:grid}
 .pan .lab{top:0;bottom:auto;z-index:1}
 @media (max-width:820px){.acc{flex-direction:column;height:auto}.pan{height:46vh;flex:none}.pan .cap .lnk{opacity:1;transform:none}}
 
-/* ---------- Kontakt: Formular als Satz ---------- */
-.stage .af{opacity:0;transition:opacity 700ms var(--ease)}
-.stage.filled{background:#FFB200}
-.stage.filled .af{opacity:1}
-.af{position:relative;z-index:6;display:grid;gap:clamp(28px,4vh,40px);max-width:760px;margin:0}
-.af-g{display:grid;gap:14px}
-.choice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #000}
-.choice button{background:transparent;border:0;border-left:1px solid #000;padding:18px 20px;text-align:left;font:500 clamp(15px,1.15vw,18px)/1.3 var(--font-text);color:#000;cursor:pointer;transition:background 320ms var(--ease),color 320ms var(--ease)}
-.choice button:first-child{border-left:0}
-.choice button[aria-checked="true"]{background:#000;color:#FFB200}
-.af-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(24px,3vh,32px) var(--gap-col)}
-.fld{display:grid;gap:10px}
-.fld input,.fld textarea{border:0;border-bottom:1px solid #000;background:transparent;padding:10px 0;font-size:var(--fs-text-web);line-height:1.4;outline:none;border-radius:0;color:#000;resize:vertical}
-.fld textarea{font-size:15px}
-.fld input::placeholder,.fld textarea::placeholder{color:#444442;opacity:1}
-.fld.bad input{border-bottom-width:3px}
-.ferr{font-size:14px;line-height:1.45;font-weight:600}
-.pl{padding-left:28px;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;line-height:1.45}
-.stage{position:relative;background:transparent;color:#000;padding:clamp(32px,4.4vw,72px);margin-right:calc(-1 * var(--m))}
-.chk{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;font-weight:500;cursor:pointer}
-.chk input{appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;border:1px solid #000;margin:2px 0 0;border-radius:0;background:transparent;cursor:pointer}
-.chk input:checked{background:#000}
-.err{font-size:14px;font-weight:600;line-height:1.45}
-.send{justify-self:start;display:inline-flex;gap:14px;background:#000;color:#fff;border:0;padding:21px 30px;font:500 11px/1 var(--font-text);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border-radius:0;transition:background 320ms var(--ease)}
-.send:hover{background:#444442}.send:active{transform:translateY(1px)}
-
 /* ---------- Finale: das Feld wird Fläche, die Fläche trägt den Claim ---------- */
 #finale{height:300vh;background:#000}
 .fin-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-
-/* ---------- Footer ---------- */
-.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap-col)}
-.ft-cols ul{list-style:none;margin:16px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.28);display:grid;gap:10px;font-size:var(--fs-text-sm)}
-.ft-wm{margin-top:clamp(80px,14vh,160px);color:#fff}
-.ft-wm svg{width:100%;height:auto;display:block}
-.ft-bot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:28px;padding-bottom:calc(0px + 60px)}
-@media (max-width:820px){.ft-cols{grid-template-columns:1fr 1fr}}
 
 /* ---------- Preloader: Plan-Skizze wird zum Feld ---------- */
 .preload{position:fixed;inset:0;z-index:80;background:#000;color:#fff;cursor:pointer}
@@ -312,14 +182,7 @@ body.menu-open .mnu{display:grid}
 
 @media (prefers-reduced-motion:reduce){.hero-cue i{animation:none}}
 
-/* Handy: Raster stapeln, lange deutsche Wörter trennen, nichts ragt seitlich heraus */
-html,body{overflow-x:clip}
 @media (max-width:820px){
-  .g12>*{grid-column:1/-1!important}
-  .g12{row-gap:24px}
-  .disp{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
-  .stage{margin-left:calc(-1 * var(--m))}
-  .choice{grid-template-columns:1fr}.choice button{border-left:0;border-top:1px solid #000}.choice button:first-child{border-top:0}
   .hero-copy,.fl-copy .bot{gap:18px}
 }
 </style>
@@ -327,20 +190,6 @@ html,body{overflow-x:clip}
 <body>
 <div class="preload" id="pl" aria-hidden="true"></div>
 
-<aside class="rail" aria-label="Menü">
-  <button class="rail-btn" id="mBtn" aria-expanded="false" aria-controls="mnu"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span class="info vt" data-c="header.menu"></span></button>
-  <span class="rail-prog" aria-hidden="true"><i id="railProg"></i></span>
-</aside>
-<div class="mnu" id="mnu" role="dialog" aria-label="Menü" aria-hidden="true">
-  <div class="mnu-main">
-    <div>
-      <nav class="mnu-nav" id="mnuNav" aria-label="Hauptmenü"></nav>
-      <a class="mnu-season info" id="mnuSeason" href="#kapitel" data-mfoot></a>
-    </div>
-    <figure class="mnu-fig" aria-hidden="true"><div class="mnu-img" id="mnuImg"></div><figcaption class="info mnu-cap" id="mnuCap"></figcaption></figure>
-  </div>
-  <div class="mnu-foot info" data-mfoot><div class="links" id="mnuLinks"></div><span data-c="footer.place"></span><img src="assets/logo/griffner-claim-weiss.svg" alt="built different"></div>
-</div>
 
 <div class="conn" id="conn" aria-hidden="true"><span></span><span></span></div>
 
@@ -358,7 +207,6 @@ html,body{overflow-x:clip}
       <svg class="claim-svg" id="claimOpen" aria-label="built different" role="img"><defs><mask id="mOpen" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><rect width="100%" height="100%" fill="#fff"/><g class="claim-g"><path class="claim-p" fill="#000"/></g></mask></defs><rect width="100%" height="100%" fill="#000" mask="url(#mOpen)"/></svg>
       <div class="hero-copy">
         <h1 class="disp xl" id="heroHead"></h1>
-        <p class="txt" id="heroText" data-c="hero.text"></p>
       </div>
       <div class="hero-cue info" id="heroCue"><span>Scroll</span><i></i></div>
     </div>
@@ -435,19 +283,19 @@ html,body{overflow-x:clip}
     </div>
   </section>
 
-  <!-- Floating House (wie Version A) -->
+  <!-- Floating House (Version B) -->
   <section id="floating" class="dark" data-menu="#proj" data-label="Projects">
-    <span id="proj" aria-hidden="true" style="position:absolute;top:0"></span>
-    <span id="projTrig" aria-hidden="true" style="position:absolute;left:0;top:159vh;width:1px;height:1px"></span>
     <div class="stick">
-      <div class="pf-line"><span class="dockpt" data-dock="box" data-dock-solid="1" aria-hidden="true"></span></div>
-      <h2 class="disp pf-q" id="pfQ" data-c="architektur.projects.q"></h2>
-      <a class="pf-img" id="pfImg" data-href="architektur.projects.href">
-        <img alt="" data-src="architektur.projects.img">
-        <span class="sh"></span>
-        <h2 class="disp pf-a" id="pfA" data-c="architektur.projects.a"></h2>
-        <span class="dockpt" data-dock="box" data-dock-trigger="projTrig" aria-hidden="true"></span>
-      </a>
+      <span id="proj" aria-hidden="true" style="position:absolute;top:0"></span>
+      <div class="fl-img" id="flImg"><img alt="" data-src="architektur.projects.img"></div>
+      <span class="dockpt" data-dock="edge" data-dock-x=".72" data-dock-w=".08" aria-hidden="true" style="left:var(--m);right:var(--m);bottom:10vh;height:0"></span>
+      <div class="fl-copy" id="flCopy">
+        <p class="info" data-c="architektur.projects.q"></p>
+        <div class="bot">
+          <h2 class="disp xl" style="max-width:9em" data-c="architektur.projects.a"></h2>
+          <p class="txt" style="max-width:360px" data-c="architektur.projects.text"></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -511,7 +359,6 @@ html,body{overflow-x:clip}
   <section id="kontakt" class="dark pad" data-label="Kontakt">
     <div class="g12" style="align-items:start;row-gap:40px">
       <div style="grid-column:1/span 5;display:grid;gap:28px">
-        <p class="info" data-c="kontakt.formInfo"></p>
         <h2 class="disp l" style="max-width:9em" data-c="erleben.head" data-rv></h2>
         <p class="txt" data-c="erleben.headText" data-rv></p>
       </div>
@@ -587,7 +434,7 @@ html,body{overflow-x:clip}
 
   const W = C.weg;
   $('#steps').innerHTML = W.stations.map(st => `<span class="step"><span>${esc(st.title)}</span><span class="trk"><i></i></span></span>`).join('');
-  $('#stTexts').innerHTML = W.stations.map(s => `<p class="txt" style="color:#CACACA">${esc(s.text)}</p>`).join('');
+  $('#stTexts').innerHTML = W.stations.map(s => `<p class="txt" style="color:#CACACA">${esc(s.text.replace(' – ', ', '))}</p>`).join('');   // wie die Startseite in v3
   $('#stTitles').innerHTML = W.stations.map(st => `<p class="disp xl wword" aria-label="${esc(st.title)}">${[...st.title].map(ch => `<span class="ch" aria-hidden="true">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('')}</p>`).join('');
   /* Kapitel: Türen aus season.chapters, geöffnet nach Datum (wie das Menü: simuliertes Startdatum) */
   const KAP = C.kapitel || {}, CH = (C.season || {}).chapters || [], kToday = '2026-10-23';
@@ -675,9 +522,6 @@ html,body{overflow-x:clip}
   };
   mountForm();
 
-  $('#ftCols').innerHTML = C.footer.cols.map(c => `<div><p class="info">${esc(c.title)}</p><ul>${c.links.map(l => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join('')}</ul></div>`).join('')
-    + `<div><p class="info">Griffen</p><ul>${C.footer.address.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>`;
-  $('#ftLegal').innerHTML = C.footer.legal.map(l => `<a href="#">${esc(l)}</a>`).join('');
 
   /* Claim „built different“: Pfad aus assets/logo/griffner-claim-maske.svg, nie als Text.
      Zoompunkt im f und Radius wie Version A (GriffnerFooter): dort ist die Ausstanzung breit genug, um den Screen zu füllen. */
@@ -691,52 +535,8 @@ html,body{overflow-x:clip}
     return `translate(${px.toFixed(2)} ${py.toFixed(2)}) scale(${k.toFixed(5)}) translate(${(-CL.FX * CL.VW).toFixed(1)} ${(-CL.FY * CL.VH).toFixed(1)})`;
   };
 
-  /* Menü wie Version A (GriffnerMenu): Vollbild, große Punkte, Bild rechts wechselt beim Hover.
-     Noch nicht geöffnete Kapitel zeigen „Coming“ mit Datum und sind nicht klickbar. */
-  const M = C.menu, today = '2026-10-23'; // wie Version A: simuliertes Startdatum, in Produktion Serverdatum
-  const mItems = M.items.map(it => ({ ...it, soon: !!(it.opens && today < it.opens) }));
-  $('#mnuNav').innerHTML = mItems.map((it, i) => `<a class="mnu-it${it.soon ? ' soon' : ''}" href="${esc(it.soon ? '#top' : it.href)}" data-i="${i}"${it.soon ? ' aria-disabled="true"' : ''}><span class="m"><span data-mi>${esc(it.label)}</span></span><span class="info note">${it.soon ? esc(M.comingPrefix + ' ' + it.date) : ''}</span></a>`).join('');
-  $('#mnuImg').innerHTML = mItems.map(it => `<img src="${esc(it.img)}" alt="" loading="lazy">`).join('');
-  $('#mnuLinks').innerHTML = M.links.map(([l, h]) => `<a href="${esc(h)}">${esc(l)}</a>`).join('');
-  const S = C.season;
-  if (S && today <= S.hideAfter) {
-    const op = S.chapters.filter(c => c.iso <= today), curC = op[op.length - 1] || S.chapters[0], nx = S.chapters.find(c => c.iso > today);
-    $('#mnuSeason').innerHTML = `<span>${esc(S.bar.replace('{nr}', curC.nr))}</span><span>${nx ? esc(S.next.replace('{title}', nx.title).replace('{date}', nx.date)) : ''}</span><span>→</span>`;
-  } else $('#mnuSeason').remove();
-  const body = document.body, btn = $('#mBtn'), mnu = $('#mnu'), mNav = $('#mnuNav'), mImgs = $$('#mnuImg img'), mCap = $('#mnuCap');
-  const pick = i => { mImgs.forEach((im, k) => im.classList.toggle('on', k === i)); mCap.textContent = mItems[i].sub || ''; };
-  pick(0);
-  $$('.mnu-it', mNav).forEach(a => {
-    const i = +a.dataset.i, it = mItems[i], note = $('.note', a);
-    const on = () => { mNav.classList.add('hov'); $$('.mnu-it', mNav).forEach(x => x.classList.toggle('on', x === a)); pick(i); if (it.soon) note.textContent = 'Öffnet am ' + it.date; };
-    const off = () => { if (it.soon) note.textContent = M.comingPrefix + ' ' + it.date; };
-    a.addEventListener('mouseenter', on); a.addEventListener('focus', on); a.addEventListener('mouseleave', off); a.addEventListener('blur', off);
-    a.addEventListener('click', e => { if (it.soon) { e.preventDefault(); return; } setMenu(false); });
-  });
-  mNav.addEventListener('mouseleave', () => mNav.classList.remove('hov'));
-  mnu.addEventListener('click', e => { const a = e.target.closest('a'); if (a && !a.closest('.mnu-it')) setMenu(false); });
-  let mOpen = false;
-  const setMenu = open => {
-    if (open === mOpen) return; mOpen = open;
-    btn.setAttribute('aria-expanded', open); mnu.setAttribute('aria-hidden', !open);
-    const lenisNow = window.__lenis;
-    if (open) {
-      body.classList.add('menu-open'); document.documentElement.style.overflow = 'hidden'; if (lenisNow) lenisNow.stop();
-      if (reduce) return;
-      const E = 'cubic-bezier(.65,0,.15,1)', O = 'cubic-bezier(.22,1,.36,1)';
-      mnu.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 900, easing: E });
-      $$('[data-mi]', mnu).forEach((el, i) => el.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }], { duration: 1200, delay: 450 + i * 80, easing: O, fill: 'backwards' }));
-      $('#mnuImg').animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 1300, delay: 650, easing: E, fill: 'backwards' });
-      $$('[data-mfoot], .mnu-cap', mnu).forEach(el => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 1200, easing: O, fill: 'backwards' }));
-    } else {
-      document.documentElement.style.overflow = ''; if (lenisNow) lenisNow.start();   // sofort, damit ein Sprung aus dem Menü scrollen kann
-      const fin = () => { if (!mOpen) { body.classList.remove('menu-open'); mNav.classList.remove('hov'); } };
-      if (reduce) return fin();
-      mnu.animate([{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 700, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = fin;
-    }
-  };
-  btn.addEventListener('click', () => setMenu(!mOpen));
-  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  /* Leiste, Vollbild-Menü und Footer: gemeinsam mit den Unterseiten aus site/b-base.js */
+  GB.shell(); GB.footer(); GB.fixLinks();
 
   /* 3D-Filme aus Version A (exportiert nach site/film-*.js) */
   import('./site/film-weg.js').then(m => m.mount());
@@ -882,7 +682,7 @@ html,body{overflow-x:clip}
   // Hero: Feld wird Fenster, Fenster wird Bild
   const heroClip = p => { const r = fieldRect(), vh = innerHeight, vw = innerWidth; const k = gsap.parseEase('power3.inOut')(p); const t = r.t * (1 - k), l = r.l * (1 - k), b = (vh - r.t - r.h) * (1 - k), rr = (vw - r.l - r.w) * (1 - k); return `inset(${t}px ${rr}px ${b}px ${l}px)`; };
   gsap.set('#heroImg', { clipPath: heroClip(0) });
-  gsap.set('#heroHead .ln > span', { yPercent: 105 }); gsap.set('#heroText', { opacity: 0, y: 20 });
+  gsap.set('#heroHead .ln > span', { yPercent: 105 });
   const claimOpenState = { e: 1 }, claimOpenG = $('#claimOpen .claim-g');
   const drawClaimOpen = () => claimOpenG.setAttribute('transform', claimT(innerWidth, innerHeight, claimOpenState.e));
   drawClaimOpen(); addEventListener('resize', drawClaimOpen);
@@ -892,9 +692,8 @@ html,body{overflow-x:clip}
     .to('#heroImg img', { scale: 1, duration: .6, ease: 'none' }, .1)
     .to('#heroCue', { opacity: 0, duration: .06 }, .05)
     .to('#heroHead .ln > span', { yPercent: 0, duration: .25, stagger: .06, ease: 'power3.out' }, .58)
-    .to('#heroText', { opacity: 1, y: 0, duration: .2 }, .7)
     // Claim-Fenster: Headline geht, Schwarz schließt sich um das Bild, bis nur „built different“ bleibt
-    .to(['#heroHead', '#heroText'], { opacity: 0, duration: .1 }, 1.02)
+    .to('#heroHead', { opacity: 0, duration: .1 }, 1.02)
     .set('#claimOpen', { opacity: 1 }, 1.06)
     .fromTo(claimOpenState, { e: 1 }, { e: 0, duration: .42, ease: 'power2.inOut', onUpdate: drawClaimOpen }, 1.06)
     .to({}, { duration: .16 });
@@ -925,17 +724,11 @@ html,body{overflow-x:clip}
   arApply(0);
   ScrollTrigger.create({ trigger: arPin, start: 'top top', end: 'bottom bottom', onUpdate: s => arApply(s.progress), onRefresh: s => arApply(s.progress) });
 
-  // Floating House: Frage steht über der Linie, das Bild wächst von unten ins Vollbild, dann die Antwort (wie Version A)
-  const seg = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a))), io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  const pfImg = $('#pfImg'), pfQ = $('#pfQ'), pfA = $('#pfA');
-  const pfDraw = p => {
-    const g = io3(seg(p, .12, .58)), m = parseFloat(getComputedStyle(pfQ).left) || 24, H = innerHeight;
-    pfImg.style.clipPath = `inset(${((1 - g) * H * .76).toFixed(1)}px ${((1 - g) * m).toFixed(1)}px 0 ${((1 - g) * m).toFixed(1)}px)`;
-    pfQ.style.opacity = (1 - seg(p, .3, .5)).toFixed(3);
-    const ta = io3(seg(p, .58, .7)); pfA.style.opacity = ta.toFixed(3); pfA.style.transform = `translateY(${((1 - ta) * 16).toFixed(1)}px)`;
-  };
-  pfDraw(0);
-  ScrollTrigger.create({ trigger: '#floating', start: 'top top', end: 'bottom bottom', onUpdate: s => pfDraw(s.progress), onRefresh: s => pfDraw(s.progress) });
+  // Floating House: Vollbild zieht sich zum Rahmen zusammen
+  const fl = gsap.timeline({ scrollTrigger: { trigger: '#floating', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  fl.fromTo('#flImg', { clipPath: 'inset(0px 0px 0px 0px)' }, { clipPath: () => `inset(${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')} ${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')})`, duration: .55, ease: 'none' }, 0)
+    .to('#flImg img', { scale: 1, duration: .8, ease: 'none' }, 0)
+    .from('#flCopy > *', { y: 50, opacity: 0, duration: .25, stagger: .08 }, .3);
   requestAnimationFrame(() => ScrollTrigger.refresh());
 
   // Weg: Schrittleiste wie Version A. Ladelinien füllen sich, der Connector läuft als Läufer mit, Titel kommen Buchstabe für Buchstabe

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News / GRIFFNER</title>
+<!-- Version B, Unterseite News-Beitrag (?b=slug). Copy aus site/content.js (newsPage.items, newsPage.articles), Rahmen aus site/b-base.* -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+#b-hero{padding-bottom:0}
+.b-img{margin-top:clamp(48px,8vh,96px);aspect-ratio:16/9;max-height:86vh;width:100%}
+.b-img img{transform:scale(1.12);will-change:transform}
+.b-meta{grid-column:1/span 3;position:sticky;top:clamp(96px,14vh,140px)}
+.b-meta>*{display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-variant-numeric:tabular-nums}
+.b-meta button{width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:inherit;cursor:pointer;text-align:left;font:inherit;letter-spacing:inherit;text-transform:inherit}
+.b-body{grid-column:5/span 7;display:grid;gap:clamp(40px,6vh,64px);max-width:720px}
+.b-body .lead{font-family:var(--font-display);font-weight:300;font-size:clamp(22px,2vw,32px);line-height:1.35;margin:0;text-wrap:pretty}
+.b-body p.t{margin:0;font-size:clamp(16px,1.15vw,18px);line-height:1.6;text-wrap:pretty}
+.b-body h2{font-size:clamp(26px,2.4vw,40px);line-height:1}
+.b-body .sub{margin:0;font-weight:600;font-size:clamp(17px,1.3vw,20px);line-height:1.3}
+.b-body figure{margin:20px 0 0;padding-top:28px;border-top:1px solid #000;display:grid;gap:18px}
+.b-body blockquote{margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(20px,1.8vw,28px);line-height:1.4;text-wrap:pretty}
+@media (max-width:899px){.b-meta{position:static;grid-column:1/-1}.b-body{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<main>
+  <section id="b-hero" class="dark p-hero" data-label="Beitrag">
+    <div class="g12" style="row-gap:clamp(24px,4vh,40px)">
+      <a class="info" style="grid-column:1/-1;justify-self:start;display:flex;gap:10px" href="GRIFFNER%20News%20B.html" data-rv><span>←</span><span>Alle News</span></a>
+      <span class="info" style="grid-column:1/-1" id="bDate" data-rv></span>
+      <h1 class="disp" style="grid-column:1/span 9;max-width:none" id="bTitle" data-rv></h1>
+    </div>
+    <div class="ph-box b-img" id="bImg" data-dock="edge" data-dock-x=".72"></div>
+  </section>
+
+  <section id="b-text" class="light pad" data-label="Text">
+    <div class="g12" style="row-gap:clamp(48px,7vh,72px);align-items:start">
+      <aside class="b-meta info lines" id="bMeta"></aside>
+      <div class="b-body" id="bBody"></div>
+    </div>
+  </section>
+
+  <section id="b-mehr" class="dark pad" data-label="Weiterlesen">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
+      <h2 class="disp h-l" data-rv>Weiterlesen.</h2>
+      <a class="info" style="display:flex;gap:10px" href="GRIFFNER%20News%20B.html"><span>Alle News</span><span>→</span></a>
+    </div>
+    <div class="cards" style="margin-top:clamp(48px,8vh,96px);grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))" id="bMore"></div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { C, $, $$, esc, lines } = GB, P = C.newsPage, all = P.items;
+  const slug = new URLSearchParams(location.search).get('b') || 'neue-kampagne-hausbau-geht-besser';
+  const a = all.find(i => i.slug === slug) || all[0], body = (P.articles || {})[a.slug] || null;
+  document.title = a.title + ' / News / GRIFFNER';
+  $('#bDate').textContent = a.date + ' / ' + a.cat;
+  $('#bTitle').innerHTML = lines([a.title]);
+  $('#bImg').innerHTML = `<img src="${esc(a.img)}" alt="">`;
+  const sections = body ? body.sections : [];
+  const words = [body ? body.lead : a.teaser, ...(body ? body.intro : []), ...sections.map(s => [s.sub, s.text, s.quote].join(' '))].join(' ').split(/\s+/).length;
+  $('#bMeta').innerHTML = `<div><span>Datum</span><span>${esc(a.date)}</span></div><div><span>Lesezeit</span><span>${Math.max(1, Math.round(words / 200))} Min.</span></div><button type="button" id="bShare"><span>Link teilen</span><span>→</span></button>`;
+  const link = body && body.link ? body.link : { label: 'Beitrag auf griffner.com', href: a.src };
+  $('#bBody').innerHTML = `<p class="lead" data-rv>${esc(body ? body.lead : a.teaser)}</p>`
+    + (body ? body.intro : []).map(t => `<p class="t" data-rv>${esc(t)}</p>`).join('')
+    + sections.map(s => `<div style="display:grid;gap:20px" data-rv><h2 class="disp">${esc(s.head)}</h2>${s.sub ? `<p class="sub">${esc(s.sub)}</p>` : ''}<p class="t">${esc(s.text)}</p>${s.quote ? `<figure><blockquote>${esc(s.quote)}</blockquote><figcaption class="info">${esc(s.by)}</figcaption></figure>` : ''}</div>`).join('')
+    + (link && link.href ? `<a class="lnk info" style="justify-self:start" href="${esc(link.href)}" target="_blank" rel="noopener"><span>${esc(link.label)}</span><span>↗</span></a>` : '');
+  $('#bShare').addEventListener('click', e => { try { navigator.clipboard.writeText(location.href); } catch (x) {} const s = e.currentTarget.firstElementChild; s.textContent = 'Link kopiert'; setTimeout(() => { s.textContent = 'Link teilen'; }, 2400); });
+  const idx = all.indexOf(a), base = 'GRIFFNER%20News%20Beitrag%20B.html?b=';
+  $('#bMore').innerHTML = [1, 2, 3].map(k => all[(idx + k) % all.length]).map(n => `<a class="ncard" href="${base + n.slug}"><span class="frame" data-lux><img src="${esc(n.img)}" alt="" loading="lazy"></span><span style="display:grid;gap:10px"><span class="info">${esc(n.date)}</span><span class="hm t">${esc(n.title)}</span></span></a>`).join('');
+}, () => {
+  // Aufmacherbild: zieht sich beim Scrollen leicht zurück
+  gsap.to('#bImg img', { scale: 1, ease: 'none', scrollTrigger: { trigger: '#bImg', start: 'top bottom', end: 'bottom top', scrub: true } });
+});
+</script>
+</body>
+</html>

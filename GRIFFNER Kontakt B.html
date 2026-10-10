@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt / GRIFFNER</title>
+<!-- Version B, Unterseite Kontakt. Copy aus site/content.js (kontakt, erleben.form), Rahmen aus site/b-base.* -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+/* Formular als Satz: Name, Anliegen, Standort und Kontakt stehen im Text */
+#k-form{padding:0 var(--m) var(--section-pad-sm)}
+#k-form .stage{margin-left:calc((100vw - 2 * var(--m)) / 12 * 4)}
+.sent{font-family:var(--font-display);font-weight:300;font-size:clamp(24px,2.5vw,42px);line-height:1.4;margin:0;text-wrap:pretty}
+.sent input,.sent select{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px solid #000;border-radius:0;padding:0 .08em;margin:0;outline:none;field-sizing:content;min-width:5ch;max-width:100%}
+.sent select{appearance:none;-webkit-appearance:none;cursor:pointer}
+.sent input::placeholder{color:#444442;opacity:1}
+.sent .bad{border-bottom-width:3px}
+.sent .tp{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;opacity:.35;transition:opacity 600ms var(--ease);text-underline-offset:.14em;text-decoration-thickness:1px}
+.sent .tp[aria-pressed="true"]{opacity:1;text-decoration:underline}
+.k-bot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,5vh,48px) clamp(32px,5vw,96px);align-items:start;padding-top:clamp(24px,4vh,40px);border-top:1px solid #000}
+.k-errs{display:grid;gap:6px;font-size:var(--fs-text-web);line-height:1.45;font-weight:600}
+/* Musterhäuser */
+.orte-bar{margin-top:clamp(56px,8vh,96px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:20px 48px;padding-bottom:18px;border-bottom:1px solid #000}
+.orte-bar .art{font-family:var(--font-display);font-weight:500;font-size:clamp(15px,1.1vw,18px);letter-spacing:.04em;text-transform:uppercase}
+.orte-bar .art sup{font:500 11px/1 var(--font-text);letter-spacing:.2em;font-variant-numeric:tabular-nums}
+.muster{margin-top:clamp(40px,6vh,64px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:clamp(40px,6vh,64px) var(--gap-col)}
+.muster article{display:grid;gap:18px;align-content:start}
+.muster .ph-box{aspect-ratio:4/3}
+.muster .ph-box img{transition:transform 2400ms var(--ease)}
+.muster article:hover .ph-box img{transform:scale(1.03)}
+.muster .addr{display:grid;gap:2px;font-size:15px;line-height:1.45}
+.buero{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px var(--gap-col);align-items:baseline;padding:18px 0;border-bottom:1px solid #000;font-size:15px;line-height:1.45}
+.buero a{justify-self:start;border-bottom:1px solid currentColor;padding-bottom:3px}
+@media (max-width:899px){#k-form .stage{margin-left:calc(-1 * var(--m))}}
+</style>
+</head>
+<body>
+<main>
+  <section id="k-hero" class="dark p-hero" data-label="Kontakt">
+    <div class="g12" style="row-gap:clamp(28px,4vh,48px)">
+      <span class="info" style="grid-column:1/-1" data-c="kontakt.info" data-rv></span>
+      <h1 class="disp" style="grid-column:1/span 8" id="kHead" data-rv></h1>
+      <div class="side"><p class="txt" data-c="kontakt.text" data-rv></p></div>
+    </div>
+  </section>
+
+  <section id="k-form" class="dark" data-label="Dein Projekt">
+    <div class="stage" id="kontakt" data-dock="rect" data-dock-solid="1"><div class="af" style="max-width:920px" id="kStage"></div></div>
+  </section>
+
+  <section id="zentrale" class="dark pad" style="padding-top:var(--section-pad-sm)" data-label="Kontaktdaten">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(40px,6vh,64px) clamp(32px,6vw,120px);align-items:end">
+      <div style="display:grid;gap:clamp(20px,3vh,32px)" data-rv>
+        <span class="info" data-c="kontakt.zentraleInfo"></span>
+        <address class="hm" style="font-style:normal;display:grid;line-height:1.35" id="kZentrale"></address>
+      </div>
+      <div class="lines" id="kFacts" data-rv></div>
+    </div>
+    <p class="info" style="margin:clamp(28px,4vh,40px) 0 0" data-c="kontakt.made" data-rv></p>
+  </section>
+
+  <section id="orte" class="light pad" data-label="Musterhäuser">
+    <div class="g12" style="row-gap:clamp(24px,4vh,40px);align-items:end">
+      <span class="info" style="grid-column:1/-1" data-c="kontakt.orteInfo" data-rv></span>
+      <h2 class="disp h-l" style="grid-column:1/span 8" data-c="kontakt.orteHead" data-rv></h2>
+      <p class="txt" style="grid-column:9/span 4" data-c="kontakt.orteText" data-rv></p>
+    </div>
+    <div class="orte-bar">
+      <div class="tabs" role="tablist" id="kArten"></div>
+      <div class="tabs info" id="kLaender"></div>
+    </div>
+    <div id="kOrte"></div>
+  </section>
+
+  <section id="katalog" class="dark pad" data-label="Katalog">
+    <div style="padding-top:clamp(28px,4vh,40px);border-top:1px solid #fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px clamp(32px,6vw,120px);align-items:start" data-rv>
+      <h2 class="hm" data-c="kontakt.katalogHead"></h2>
+      <div style="display:grid;gap:24px;max-width:520px">
+        <p class="txt" data-c="kontakt.katalogText"></p>
+        <a class="lnk info" style="justify-self:start" data-href="kontakt.katalogHref" data-c="kontakt.katalogLink" data-arrow target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { C, $, $$, esc, lines } = GB, K = C.kontakt, F = C.erleben.form;
+  $('#kHead').innerHTML = lines([K.head]);
+  $('#kZentrale').innerHTML = K.zentrale.map(z => `<span>${esc(z)}</span>`).join('');
+  $('#kFacts').innerHTML = K.facts.map(([l, v, h]) => `<a class="lrow" href="${esc(h)}"><span class="info k">${esc(l)}</span><span class="v">${esc(v)}</span><span>→</span></a>`).join('');
+
+  /* Formular als Satz (wie Version A / v3), auf der gelben Fläche */
+  const places = ['meiner Nähe', ...new Set(K.musterhaeuser.map(m => m.city))];
+  const st = { topic: 0, place: places[0] };
+  const stage = $('#kStage');
+  const mount = () => {
+    stage.innerHTML = `
+      <div style="display:grid;gap:clamp(28px,4.5vh,48px)">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px"><span class="info">${esc(K.formInfo)}</span><h2 class="hm">${esc(K.formHead)}</h2></div>
+        <form id="kf" novalidate style="display:grid;gap:clamp(28px,4.5vh,48px)">
+          <p class="sent"><span>${esc(K.s1)} </span><input id="kName" autocomplete="name" aria-label="Name" placeholder="${esc(K.namePh)}"><span> ${esc(K.s2)} </span>${K.topics.map((t, i) => `<span><button type="button" class="tp" data-i="${i}" aria-pressed="${i === st.topic}">${esc(t)}</button>${i < K.topics.length - 1 ? '<span style="opacity:.35"> / </span>' : ''}</span>`).join('')}<span id="kPlaceW">, ${esc(K.sPlace)} <select id="kPlace" aria-label="Standort">${places.map(o => `<option${o === st.place ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></span><span>. ${esc(K.s3)} </span><input id="kContact" autocomplete="email" aria-label="E-Mail oder Telefon" placeholder="${esc(K.contactPh)}" style="min-width:8ch"><span>.</span></p>
+          <div class="k-errs" id="kErr"></div>
+          <div class="k-bot">
+            <label class="fld"><span class="info">${esc(F.message)}</span><textarea id="kMsg" rows="4" placeholder="${esc(F.messageHint)}"></textarea></label>
+            <div style="display:grid;gap:clamp(20px,3vh,28px)">
+              <div style="display:grid;gap:8px"><label class="chk"><input type="checkbox" id="kOk"><span>${esc(F.consent)}</span></label><div class="pl"><a href="${esc(F.privacyHref)}" style="text-decoration:underline;text-underline-offset:3px">${esc(F.privacy)}</a></div></div>
+              <label class="chk"><input type="checkbox" id="kNews"><span>${esc(F.newsletter)}</span></label>
+              <div style="padding-top:8px"><button class="send" type="submit"><span>${esc(F.submit)}</span><span>→</span></button></div>
+            </div>
+          </div>
+        </form>
+      </div>`;
+    const tps = $$('.tp', stage), placeW = $('#kPlaceW');
+    const setTopic = i => { st.topic = i; tps.forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i)); placeW.style.display = i === 2 ? 'none' : ''; };
+    tps.forEach(b => b.addEventListener('click', () => setTopic(+b.dataset.i)));
+    setTopic(st.topic);
+    $('#kPlace').addEventListener('change', e => { st.place = e.target.value; });
+    $('#kf').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = $('#kName').value.trim(), c = $('#kContact').value.trim(), mail = /\S+@\S+\.\S+/.test(c), ok = mail || c.replace(/[^\d]/g, '').length >= 6, nl = $('#kNews').checked;
+      const errs = [!name && F.errName, !ok && F.errContact, nl && !mail && F.errNewsletter, !$('#kOk').checked && F.errConsent].filter(Boolean);
+      $('#kName').classList.toggle('bad', !name); $('#kContact').classList.toggle('bad', !ok);
+      $('#kErr').innerHTML = errs.map(x => `<span>${esc(x)}</span>`).join('');
+      if (errs.length) return;
+      stage.innerHTML = `<div style="display:grid;gap:clamp(20px,3vh,32px);max-width:880px;min-height:clamp(260px,36vh,420px);align-content:end">
+        <h3 class="disp" style="font-size:clamp(32px,3.4vw,60px);line-height:1">${esc(F.thanksHead.replace('{name}', name.split(' ')[0]))}</h3>
+        <p class="txt">${esc(F.thanksText)}</p>${nl ? `<p class="txt" style="font-weight:600">${esc(F.newsletterThanks)}</p>` : ''}
+        <div><button class="lnk info" type="button" id="kAgain" style="background:none;border:0;border-bottom:1px solid #000;cursor:pointer;padding:0 0 6px">${esc(F.again)}</button></div></div>`;
+      $('#kAgain').addEventListener('click', () => { st.topic = 0; st.place = places[0]; mount(); });
+    });
+  };
+  mount();
+  const toForm = () => { const t = $('#kontakt'), y = t.getBoundingClientRect().top + scrollY - 40; window.__lenis ? __lenis.scrollTo(y, { duration: 1.6 }) : scrollTo({ top: y, behavior: 'smooth' }); };
+
+  /* Musterhäuser und Verkaufsbüros, Filter nach Art und Land */
+  const LAND = { AT: 'Österreich', DE: 'Deutschland', CZ: 'Tschechien' };
+  const sel = { art: 'muster', land: 'alle' };
+  const inLand = x => sel.land === 'alle' || x.land === sel.land;
+  const draw = () => {
+    $('#kArten').innerHTML = K.arten.map(([v, l]) => `<button type="button" role="tab" class="tab art" data-v="${v}" aria-selected="${sel.art === v}">${esc(l)} <sup>${String((v === 'muster' ? K.musterhaeuser : K.bueros).filter(inLand).length).padStart(2, '0')}</sup></button>`).join('');
+    $('#kLaender').innerHTML = K.laender.map(([v, l]) => `<button type="button" class="tab info" data-v="${v}" aria-pressed="${sel.land === v}">${esc(l)}</button>`).join('');
+    const list = (sel.art === 'muster' ? K.musterhaeuser : K.bueros).filter(inLand);
+    if (!list.length) $('#kOrte').innerHTML = `<p class="txt" style="margin-top:clamp(40px,6vh,64px)">In ${esc(LAND[sel.land] || '')} gibt es derzeit kein ${sel.art === 'muster' ? 'Musterhaus' : 'Verkaufsbüro'}.</p>`;
+    else if (sel.art === 'muster') $('#kOrte').innerHTML = `<div class="muster">${list.map((m, i) => `<article>
+        <div class="ph-box"${i === 0 ? ' data-dock="edge" data-dock-x=".72"' : ''}><img src="${esc(m.img)}" alt="Musterhaus ${esc(m.city)} ${esc(m.house)}" loading="lazy"><span class="lab">Musterhaus / ${esc(m.house)} / ${esc(m.land)}</span></div>
+        <div style="display:grid;gap:12px"><h3 class="hm" style="font-size:clamp(16px,1.2vw,19px)">${esc(m.city)}</h3><div class="addr">${m.addr.map(a => `<span>${esc(a)}</span>`).join('')}</div><span class="info" style="line-height:1.6">${esc(m.hours)}</span>
+        <div style="margin-top:6px"><button type="button" class="lnk info" data-city="${esc(m.city)}" style="background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 6px;cursor:pointer;color:inherit"><span>${esc(K.request)}</span><span>→</span></button></div></div></article>`).join('')}</div>`;
+    else $('#kOrte').innerHTML = `<div style="margin-top:8px">${list.map(b => `<div class="buero"><h3 class="hm" style="font-size:clamp(16px,1.2vw,19px)">${esc(b.city)} <span class="info">${esc(b.land)}</span></h3><span style="font-weight:600">${esc(b.who)}</span><span>${esc(b.addr.join(', '))}</span><a class="info" href="tel:${esc(b.tel.replace(/[^\d+]/g, '').replace(/^\+/, '00'))}">${esc(b.tel)}</a></div>`).join('')}</div>`;
+    $$('#kArten .tab').forEach(b => b.addEventListener('click', () => { sel.art = b.dataset.v; draw(); }));
+    $$('#kLaender .tab').forEach(b => b.addEventListener('click', () => { sel.land = b.dataset.v; draw(); }));
+    $$('#kOrte [data-city]').forEach(b => b.addEventListener('click', () => { st.topic = 1; st.place = b.dataset.city; if (!$('#kf')) mount(); else { $('#kPlace').value = st.place; $$('.tp').forEach(x => x.setAttribute('aria-pressed', x.dataset.i === '1')); $('#kPlaceW').style.display = ''; } toForm(); }));
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  };
+  draw();
+});
+</script>
+</body>
+</html>

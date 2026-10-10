@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Careers / GRIFFNER</title>
+<!-- Version B, Unterseite Careers. Copy aus site/content.js (karriere), Rahmen aus site/b-base.*, Formular aus site/b-apply.js -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="site/b-apply.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+.jumps{margin-top:clamp(48px,8vh,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.jumps a{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 0;border-bottom:1px solid var(--line)}
+.c-bild{padding:0 var(--m) var(--section-pad)}
+.c-bild .ph-box{aspect-ratio:21/9;min-height:280px}
+.grp{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px;scroll-margin-top:120px}
+.grp .gl{grid-column:1/span 3}
+.grp .gj{grid-column:4/-1}
+@media (max-width:899px){.grp .gl,.grp .gj{grid-column:1/-1}.c-bild .ph-box{aspect-ratio:auto;height:280px;min-height:0}}
+</style>
+</head>
+<body>
+<main>
+  <section id="c-hero" class="dark p-hero" data-label="Careers">
+    <div class="g12" style="row-gap:clamp(28px,4vh,48px)">
+      <span class="info" style="grid-column:1/-1" data-c="karriere.info" data-rv></span>
+      <h1 class="disp" style="grid-column:1/span 8" id="cHead" data-rv></h1>
+      <div class="side" id="cText" data-rv></div>
+    </div>
+    <div class="jumps lines" id="cJumps" data-rv></div>
+  </section>
+
+  <section class="dark c-bild" data-label="Bild">
+    <div class="ph-box grid-ph" id="cBild" data-lux data-dock="edge" data-dock-x=".78"><span class="lab" data-c="karriere.imgLabel"></span></div>
+  </section>
+
+  <section id="stellen" class="light pad" data-label="Offene Stellen">
+    <h2 class="disp h-l" style="margin:0 0 clamp(40px,6vh,72px)" data-c="karriere.stellenHead" data-rv></h2>
+    <div style="display:grid;gap:clamp(56px,9vh,104px)" id="cGroups"></div>
+  </section>
+
+  <section id="bewerben" class="dark form-sec" style="padding-top:var(--section-pad-sm)" data-label="Bewerben">
+    <div class="stage" id="bewerbung" data-dock="rect" data-dock-solid="1"><div class="af" style="max-width:920px"></div></div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { C, $, $$, esc, lines } = GB, K = C.karriere;
+  $('#cHead').innerHTML = lines([K.head]);
+  $('#cText').innerHTML = K.text.map(p => `<p class="txt">${esc(p)}</p>`).join('');
+  const groups = K.groups.map(([g, label, id]) => ({ id, label, jobs: K.jobs.filter(j => j.group === g) }));
+  $('#cJumps').innerHTML = groups.filter(g => g.jobs.length).slice(0, 1).map(g => `<a href="#${esc(g.id)}"><span class="hm" style="font-size:clamp(15px,1.15vw,18px)">${esc(K.jumpErfahrung)}</span><span>↓</span></a>`).join('');
+  const row = j => `<a class="jrow" href="GRIFFNER%20Job%20B.html?job=${esc(j.slug)}"><span class="hm t">${esc((j.group === 'lehre' ? 'Lehre ' : '') + j.title)} <sup>${esc(K.mwd)}</sup></span><span class="info m"><span>${esc(j.bereich)}</span><span style="min-width:170px">${esc(j.art)}</span><span style="font-size:18px;letter-spacing:0">→</span></span></a>`;
+  $('#cGroups').innerHTML = groups.filter(g => g.jobs.length).map(g => `<div class="grp" id="${esc(g.id)}" data-rv><span class="hm gl" style="font-size:clamp(15px,1.15vw,18px)">${esc(g.label)}</span><div class="gj lines">${g.jobs.map(row).join('')}</div></div>`).join('')
+    + `<div class="grp" data-rv><div class="gj" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px 40px"><p class="txt" style="max-width:520px">${esc(K.initiativText)}</p><a class="lnk info" href="#bewerbung" id="cInit"><span>${esc(K.initiativLink)}</span><span>→</span></a></div></div>`;
+  const form = GB.apply($('#bewerbung'), 'initiativ');
+  $('#cInit').addEventListener('click', () => form.pick('initiativ'));
+});
+</script>
+</body>
+</html>

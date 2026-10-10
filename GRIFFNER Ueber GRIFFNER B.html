@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Über GRIFFNER / GRIFFNER</title>
+<!-- Version B, Unterseite Über GRIFFNER. Copy wörtlich aus U1Ueber, U2Ueber, U3Ueber (v3), Film aus site/film-ueber.js (U1Film), Rahmen aus site/b-base.* -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+.big{font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;letter-spacing:0;text-wrap:balance;margin:0}
+.stk{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+/* 00 Zwei Worte */
+#u-open{position:relative;height:360vh}
+.o1{position:absolute;left:var(--m);right:var(--m);top:22vh;max-width:11em;font-size:min(clamp(36px,6.2vw,116px),9.5vh);line-height:.96}
+.oclaim{position:absolute;left:50%;top:62%;width:min(84vw,1180px,160vh);transform:translate(-50%,-50%)}
+.oclaim svg{display:block;width:100%;height:auto;overflow:visible}
+.o2,.o3,.o4{position:absolute;left:var(--m);right:var(--m);bottom:clamp(56px,11vh,120px);opacity:0}
+.o2{font-size:clamp(44px,8vw,152px);line-height:.92}
+.o2 .vs{display:grid;overflow:hidden;padding-bottom:.06em}
+.o2 .vs span{grid-area:1/1;display:block;transform:translateY(110%);transition:transform 900ms cubic-bezier(0.22,1,0.36,1)}
+.o3,.o4{max-width:15em;font-size:clamp(30px,4.8vw,92px);line-height:.98}
+/* 01 Was alles anders ist */
+.proof{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 clamp(32px,6vw,120px)}
+.catcol{flex:1 1 380px;position:sticky;top:clamp(100px,24vh,240px);z-index:2;display:grid;gap:clamp(20px,3vh,32px)}
+.catw{display:grid;font-size:clamp(44px,7.2vw,136px);line-height:.92}
+.catw>div{grid-area:1/1;opacity:0;transform:translateY(24px);transition:opacity 700ms var(--ease),transform 900ms var(--ease)}
+.catw span{display:block}
+.cdots{display:flex;gap:8px;margin-top:8px}
+.cdots span{display:block;width:22px;height:1px;background:#000;opacity:.25;transition:opacity 600ms var(--ease)}
+.cats{flex:1.2 1 380px;min-width:0;display:grid}
+.cat{position:relative;min-height:92vh;display:grid;align-content:center;gap:clamp(18px,3vh,28px);border-top:1px solid #000;padding:clamp(40px,7vh,72px) 0}
+.cat .ph-box{aspect-ratio:16/10;max-height:46vh;width:100%;clip-path:inset(0 0 100% 0)}
+.cat .ph-box img{transform:scale(1.1);transform-origin:50% 60%}
+.cat .lead{margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(26px,2.8vw,48px);line-height:1.1;text-wrap:pretty}
+.cat .num{font-family:var(--font-display);font-weight:300;font-size:clamp(52px,6.4vw,120px);line-height:.88;font-variant-numeric:tabular-nums}
+@media (max-width:759px){.catcol{top:56px;background:#fff;padding:12px 0 16px}.catw{font-size:34px}}
+/* 01 Wer wir sind + Film */
+#u-merge{position:relative;height:420vh}
+.ustage{position:absolute;inset:0}
+.mshade{position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.7));pointer-events:none;opacity:0}
+.mcaps{position:absolute;left:var(--m);right:var(--m);bottom:clamp(32px,7vh,80px);display:grid;pointer-events:none}
+.mcaps>*{grid-area:1/1;opacity:0}
+.mcap{display:grid;gap:10px;max-width:380px}
+.mst{max-width:16em;font-size:clamp(30px,5vw,92px);line-height:.98}
+/* 04 Fünf Fragen */
+.q{min-height:62vh;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:clamp(16px,3vw,48px);align-content:center;align-items:start;border-top:1px solid #000;padding:clamp(32px,6vh,64px) 0}
+.q svg{display:block;width:clamp(34px,4.4vw,72px);height:auto;margin-top:clamp(26px,3vw,50px);overflow:visible}
+.q p{margin:0;max-width:15em;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:var(--font-display);font-weight:300;font-size:clamp(30px,4.8vw,88px);line-height:1.02}
+.q p span{opacity:.16}
+/* 05 Geschichte */
+#u-zeit{position:relative;height:380vh}
+.tline{position:absolute;left:var(--m);right:var(--m);top:clamp(96px,15vh,140px);height:1px;background:#fff}
+.tline i{position:absolute;top:-4px;width:1px;height:9px;background:#fff}
+.tline .dockpt{left:0;top:0;width:48px;height:38px}
+.ttrack{position:absolute;left:0;top:0;bottom:0;display:flex;will-change:transform}
+.ttrack article{flex:none;width:100vw;padding:clamp(140px,22vh,210px) var(--m) clamp(28px,5vh,56px);display:flex;flex-wrap:wrap;align-items:flex-end;align-content:center;gap:clamp(24px,4vh,40px) clamp(24px,5vw,96px)}
+.ttrack .ph-box{flex:1 1 320px;max-width:720px;aspect-ratio:4/3;max-height:52vh}
+.ttrack .yr{font-family:var(--font-display);font-weight:300;font-size:clamp(52px,8vw,156px);line-height:.9;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+/* 06 Die neue Ära */
+#u-pass{position:relative;height:180vh;margin-top:clamp(40px,7vh,80px)}
+#u-pass .stk{display:flex;align-items:center}
+.pframe{position:relative;width:100%;height:min(78vh,62vw);overflow:hidden;background:#E6E6E4}
+.pframe>div{position:absolute;inset:0}
+.pframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.pcap{position:absolute;bottom:clamp(20px,4vh,40px);background:#000;color:#fff;padding:8px 10px;font:500 10px/1 var(--font-text);letter-spacing:.2em;text-transform:uppercase;opacity:0}
+/* 06b Thomas */
+.tq blockquote{margin:0;display:flex;flex-wrap:wrap;column-gap:.24em;font-size:clamp(38px,5.8vw,112px);line-height:.98}
+.tq blockquote span{opacity:.14}
+/* 08 Schluss */
+#u-schluss .stage{grid-column:6/-1;margin-top:clamp(16px,4vh,48px);min-height:clamp(220px,32vh,340px);display:flex;align-items:flex-end;padding:clamp(28px,4vw,64px)}
+@media (prefers-reduced-motion:reduce){.cat .ph-box{clip-path:none}.pcap{opacity:1}.o2,.o3,.o4{display:none}}
+@media (max-width:899px){#u-schluss .stage{grid-column:1/-1;margin-left:calc(-1 * var(--m))}}
+</style>
+</head>
+<body>
+<main>
+  <!-- 00 Zwei Worte -->
+  <section id="u-hero" class="dark" data-label="Zwei Worte">
+    <span class="dockpt" data-dock="box" data-dock-hide="1" aria-hidden="true" style="left:50%;top:0;width:1px;height:1px"></span>
+    <div id="u-open">
+      <div class="stk">
+        <p class="big o1" id="o1">BEI UNS DREHT SICH ALLES UM ZWEI WORTE.</p>
+        <div class="oclaim" id="oclaim"><svg viewBox="0 0 6053 977" role="img" aria-label="built different"><path id="ocp" fill="#FFFFFF" fill-opacity="0" stroke="#FFFFFF" stroke-width="1.3" vector-effect="non-scaling-stroke" d=""/></svg></div>
+        <div class="big o2" id="o2" aria-label="Anders denken, planen, beraten, fertigen, bauen."><span aria-hidden="true" style="display:block">ANDERS</span><span class="vs" aria-hidden="true" id="oVerbs"></span></div>
+        <p class="big o3" id="o3">FÜR MENSCHEN, DIE ANDERE VORSTELLUNGEN VOM WOHNEN UND LEBEN HABEN.</p>
+        <p class="big o4" id="o4">NICHT, UM ANDERS ZU SEIN. SONDERN WEIL HAUSBAU BESSER GEHT.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Was alles anders ist -->
+  <section id="u-proof" class="light pad" data-label="Was alles anders ist">
+    <span class="dockpt" data-dock="box" data-dock-hide="1" aria-hidden="true" style="left:50%;top:0;width:1px;height:1px"></span>
+    <div class="proof">
+      <div class="catcol">
+        <div class="big catw" id="catW"></div>
+        <svg viewBox="0 0 6053 977" role="img" aria-label="built different" style="display:block;width:clamp(150px,16vw,240px);height:auto"><path class="cl-fill" fill="#000000" d=""/></svg>
+        <div class="cdots" id="catD"></div>
+      </div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <!-- 01 Wer wir sind -->
+  <section id="u-wer" class="dark" data-label="Wer wir sind">
+    <div class="g12" style="padding:var(--section-pad-sm) var(--m) clamp(24px,4vh,48px);row-gap:28px;align-items:end">
+      <h2 class="big" style="grid-column:1/span 7;font-size:clamp(40px,5.2vw,96px);line-height:.95" data-rv>WIR DENKEN ARCHITEKTUR UND BAUEN ALS EINS.</h2>
+      <p class="txt" style="grid-column:9/span 4;color:#CACACA" data-rv>Was andere zwischen Architekt, Werk und Baustelle aufteilen, verbinden wir. Bei uns entwerfen Profis dein Haus, unser Werk in Griffen fertigt es, und unsere eigenen Teams bauen es auf. Eine Verantwortung, vom ersten Strich bis zum Schlüssel.</p>
+    </div>
+    <div id="u-merge" data-merge="1">
+      <div class="stk">
+        <div class="ustage" data-ustage="1"></div>
+        <span class="dockpt" data-dock="box" data-dock-hide="1" data-dock-trigger="u-merge" aria-hidden="true" style="left:50%;top:50%;width:1px;height:1px"></span>
+        <div class="mshade" id="mShade" aria-hidden="true"></div>
+        <div class="mcaps" id="mCaps"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Fünf Fragen -->
+  <section id="u-haltung" class="light" style="padding-top:var(--section-pad)" data-label="Fünf Fragen">
+    <span class="dockpt" data-dock="box" data-dock-hide="1" aria-hidden="true" style="left:50%;top:0;width:1px;height:1px"></span>
+    <div class="g12" style="padding:0 var(--m) clamp(40px,8vh,96px);row-gap:28px;align-items:end">
+      <h2 class="big" style="grid-column:1/span 7;font-size:clamp(40px,5.2vw,96px);line-height:.95" data-rv>BEVOR ETWAS GRIFFNER VERLÄSST.</h2>
+      <p class="txt" style="grid-column:9/span 4" data-rv>Fünf Fragen gelten für jeden Entwurf, jeden Prozess, jede Beratung und jeden Satz, den wir schreiben. Auch für diese Seite.</p>
+    </div>
+    <div style="padding:0 var(--m)" id="qs"></div>
+    <div style="padding:var(--section-pad) var(--m)"><p class="big" style="max-width:12em;font-size:clamp(40px,5.2vw,96px);line-height:.95" data-rv>WENN NICHT, IST ES NICHT FERTIG.</p></div>
+  </section>
+
+  <!-- 05 Geschichte -->
+  <section id="u-geschichte" class="dark" data-label="Geschichte">
+    <div class="g12" style="padding:var(--section-pad) var(--m) clamp(48px,8vh,96px);row-gap:28px;align-items:end">
+      <h2 class="big" style="grid-column:1/span 7;font-size:clamp(40px,5.2vw,96px);line-height:.95" data-rv>SEIT 1950. UND WIR FANGEN GERADE ERST AN.</h2>
+      <p class="txt" style="grid-column:9/span 4" data-rv>Aus einer Zimmerei in Griffen wurde eine Marke für Architektur in Holz. Erfahrung ist für uns kein Argument, sondern die Grundlage, Dinge neu zu denken.</p>
+    </div>
+    <div id="u-zeit">
+      <div class="stk">
+        <div class="tline" id="tLine"><span class="dockpt" id="tDock" data-dock="box" data-dock-trigger="u-zeit" aria-hidden="true"></span></div>
+        <div class="ttrack" id="tTrack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Die neue Ära -->
+  <section id="u-aera" class="light" style="padding:var(--section-pad) 0" data-label="Die neue Ära">
+    <h2 class="big" style="margin:0 var(--m);max-width:14em;font-size:clamp(40px,5.2vw,96px);line-height:.95" data-rv>EIN UNTERNEHMEN GIBT MAN NICHT AB. MAN VERTRAUT ES JEMANDEM AN.</h2>
+    <div id="u-pass">
+      <div class="stk">
+        <div class="pframe" data-dock="edge" data-dock-x=".5" data-dock-trigger="u-pass">
+          <div id="phL" style="clip-path:inset(0 50% 0 0)"><img src="assets/photos/georg-thomas.jpg" alt="Georg Niedersüß und Thomas Scheriau"></div>
+          <div id="phR" style="clip-path:inset(0 0 0 50%)"><img src="assets/photos/georg-thomas.jpg" alt=""></div>
+          <span class="pcap" style="left:var(--m)">GEORG NIEDERSÜSS / GESELLSCHAFTER UND GESCHÄFTSFÜHRER</span>
+          <span class="pcap" style="right:var(--m)">THOMAS SCHERIAU / EIGENTÜMER UND CEO</span>
+        </div>
+      </div>
+    </div>
+    <div class="g12" style="padding:clamp(48px,8vh,96px) var(--m) 0;row-gap:clamp(40px,7vh,72px)">
+      <div style="grid-column:2/span 5;display:grid;gap:20px">
+        <p class="txt" data-rv>Über viele Jahre hat Georg Niedersüß GRIFFNER geführt und geprägt. Er hat aus dem Unternehmen eine Marke mit Haltung gemacht, mit Substanz und einem klaren Blick für gute Architektur.</p>
+        <p class="txt" data-rv>2026 hat er GRIFFNER in neue Hände gelegt. Thomas Scheriau führt das Unternehmen seither als Eigentümer und Geschäftsführer. Georg Niedersüß bleibt als Gesellschafter und Geschäftsführer an seiner Seite.</p>
+      </div>
+      <p class="big" style="grid-column:7/-1;font-size:clamp(28px,3.6vw,64px);line-height:1" data-rv>KEIN BRUCH. EINE WEITERGABE UNTER MENSCHEN, DIE DASSELBE WOLLEN.</p>
+    </div>
+  </section>
+
+  <!-- 06b Thomas Scheriau -->
+  <section id="u-thomas" class="dark pad" data-label="Thomas Scheriau">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(48px,7vh,72px) clamp(32px,6vw,120px)">
+      <div style="flex:0 1 460px;min-width:min(100%,280px)">
+        <div class="ph-box" data-lux data-dock="edge" data-dock-x=".72" style="aspect-ratio:4/5"><img id="tZoom" src="assets/photos/thomas-scheriau.jpg" alt="Thomas Scheriau" style="object-position:21% 40%;transform-origin:30% 40%"></div>
+      </div>
+      <figure class="tq" id="tq" style="flex:1 1 420px;min-width:0;margin:0;display:grid;gap:clamp(20px,3vh,32px)">
+        <blockquote class="big" aria-label="Wir wollen nicht die Größten werden. Sondern die Besten." id="tWords"></blockquote>
+        <figcaption class="info">THOMAS SCHERIAU / EIGENTÜMER UND CEO</figcaption>
+      </figure>
+    </div>
+    <div class="g12" style="margin-top:clamp(96px,16vh,200px);row-gap:clamp(40px,7vh,72px);align-items:start">
+      <div style="grid-column:1/span 5;display:grid;gap:20px">
+        <p class="txt" style="color:#CACACA" data-rv>Thomas Scheriau kennt die Branche seit über zehn Jahren. Er hat gesehen, wie Häuser gebaut werden und wie sie verkauft werden. Und er hat eine klare Vorstellung davon, wie beides besser geht.</p>
+        <p class="txt" style="color:#CACACA" data-rv>Zu GRIFFNER ist er nicht gekommen, um zu verwalten. Sondern um ein außergewöhnliches Unternehmen dorthin zu bringen, wo es hingehört: an die Spitze.</p>
+      </div>
+      <figure style="grid-column:7/-1;margin:0;display:grid;gap:18px">
+        <blockquote style="margin:0;font-family:var(--font-display);font-weight:300;font-size:clamp(24px,2.6vw,44px);line-height:1.12;text-wrap:pretty" data-rv>GRIFFNER hat alles, um die beste Hausmarke des Landes zu sein: das Handwerk, die Substanz, die Menschen. Meine Aufgabe ist, das sichtbar zu machen.</blockquote>
+        <figcaption class="info" style="color:#CACACA" data-rv>THOMAS SCHERIAU</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 07 Menschen -->
+  <section id="u-menschen" class="light pad" data-label="Menschen">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));max-width:880px;gap:clamp(48px,7vh,72px) clamp(24px,3vw,48px)">
+      <article style="display:grid;gap:16px;align-content:start" data-rv>
+        <div class="ph-box grid-ph" data-dock="edge" data-dock-x=".7" style="aspect-ratio:3/2"><span class="lab">Platzhalter / Gregor im Flug</span></div>
+        <h3 class="hm">ER HAT DAS SPRINGEN NEU GEDACHT. WIR DAS BAUEN.</h3>
+        <a class="lnk info" style="justify-self:start" href="GRIFFNER%20Startseite%20B.html#gregor"><span>Gregors Geschichte</span><span>→</span></a>
+      </article>
+      <article style="display:grid;gap:16px;align-content:start" data-rv>
+        <div class="ph-box grid-ph" style="aspect-ratio:3/2"><span class="lab">Platzhalter / Team im Werk</span></div>
+        <h3 class="hm">DIFFERENT MINDS. DIFFERENT JOBS.</h3>
+        <p class="txt">17 offene Stellen. Bewerbung in zwei Minuten, ohne Anschreiben.</p>
+        <a class="lnk info" style="justify-self:start" href="GRIFFNER%20Karriere%20B.html#stellen"><span>Zu den Jobs</span><span>→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- 08 Schluss -->
+  <section id="u-schluss" class="dark pad" data-label="Schluss">
+    <div class="g12" id="u8-stage" style="row-gap:clamp(28px,4vh,44px)">
+      <h2 class="hm" style="grid-column:1/span 8;font-size:var(--fs-headline-web);line-height:var(--leading-headline-web)" data-rv>HAUSBAU GEHT BESSER. LASS ES UNS ZEIGEN.</h2>
+      <div class="stage" data-dock="rect" data-dock-solid="1" data-dock-trigger="u8-stage">
+        <div class="af" style="display:flex;flex-wrap:wrap;gap:12px">
+          <a class="send" href="GRIFFNER%20Startseite%20B.html#kontakt"><span>Projekt starten</span><span>→</span></a>
+          <a class="ghost" href="GRIFFNER%20Startseite%20B.html#erleben">Musterhaus besuchen</a>
+        </div>
+      </div>
+      <img src="assets/logo/griffner-claim-weiss.svg" alt="built different" style="grid-column:1/-1;width:150px;height:auto;margin-top:clamp(64px,12vh,140px)" data-rv>
+    </div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { $, esc } = GB;
+  $('#oVerbs').innerHTML = ['DENKEN.', 'PLANEN.', 'BERATEN.', 'FERTIGEN.', 'BAUEN.'].map(v => `<span>${v}</span>`).join('');
+  const CATS = [
+    { img: 'assets/photos/weiss-tag.jpg', ph: '', a: 'UNSER', b: 'PRODUKT.', lead: 'Es gibt kein GRIFFNER Haus von der Stange. Jedes antwortet auf seinen Ort und auf die Menschen, die darin leben.', num: '0', numLabel: 'Hausmodelle', text: 'Keine tragenden Innenwände, bis zu 9,80 m Raumbreite ohne Wand. Der Grundriss folgt deinem Leben, nicht umgekehrt.' },
+    { img: 'assets/photos/skizze.png', ph: '', a: 'UNSERE', b: 'PLANUNG.', lead: 'Andere geben dir einen Grundriss. Wir geben dir einen Stift.', num: '1', numLabel: 'Architekturteam im eigenen Haus', text: 'Profis entwerfen dein Haus frei, aus der Frage, wie du leben möchtest. Kein Katalog, keine Nummer.' },
+    { img: 'assets/photos/strasse-003.jpg', ph: '', a: 'UNSERE', b: 'PROZESSE.', lead: 'Ein Ansprechpartner. Ein Festpreis. Ein Termin, der hält.', num: '10 Monate', numLabel: 'Bis zum Einzug', text: 'Ein Projektmanager begleitet dich vom ersten Gespräch bis zum Schlüssel. Du entscheidest, wir übernehmen die Komplexität dahinter.' },
+    { img: '', ph: 'Platzhalter / Werk in Griffen', a: 'UNSERE', b: 'FERTIGUNG.', lead: 'Wir fertigen selbst. Weil wir Verantwortung nicht an der Werkstür abgeben.', num: '95 %', numLabel: 'Aus der eigenen Manufaktur', text: 'Unter Dach und auf den Millimeter, im Werk in Griffen. Was hier gelöst wird, muss auf deiner Baustelle nicht mehr gelöst werden.' },
+    { img: 'assets/photos/wald-fassade.jpg', ph: '', a: 'UNSER', b: 'MINDSET.', lead: 'Wir dürfen widersprechen. Auch der Branche. Auch uns selbst.', num: '5', numLabel: 'Fragen, bevor etwas GRIFFNER verlässt', text: 'Wir machen nichts mehr so, nur weil es immer so gemacht wurde.' },
+    { img: '', ph: 'Platzhalter / Team in Griffen', a: 'UNSER', b: 'TEAM.', lead: 'Die Menschen, die dein Haus entwerfen, kennen die Menschen, die es fertigen und aufbauen.', num: '[ZAHL]', numLabel: 'Menschen in Griffen', text: 'Architektur, Werk und Montage unter einem Dach. Eine Verantwortung, vom ersten Strich bis zum Schlüssel.' },
+    { img: 'assets/photos/wohnen-dunkel.jpg', ph: '', a: 'UNSERE', b: 'KUNDEN.', lead: 'Sie kommen nicht mit einem Katalog. Sie kommen mit einer Vorstellung vom Leben.', num: '[ZAHL]', numLabel: 'Gebaute Häuser', text: 'Menschen, die wissen wollen, warum etwas so ist. Und die ein Haus suchen, das zu ihnen passt.' }
+  ];
+  $('#catW').innerHTML = CATS.map(c => `<div><span>${c.a}</span><span>${c.b}</span></div>`).join('');
+  $('#catD').innerHTML = CATS.map(() => '<span></span>').join('');
+  $('#cats').innerHTML = CATS.map((c, i) => `<article class="cat"><span id="uc${i + 1}" aria-hidden="true" style="position:absolute;left:0;top:28vh;width:1px;height:1px"></span>
+      <div class="ph-box${c.img ? '' : ' grid-ph'}" data-dock="edge" data-dock-edge="top" data-dock-x=".72" data-dock-trigger="uc${i + 1}">${c.img ? `<img src="${esc(c.img)}" alt="">` : ''}${c.ph ? `<span class="lab">${esc(c.ph)}</span>` : ''}</div>
+      <p class="lead">${esc(c.lead)}</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px"><span class="num" data-num="${esc(c.num)}">${esc(c.num)}</span><span class="info">${esc(c.numLabel)}</span></div>
+      <p class="txt" style="max-width:28em">${esc(c.text)}</p></article>`).join('');
+  $('#mCaps').innerHTML = [['ARCHITEKTUR', 'Frei geplant, aus deinem Leben heraus. Kein Katalog, keine Nummer.'], ['WERK', 'In Griffen gefertigt, unter Dach und auf den Millimeter.'], ['BAUSTELLE', 'Von unseren eigenen Teams aufgebaut, bis zum Schlüssel.']]
+    .map(([k, v]) => `<div class="mcap"><span class="info">${k}</span><p class="txt" style="color:#CACACA">${v}</p></div>`).join('')
+    + '<p class="big mst" id="mSt">DIE FREIHEIT EINES ARCHITEKTEN. DIE SICHERHEIT EINES HERSTELLERS.</p>';
+  const QS = ['Erkennt man uns auch ohne Logo?', 'Ist das besser, oder nur anders?', 'Was würden wir weglassen, wenn wir mutig wären?', 'Ist das unser Bestes, oder nur genug?', 'Erzählst du davon, ohne dass wir dich bitten?'];
+  $('#qs').innerHTML = QS.map(q => `<div class="q"><svg viewBox="0 0 60 48" aria-hidden="true"><path d="M4 27 C 10 30, 15 35, 21 43 C 29 28, 40 14, 57 3" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><p aria-label="${esc(q)}">${q.split(' ').map(w => `<span aria-hidden="true">${esc(w)}</span>`).join('')}</p></div>`).join('');
+  const ST = [
+    ['1950', 'ZIMMEREI SIUTZ', 'Dachstühle und Blockhäuser aus Griffen.', '', 'Platzhalter / Archivbild Zimmerei'],
+    ['[JAHR]', 'GRIFFNERHAUS', 'Ari Griffner übernimmt die Zimmerei und gründet Griffnerhaus.', '', 'Platzhalter / Archivbild Griffnerhaus'],
+    ['[JAHR]', 'O SOLE MIO', 'Das modulare Pultdachhaus, entwickelt mit Matteo Thun und ausgezeichnet.', '', 'Platzhalter / O Sole Mio'],
+    ['[JAHR]', 'HAUS DES JAHRES', 'Gold und Silber in den Kategorien Luxus und Ökologie.', '', 'Platzhalter / Haus des Jahres'],
+    ['[JAHR]', 'FLOATING HOUSE', 'Das erste Wohnhaus, das Studio F. A. Porsche entworfen hat.', 'assets/projects/floating-house.jpg', 'Floating House'],
+    ['2026', 'NEUE ÄRA', 'Thomas Scheriau übernimmt GRIFFNER als Eigentümer und Geschäftsführer.', '', 'Platzhalter / Thomas Scheriau'],
+    ['23.10.2026', 'THE NEW GRIFFNER', 'Neue Marke, neue Häuser, neuer Auftritt.', '', 'Platzhalter / The new GRIFFNER']
+  ];
+  $('#tLine').insertAdjacentHTML('afterbegin', ST.map((s, i) => `<i style="left:${(i / 6 * 100).toFixed(3)}%"></i>`).join(''));
+  $('#tTrack').innerHTML = ST.map(([y, t, x, img, lab]) => `<article><div class="ph-box${img ? '' : ' grid-ph'}">${img ? `<img src="${esc(img)}" alt="${esc(t)}">` : ''}<span class="lab">${esc(lab)}</span></div>
+      <div style="flex:1 1 300px;display:grid;gap:16px;align-content:end;min-width:0"><span class="yr">${esc(y)}</span><span class="info">${esc(t)}</span><p class="txt" style="max-width:26em">${esc(x)}</p></div></article>`).join('');
+  $('#tWords').innerHTML = 'WIR WOLLEN NICHT DIE GRÖSSTEN WERDEN. SONDERN DIE BESTEN.'.split(' ').map(w => `<span aria-hidden="true">${w}</span>`).join('');
+  GB.claimPath().then(d => { if (!d) return; $('#ocp').setAttribute('d', d); document.querySelectorAll('.cl-fill').forEach(p => p.setAttribute('d', d)); GB.ocpLen = $('#ocp').getTotalLength(); $('#ocp').style.strokeDasharray = GB.ocpLen; $('#ocp').style.strokeDashoffset = GB.reduce ? 0 : GB.ocpLen; if (GB.reduce) $('#ocp').setAttribute('fill-opacity', 1); });
+  import('./site/film-ueber.js').then(m => m.mount());
+}, () => {
+  const { $, $$ } = GB, cl = x => Math.min(1, Math.max(0, x)), E = (p, a, b) => { const u = cl((p - a) / (b - a)); return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }, L = (a, b, t) => a + (b - a) * t;
+  const prog = el => { const r = el.getBoundingClientRect(); return { r, p: cl(-r.top / Math.max(1, r.height - innerHeight)) }; };
+  // 00 Zwei Worte: Claim zeichnet sich, füllt sich, rückt nach oben; dann „Anders …“ und zwei Sätze
+  const O = { pin: $('#u-open'), o1: $('#o1'), claim: $('#oclaim'), cp: $('#ocp'), o2: $('#o2'), vs: $$('#oVerbs span'), o3: $('#o3'), o4: $('#o4') };
+  let vIdx = -1;
+  const vis = (el, p, x0, x1) => { const k = Math.min(E(p, x0, x0 + .03), 1 - E(p, x1 - .03, x1)); el.style.opacity = k.toFixed(3); el.style.transform = `translateY(${((1 - k) * 24).toFixed(1)}px)`; };
+  // 01 Kategorien
+  const K = { ws: $$('#catW > div'), ds: $$('#catD span'), arts: $$('.cat') };
+  K.it = K.arts.map(ar => { const n = ar.querySelector('.num'), m = n.dataset.num.match(/^(\d+)(.*)$/); if (m) n.textContent = '0' + m[2]; return { ar, w: ar.querySelector('.ph-box'), im: ar.querySelector('img'), n, to: m ? +m[1] : null, rest: m ? m[2] : '', t0: 0 }; });
+  let cIdx = -1;
+  // Film-Untertitel, Fragen, Zeitleiste, Übergabe, Zitat
+  const M = { pin: $('#u-merge'), caps: $$('.mcap'), st: $('#mSt'), shade: $('#mShade') };
+  const Q = $$('.q').map(q => { const t = q.querySelector('path'); t._l = t.getTotalLength(); t.style.strokeDasharray = t._l; t.style.strokeDashoffset = t._l; return { q, t, ws: [...q.querySelectorAll('p span')] }; });
+  const T = { pin: $('#u-zeit'), line: $('#tLine'), dock: $('#tDock'), track: $('#tTrack') };
+  const P = { pin: $('#u-pass'), l: $('#phL'), r: $('#phR'), c: $$('.pcap') };
+  const TW = $$('#tWords span'), tq = $('#tq'), tz = $('#tZoom');
+  gsap.ticker.add(() => {
+    const vh = innerHeight, now = performance.now();
+    let x = prog(O.pin);
+    if (x.r.bottom > -vh && x.r.top < vh * 2) {
+      const p = x.p, a1 = 1 - E(p, .3, .36);
+      O.o1.style.opacity = a1.toFixed(3); O.o1.style.transform = `translateY(${(-(1 - a1) * 24).toFixed(1)}px)`;
+      if (GB.ocpLen) { O.cp.style.strokeDashoffset = (GB.ocpLen * (1 - E(p, .04, .26))).toFixed(1); O.cp.setAttribute('fill-opacity', E(p, .22, .32).toFixed(3)); }
+      const ob = O.o1.offsetTop + O.o1.offsetHeight, ch = O.claim.offsetHeight;
+      const y0 = Math.max(vh * .62, ob + 32 + ch / 2), y1 = Math.max(vh * .32, vh * .14 + ch * .31), mv = E(p, .34, .44);
+      O.claim.style.top = L(y0, y1, mv).toFixed(1) + 'px'; O.claim.style.transform = `translate(-50%,-50%) scale(${L(1, .62, mv).toFixed(4)})`;
+      vis(O.o2, p, .42, .7); vis(O.o3, p, .7, .84); vis(O.o4, p, .85, 1.04);
+      const vi = Math.max(0, Math.min(4, Math.floor((p - .44) / .052)));
+      if (vIdx !== vi) { vIdx = vi; O.vs.forEach((v, i) => { v.style.transform = i === vi ? 'none' : (i < vi ? 'translateY(-110%)' : 'translateY(110%)'); }); }
+    }
+    let best = 0, bd = 1e9;
+    K.arts.forEach((ar, i) => { const r0 = ar.getBoundingClientRect(), d = Math.abs(r0.top + r0.height / 2 - vh * .55); if (d < bd) { bd = d; best = i; } });
+    if (cIdx !== best) { cIdx = best; K.ws.forEach((w, i) => { w.style.opacity = i === best ? '1' : '0'; w.style.transform = i === best ? 'none' : (i < best ? 'translateY(-24px)' : 'translateY(24px)'); }); K.ds.forEach((d, i) => { d.style.opacity = i <= best ? '1' : '.25'; }); }
+    K.it.forEach(it => {
+      const r0 = it.ar.getBoundingClientRect(); if (r0.bottom < -80 || r0.top > vh + 80) return;
+      const p = cl((vh * .95 - r0.top) / (vh * .55)), k = E(p, 0, .7);
+      it.w.style.clipPath = `inset(0 0 ${((1 - k) * 100).toFixed(2)}% 0)`;
+      if (it.im) it.im.style.transform = `scale(${(1.1 - .1 * E(p, 0, 1)).toFixed(4)})`;
+      if (it.to !== null) { if (!it.t0 && p > .55) it.t0 = now; if (it.t0) { const u = Math.min(1, (now - it.t0) / 1400), e = 1 - Math.pow(1 - u, 3), txt = Math.round(it.to * e) + it.rest; if (it.n.textContent !== txt) it.n.textContent = txt; } }
+    });
+    x = prog(M.pin);
+    if (x.r.bottom > -vh && x.r.top < vh * 2) {
+      const p = x.p, win = [[.03, .17], [.2, .33], [.37, .5]];
+      M.caps.forEach((c, i) => { const k = Math.min(E(p, win[i][0], win[i][0] + .03), 1 - E(p, win[i][1] - .03, win[i][1])); c.style.opacity = k.toFixed(3); c.style.transform = `translateY(${((1 - k) * 16).toFixed(1)}px)`; });
+      const st = E(p, .9, .97); M.st.style.opacity = st.toFixed(3); M.st.style.transform = `translateY(${((1 - st) * 28).toFixed(1)}px)`;
+      M.shade.style.opacity = Math.max(st, ...M.caps.map(c => +c.style.opacity)).toFixed(3);
+    }
+    Q.forEach(o => {
+      const qr = o.q.getBoundingClientRect(); if (qr.bottom < -50 || qr.top > vh + 50) return;
+      const p = cl((vh * .72 - qr.top) / (vh * .32)), n = o.ws.length;
+      o.t.style.strokeDashoffset = (o.t._l * (1 - E(p, .35, 1))).toFixed(2);
+      o.ws.forEach((w, j) => { w.style.opacity = (.16 + .84 * E(p * (n + 1) * .9 - j, 0, 1)).toFixed(3); });
+    });
+    x = prog(T.pin);
+    if (x.r.bottom > -vh && x.r.top < vh * 2) {
+      const n = 6, s = x.p * n, i = Math.min(n, Math.floor(s)), f = s - i, s2 = Math.min(n, i + E(f, .45, 1));
+      const max = Math.max(0, T.track.scrollWidth - innerWidth);
+      T.track.style.transform = `translate3d(${(-(s2 / n) * max).toFixed(1)}px,0,0)`;
+      const lw = T.line.clientWidth, w = Math.max(40, Math.min(lw / 14, 88)), h = w * .8;
+      Object.assign(T.dock.style, { width: w.toFixed(1) + 'px', height: h.toFixed(1) + 'px', left: ((s2 / n) * (lw - w)).toFixed(1) + 'px', top: (-h / 2).toFixed(1) + 'px' });
+    }
+    const pr = P.pin.getBoundingClientRect();
+    if (pr.bottom > 0 && pr.top < vh) {
+      const p = cl((vh - pr.top) / pr.height), k = E(p, .15, .62), off = (1 - k) * 14, gap = (1 - k) * 3;
+      P.l.style.transform = `translateX(${(-off).toFixed(2)}%)`; P.l.style.clipPath = `inset(0 ${(50 + gap / 2).toFixed(2)}% 0 0)`;
+      P.r.style.transform = `translateX(${off.toFixed(2)}%)`; P.r.style.clipPath = `inset(0 0 0 ${(50 + gap / 2).toFixed(2)}%)`;
+      const cp = E(p, .6, .75); P.c.forEach(c => { c.style.opacity = cp.toFixed(3); });
+    }
+    const tr = tz.parentElement.getBoundingClientRect();
+    if (tr.bottom > 0 && tr.top < vh) tz.style.transform = `scale(${(1.12 - .12 * cl((vh - tr.top) / (vh + tr.height))).toFixed(4)})`;
+    const r = tq.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < vh) { const p = cl((vh * .88 - r.top) / (vh * .55)), n = TW.length; TW.forEach((el, i) => { el.style.opacity = (.14 + .86 * E(p * (n + 1) - i, 0, 1.2)).toFixed(3); }); }
+  });
+});
+</script>
+</body>
+</html>

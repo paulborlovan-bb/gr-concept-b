@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News / GRIFFNER</title>
+<!-- Version B, Unterseite News. Copy aus site/content.js (newsPage), Rahmen aus site/b-base.* -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+.n-filter{margin-top:clamp(56px,9vh,104px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px 40px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.n-filter .tab sup{font-variant-numeric:tabular-nums;letter-spacing:.1em}
+.lead{margin-top:clamp(40px,6vh,72px);align-items:end;row-gap:24px}
+.lead:hover{opacity:1}
+.lead .ph-box{grid-column:1/span 8;aspect-ratio:16/10}
+.lead .ph-box img{transition:transform 1.6s var(--ease)}
+.lead:hover .ph-box img{transform:scale(1.03)}
+.lead .tx{grid-column:9/span 4;display:grid;gap:18px;align-content:end}
+.lead .tt{font-size:clamp(26px,2.4vw,40px);line-height:1.08;text-wrap:balance}
+.n-rest{margin-top:clamp(64px,10vh,120px)}
+.ev{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:18px;padding:clamp(24px,4vh,40px) 0;align-items:start}
+.ev .d{grid-column:1/span 3;display:flex;align-items:flex-end;gap:16px}
+.ev .d .n{font-family:var(--font-display);font-weight:300;font-size:clamp(48px,5vw,88px);line-height:.82;font-variant-numeric:tabular-nums}
+.ev .b{grid-column:4/span 6;display:grid;gap:12px}
+.ev .c{grid-column:10/-1;justify-self:end}
+.pr-rows{display:grid}
+.pr-row{display:grid;grid-template-columns:9em minmax(0,1fr) auto;gap:8px 24px;padding:16px 0;align-items:baseline}
+.fotos{margin-top:clamp(56px,9vh,104px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:clamp(36px,5vh,56px) var(--gap-col)}
+.fotos a{display:grid;gap:14px;align-content:start}
+.fotos a:hover{opacity:1}
+.fotos .ph-box{aspect-ratio:4/3}
+.fotos .ph-box img{transition:transform 1.6s var(--ease)}
+.fotos a:hover .ph-box img{transform:scale(1.03)}
+@media (max-width:899px){.lead .ph-box,.lead .tx,.ev .d,.ev .b,.ev .c{grid-column:1/-1}.ev .c{justify-self:start}}
+</style>
+</head>
+<body>
+<main>
+  <section id="n-hero" class="dark p-hero" style="padding-bottom:var(--section-pad)" data-label="News">
+    <div class="g12" style="row-gap:clamp(28px,4vh,48px)">
+      <span class="info" style="grid-column:1/-1" data-c="newsPage.info" data-rv></span>
+      <h1 class="disp" style="grid-column:1/span 8" id="nHead" data-rv></h1>
+      <div class="side"><p class="txt" data-c="newsPage.text" data-rv></p></div>
+    </div>
+    <div class="n-filter info"><div class="tabs" id="nFilter" role="tablist"></div><span id="nCount"></span></div>
+    <div id="nList"></div>
+  </section>
+
+  <section id="termine" class="light pad" data-label="Termine">
+    <div class="g12" style="row-gap:clamp(24px,4vh,40px);align-items:end">
+      <span class="info" style="grid-column:1/-1" data-c="newsPage.termine.info" data-rv></span>
+      <h2 class="disp h-l" style="grid-column:1/span 7" data-c="newsPage.termine.head" data-rv></h2>
+      <p class="txt" style="grid-column:8/span 5" data-c="newsPage.termine.text" data-rv></p>
+    </div>
+    <div class="lines" style="margin-top:clamp(48px,8vh,96px)" id="nEvents"></div>
+  </section>
+
+  <section id="presse" class="dark pad" data-label="Presse">
+    <div class="g12" style="row-gap:clamp(24px,4vh,40px);align-items:start">
+      <span class="info" style="grid-column:1/-1" data-c="newsPage.presse.info" data-rv></span>
+      <h2 class="disp h-l" style="grid-column:1/span 7" data-c="newsPage.presse.head" data-rv></h2>
+      <div style="grid-column:8/span 5;display:grid;gap:clamp(28px,4vh,40px)" data-rv>
+        <p class="txt" data-c="newsPage.presse.text"></p>
+        <div class="lines pr-rows" id="nPress"></div>
+      </div>
+    </div>
+    <div class="fotos" id="nFotos"></div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { C, $, $$, esc, lines, bHref } = GB, P = C.newsPage, all = P.items;
+  const base = 'GRIFFNER%20News%20Beitrag%20B.html?b=';
+  $('#nHead').innerHTML = lines([P.head]);
+  let cur = 'Alle';
+  const draw = () => {
+    const filters = ['Alle', ...P.filters].map(c => ({ c, n: c === 'Alle' ? all.length : all.filter(i => i.cat === c).length })).filter(f => f.n);
+    $('#nFilter').innerHTML = filters.map(f => `<button type="button" class="tab info" role="tab" aria-selected="${f.c === cur}" data-cat="${esc(f.c)}">${esc(f.c)} <sup>${String(f.n).padStart(2, '0')}</sup></button>`).join('');
+    const items = all.filter(i => cur === 'Alle' || i.cat === cur), lead = items[0], rest = items.slice(1);
+    $('#nCount').textContent = String(items.length).padStart(2, '0') + ' Beiträge';
+    $('#nList').innerHTML = (lead ? `<a class="g12 lead" href="${base + lead.slug}">
+        <span class="ph-box" data-lux data-dock="edge" data-dock-x=".72"><img src="${esc(lead.img)}" alt=""></span>
+        <span class="tx"><span class="info">${esc(lead.date)} / ${esc(lead.cat)}</span><span class="disp tt">${esc(lead.title)}</span><span class="txt">${esc(lead.teaser)}</span><span class="info" style="display:flex;gap:10px"><span>Weiterlesen</span><span>→</span></span></span></a>` : '')
+      + `<div class="cards n-rest">${rest.map(n => `<a class="ncard" href="${base + n.slug}"><span class="frame" data-lux><img src="${esc(n.img)}" alt="" loading="lazy"></span><span style="display:grid;gap:10px"><span class="info">${esc(n.date)} / ${esc(n.cat)}</span><span class="hm t">${esc(n.title)}</span></span></a>`).join('')}</div>`;
+    $$('#nFilter .tab').forEach(b => b.addEventListener('click', () => { cur = b.dataset.cat; draw(); GB.reveal($('#nList')); ScrollTrigger.refresh(); }));
+  };
+  draw();
+
+  const T = P.termine;
+  $('#nEvents').innerHTML = T.items.map(e => `<article class="ev">
+      <div class="d"><span class="n">${esc(e.day)}</span><span class="info" style="display:grid;gap:4px"><span>${esc(e.month)}</span><span>${esc(e.weekday)}</span></span></div>
+      <div class="b"><h3 class="hm">${esc(e.title)}</h3><span class="info">${esc(e.place)} / ${esc(e.time)}</span><p class="txt">${esc(e.text)}</p></div>
+      <a class="c lnk info" href="${esc(bHref(e.href))}"><span>${esc(T.cta)}</span><span>→</span></a></article>`).join('');
+
+  const PR = P.presse;
+  $('#nPress').innerHTML = `<div class="pr-row" style="grid-template-columns:9em minmax(0,1fr)"><span class="info">${esc(PR.contact.role)}</span><span class="txt" style="display:grid;gap:4px"><span>${esc(PR.contact.name)}</span><span>${esc(PR.contact.mail)}</span></span></div>
+    <a class="pr-row" href="${esc(PR.mappe.href)}" target="_blank" rel="noopener"><span class="info">${esc(PR.mappe.meta)}</span><span class="txt">${esc(PR.mappe.label)}</span><span>→</span></a>`;
+  $('#nFotos').innerHTML = PR.fotos.map(f => `<a href="${esc(f.img)}" download target="_blank" rel="noopener"><span class="ph-box" data-lux><img src="${esc(f.img)}" alt="${esc(f.label)}" loading="lazy"></span>
+      <span class="info" style="display:flex;justify-content:space-between;gap:16px"><span>${esc(f.label)}</span><span style="display:flex;gap:8px;flex:none"><span>Download</span><span>→</span></span></span><span style="font-size:13px;line-height:1.4">${esc(PR.credit)}</span></a>`).join('');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stelle / Careers / GRIFFNER</title>
+<!-- Version B, Unterseite Stelle (?job=slug). Copy aus site/content.js (karriere.jobs, karriere.detail), Rahmen aus site/b-base.*, Formular aus site/b-apply.js -->
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/colors.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/typography.css">
+<link rel="stylesheet" href="_ds/griffner-design-system-559bd893-028e-430e-8bdc-39370a39b0ca/tokens/layout.css">
+<link rel="stylesheet" href="site/griffner-web.css">
+<link rel="stylesheet" href="site/b-base.css">
+<script src="site/content.js"></script>
+<script src="site/b-base.js"></script>
+<script src="site/b-apply.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+.blk{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap-col);row-gap:20px}
+.blk .bl{grid-column:1/span 3;font-size:clamp(15px,1.15vw,18px);text-wrap:balance}
+.blk .bj{grid-column:4/-1}
+.fact{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:6px 24px;align-items:baseline;padding:18px 0}
+.fact .v{grid-column:span 2;font-size:clamp(16px,1.2vw,20px);line-height:1.4;font-variant-numeric:tabular-nums;text-wrap:pretty}
+.item{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:6px 24px;align-items:baseline;padding:20px 0}
+.item b{font-weight:600;font-size:var(--fs-text-web);line-height:1.3;text-wrap:balance}
+@media (max-width:899px){.blk .bl,.blk .bj{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<main>
+  <section id="j-hero" class="dark p-hero" data-label="Stelle">
+    <div class="g12" style="row-gap:clamp(28px,4vh,48px)">
+      <div class="info" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline" data-rv><a href="GRIFFNER%20Karriere%20B.html#stellen" id="jBack"></a><span id="jInfo"></span></div>
+      <h1 class="disp" style="grid-column:1/span 8" id="jTitle" data-rv></h1>
+      <div class="side" style="align-self:start;margin-top:clamp(16px,4vh,48px)" data-rv>
+        <span style="font-weight:600;font-size:var(--fs-text-web);line-height:1.3" data-c="karriere.lead"></span>
+        <div id="jIntro" style="display:grid;gap:18px"></div>
+        <a class="lnk info" style="justify-self:start;margin-top:10px" href="#bewerbung"><span data-c="karriere.form.submit"></span><span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="j-detail" class="light pad" data-label="Aufgaben">
+    <div style="display:grid;gap:clamp(56px,9vh,104px)" id="jDetail"></div>
+  </section>
+
+  <section id="bewerben" class="dark form-sec" style="padding-top:var(--section-pad-sm)" data-label="Bewerben">
+    <div class="stage" id="bewerbung" data-dock="rect" data-dock-solid="1"><div class="af" style="max-width:920px"></div></div>
+  </section>
+
+  <section id="j-more" class="dark" style="padding:0 var(--m) var(--section-pad)" data-label="Weitere Stellen">
+    <div class="blk" data-rv>
+      <span class="hm bl" data-c="karriere.detail.more"></span>
+      <div class="bj"><div class="lines" id="jMore"></div><a class="lnk info" style="display:inline-flex;margin-top:28px" href="GRIFFNER%20Karriere%20B.html#stellen"><span data-c="karriere.detail.back"></span><span>→</span></a></div>
+    </div>
+  </section>
+</main>
+
+<script>
+GB.page(() => {
+  const { C, $, esc, lines } = GB, K = C.karriere, D = K.detail, jobs = K.jobs;
+  const slug = new URLSearchParams(location.search).get('job') || '';
+  const j = jobs.find(x => x.slug === slug) || jobs[0], lehre = j.group === 'lehre', title = (lehre ? 'Lehre ' : '') + j.title;
+  document.title = j.title + ' / Careers / GRIFFNER';
+  $('#jBack').textContent = '← ' + D.back;
+  $('#jInfo').textContent = [j.bereich, K.ort, j.art, K.mwd].filter(Boolean).join(' / ');
+  $('#jTitle').innerHTML = lines([title]);
+  $('#jIntro').innerHTML = (j.intro || K.sharedIntro || []).map(p => `<p class="txt">${esc(p)}</p>`).join('');
+  const sections = j.sections
+    ? j.sections.map(s => ({ head: s.head, items: s.items.map(([b, t]) => ({ b, t })) }))
+    : [{ head: D.tasks, items: j.tasks || [] }, { head: D.profile, items: j.profile || [] }, { head: D.benefits, items: K.benefits || [] }].map(s => ({ head: s.head, items: s.items.map(t => ({ b: '', t })) }));
+  $('#jDetail').innerHTML = (j.facts && j.facts.length ? `<div class="blk" data-rv><h2 class="hm bl">${esc(j.factsHead)}</h2><div class="bj lines">${j.facts.map(([l, v]) => `<div class="fact"><span class="info">${esc(l)}</span><span class="v">${esc(v)}</span></div>`).join('')}</div></div>` : '')
+    + sections.map(s => `<div class="blk" data-rv><h2 class="hm bl">${esc(s.head)}</h2><ul class="bj lines" style="list-style:none;margin:0;padding:0">${s.items.map(it => `<li class="item">${it.b ? `<b>${esc(it.b)}</b><span class="txt" style="grid-column:span 2">${esc(it.t)}</span>` : `<span class="txt" style="grid-column:1/-1">${esc(it.t)}</span>`}</li>`).join('')}</ul></div>`).join('')
+    + (j.outro ? `<div class="g12" style="row-gap:24px;align-items:end" data-rv><h2 class="disp h-l" style="grid-column:1/span 7">${esc(j.outro.head)}</h2><p class="txt" style="grid-column:8/span 5">${esc(j.outro.text)}</p></div>` : '');
+  GB.apply($('#bewerbung'), j.slug);
+  const others = jobs.filter(x => x.slug !== j.slug);
+  const more = [...others.filter(x => x.group === j.group), ...others.filter(x => x.group !== j.group)].slice(0, 3);
+  $('#jMore').innerHTML = more.map(x => `<a class="jrow" href="GRIFFNER%20Job%20B.html?job=${esc(x.slug)}"><span class="hm t">${esc((x.group === 'lehre' ? 'Lehre ' : '') + x.title)} <sup>${esc(K.mwd)}</sup></span><span class="info m"><span>${esc(x.bereich)}</span><span style="min-width:170px">${esc(x.art)}</span><span style="font-size:18px;letter-spacing:0">→</span></span></a>`).join('');
+});
+</script>
+</body>
+</html>
