@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <style>
-:root{--m:var(--page-margin);--rail:64px}
+:root{--m:var(--page-margin);--rail:0px}
 *{box-sizing:border-box}
 html,body{margin:0;background:#000}
 html.lenis,html.lenis body{height:auto}
@@ -54,44 +54,43 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
 .ln>span{display:block;will-change:transform}
 
-/* ---------- Menü: offen am Seitenanfang, beim Scrollen zur schmalen Leiste links, Hover oder Klick öffnet ---------- */
-.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:24px;color:#fff;mix-blend-mode:difference;pointer-events:none}
-.rail>*{pointer-events:auto}
-.rail-btn{background:none;border:0;padding:8px;cursor:pointer;display:grid;justify-items:center;gap:18px;color:inherit}
-.glyph{position:relative;width:28px;height:12px;display:block}
+/* ---------- Menü: Knopf immer sichtbar oben links, öffnet das Vollbild-Menü wie Version A ---------- */
+.mbtn{background:none;border:0;padding:16px 0;margin:-16px 0;cursor:pointer;display:flex;align-items:center;gap:14px;justify-self:start}
+.glyph{position:relative;width:28px;height:8px;display:block}
 .glyph i{position:absolute;left:0;height:1px;background:currentColor;transition:width 500ms var(--ease),transform 500ms var(--ease),top 500ms var(--ease)}
-.glyph i:first-child{top:2px;width:28px}.glyph i:last-child{top:9px;width:16px}
-.rail-btn:hover .glyph i:last-child{width:28px}
-body.menu-open .glyph i:first-child{top:6px;transform:rotate(45deg);width:24px}
-body.menu-open .glyph i:last-child{top:6px;transform:rotate(-45deg);width:24px}
-.vt{writing-mode:vertical-rl;transform:rotate(180deg);transition:opacity 500ms var(--ease)}
-.rail-prog{position:relative;flex:1;width:1px;margin-bottom:28px;background:rgba(255,255,255,.28);transition:opacity 500ms var(--ease)}
-.rail-prog i{position:absolute;left:-1px;top:0;width:3px;height:0;background:#fff}
-body.menu-open .vt,body.menu-open .rail-prog{opacity:0}
-.panel{position:fixed;left:0;top:0;bottom:0;z-index:58;width:min(420px,88vw);padding:120px 40px 36px calc(var(--rail) + 24px);display:flex;flex-direction:column;gap:36px;color:#fff;background:#000;transform:translateX(-100%);transition:transform 900ms var(--ease),background 600ms var(--ease);overflow-y:auto}
-body.menu-open .panel{transform:none}
-body.at-top .panel{background:transparent}
-.panel ul{list-style:none;margin:0;padding:0;display:grid}
-.mi{display:grid;gap:6px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.18);position:relative}
-.mi .hm{font-size:clamp(18px,1.5vw,24px)}
-.mi .sub{opacity:.5}
-.mi.on .hm::before{content:"";position:absolute;left:-18px;top:24px;width:10px;height:1px;background:currentColor}
-.mi.soon{opacity:.36;cursor:default}
-.mi.soon .soon-tag{opacity:.9}
-.mi{grid-auto-flow:row}
-.mi.soon .hint{display:none}
-.mi.soon:hover .sub{display:none}.mi.soon:hover .hint{display:block}
-.panel .links{display:flex;flex-wrap:wrap;gap:12px 22px}
-.panel .back{margin-top:auto;opacity:.6}
-@media (max-width:820px){:root{--rail:52px}.vt,.rail-prog{display:none}.rail{padding-top:16px}.panel{width:100vw;padding-left:var(--m)}}
+.glyph i:first-child{top:0;width:28px}.glyph i:last-child{top:7px;width:16px}
+.mbtn:hover .glyph i:last-child{width:28px}
+body.menu-open .glyph i:first-child{top:4px;transform:rotate(45deg);width:24px}
+body.menu-open .glyph i:last-child{top:4px;transform:rotate(-45deg);width:24px}
+.mnu{position:fixed;inset:0;z-index:49;background:#000;color:#fff;height:100vh;height:100svh;padding:clamp(130px,18vh,190px) var(--m) clamp(24px,4vh,40px);display:none;grid-template-rows:minmax(0,1fr) auto;overflow:auto}
+body.menu-open .mnu{display:grid}
+.mnu-main{display:grid;grid-template-columns:minmax(0,1fr) min(30vw,600px);gap:var(--gap-col);align-items:center}
+.mnu-nav{display:grid;gap:clamp(2px,1.4vh,18px)}
+.mnu-it{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px clamp(16px,1.6vw,28px);transition:opacity 320ms var(--ease)}
+.mnu-it:hover{opacity:1}
+.mnu-nav.hov .mnu-it{opacity:.32}.mnu-nav.hov .mnu-it.on{opacity:1}
+.mnu-it .m{display:block;overflow:hidden;padding:.18em .1em .08em 0;margin:-.18em -.1em -.08em 0;font-size:min(clamp(32px,3.9vw,76px),7.2vh);line-height:.95}
+.mnu-it .m>span{display:block;font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;white-space:nowrap}
+.mnu-it.soon{cursor:default}
+.mnu-season{justify-self:start;margin-top:clamp(28px,5vh,56px);display:flex;flex-wrap:wrap;gap:6px 14px;color:#CACACA}
+.mnu-season span:first-child,.mnu-season span:last-child{color:#fff}
+.mnu-fig{margin:0;display:grid;gap:14px}
+.mnu-img{position:relative;aspect-ratio:5/4;overflow:hidden;background:#141413}
+.mnu-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1000ms var(--ease),transform 3000ms var(--ease)}
+.mnu-img img.on{opacity:1;transform:none}
+.mnu-cap{min-height:12px;font-size:10px}
+.mnu-foot{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:16px 32px;padding-top:24px}
+.mnu-foot .links{display:flex;flex-wrap:wrap;gap:8px 28px}
+.mnu-foot img{justify-self:end;width:130px;height:auto}
+@media (max-width:1099px){.mnu-main{grid-template-columns:minmax(0,1fr)}.mnu-fig{display:none}}
+@media (max-width:600px){.mnu-foot{grid-template-columns:1fr}.mnu-foot img{justify-self:start}}
 
 /* ---------- Header ---------- */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px var(--m) 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}
 .hdr .side{mix-blend-mode:difference;color:#fff;pointer-events:auto}
-.hdr .r{justify-self:end;margin-top:18px}   /* Schriftmitte auf der Mitte des Menü-Glyphs in der Leiste */
-@media (max-width:820px){.hdr .r{margin-top:10px}}
-.hdr.on-yellow .side,body.fin-yellow .hdr .side,body.fin-yellow .rail{mix-blend-mode:normal;color:#000}
-body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog i{background:#000}
+.hdr .r{justify-self:end}
+.hdr .r{margin-top:10px}.hdr .side.mbtn{margin-top:-6px}   /* Menü und Projekt starten auf einer Linie (der Knopf hat 16px Klickfläche) */
+.hdr.on-yellow .side,body.fin-yellow .hdr .side{mix-blend-mode:normal;color:#000}
 .logo{display:grid;justify-items:center;gap:7px;pointer-events:auto}
 .logo svg{width:72px;height:auto;display:block}
 .logo .wm{mix-blend-mode:difference;color:#fff;opacity:0}
@@ -117,20 +116,21 @@ body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ---------- Haltung: zwei Hälften werden ein Haus ---------- */
+/* Bilder von Rand zu Rand (Seitenrand), Texte kleiner, linksbündig an den Bildkanten, mit Abstand darunter */
 #haltung{height:340vh}
 .hal{position:absolute;inset:0}
-.hal .pair{position:absolute;left:50%;top:12vh;height:50vh;width:0}
-.hal .half{position:absolute;top:0;height:100%;width:calc(50vh * .8);overflow:hidden;will-change:transform}
-.hal .half img{width:100%;height:100%;object-fit:cover}
-.hal .a{right:0}.hal .b{left:0}
-.hal .house{position:absolute;top:0;height:100%;left:calc(50vh * -.8);width:calc(50vh * 1.6);overflow:hidden;opacity:0;will-change:opacity}
-.hal .house img{width:100%;height:100%;object-fit:cover}
-.hal .cap{position:absolute;top:calc(12vh + 50vh + 28px);width:min(30vw,420px)}
-.hal .cap.a{right:calc(50% + 28px);text-align:right}
-.hal .cap.b{left:calc(50% + 28px)}
-.hal .end{position:absolute;left:var(--m);right:calc(var(--m) + 8vw);bottom:clamp(96px,13vh,150px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;opacity:0}
-.hal .end h2{max-width:12em}
-@media (max-width:820px){.hal .pair{top:12vh;height:30vh}.hal .half{width:calc(30vh * .62)}.hal .house{left:calc(30vh * -.62);width:calc(30vh * 1.24)}.hal .cap{top:calc(12vh + 30vh + 16px);width:42vw}.hal .end{bottom:48px;right:var(--m)}.hal .end img{display:none}.hal .cap{font-size:19px;hyphens:manual;-webkit-hyphens:manual}}
+.hal .pair{position:absolute;left:var(--m);right:var(--m);top:clamp(88px,13vh,130px);height:min(52vh,34vw);--hg:0px;--tg:clamp(40px,6vh,72px)}
+.hal .half{position:absolute;top:0;height:100%;width:50%;overflow:hidden;will-change:clip-path}
+.hal .half img,.hal .house img{width:100%;height:100%;object-fit:cover}
+.hal .half.a{left:0}.hal .half.b{right:0}
+.hal .house{position:absolute;inset:0;overflow:hidden;opacity:0;will-change:opacity}
+.hal .cap{position:absolute;top:calc(100% + var(--tg));margin:0;max-width:21em;font-family:var(--font-display);font-weight:300;text-transform:uppercase;font-feature-settings:'liga' 0;font-size:clamp(17px,1.45vw,26px);line-height:1.08;text-wrap:balance}
+.hal .cap.a{left:0;width:calc(50% - var(--hg) - 24px)}
+.hal .cap.b{left:calc(50% + var(--hg));width:calc(50% - var(--hg) - 24px)}
+.hal .end{position:absolute;top:calc(100% + var(--tg));left:0;right:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gap-col);align-items:start;opacity:0}
+.hal .end h2{font-size:clamp(26px,2.5vw,46px);max-width:11em;margin:0}
+.hal .end .txt{font-size:var(--fs-text-web)}
+@media (max-width:820px){.hal .pair{height:30vh;--tg:28px}.hal .cap{font-size:15px;hyphens:manual;-webkit-hyphens:manual}.hal .end{grid-template-columns:1fr;row-gap:18px}.hal .end img{display:none}}
 
 /* ---------- Kapitel (neu in v3): sechs Türen, eine pro Kapitel ---------- */
 .doors{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.2vw,20px);margin-top:clamp(56px,9vh,110px)}
@@ -151,44 +151,59 @@ body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog
 .door.locked{cursor:default}
 @media (max-width:820px){.doors{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:calc(-1 * var(--m));margin-right:calc(-1 * var(--m));padding:0 var(--m) 8px;scrollbar-width:none}.door{flex:none;width:58vw;scroll-snap-align:start}}
 
-/* ---------- Architektur: Index statt Karussell ---------- */
-.idx{margin-top:clamp(72px,12vh,140px)}
-.idx-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:18px}
-.idx-head .l1{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
-.rows{margin-top:clamp(24px,4vh,48px);border-top:1px solid currentColor}
-.row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,5fr) auto;gap:var(--gap-col);align-items:baseline;padding:clamp(22px,3.4vh,36px) 0;border-bottom:1px solid rgba(0,0,0,.18);transition:opacity 600ms var(--ease)}
-.rows:hover .row{opacity:.32}.rows .row:hover{opacity:1}
-.row .disp{font-size:clamp(28px,3.4vw,60px)}
-.row .arr{font-size:22px;transition:transform 600ms var(--ease)}
-.row:hover .arr{transform:translateX(8px)}
-.row .mimg{display:none}
-.peek{position:fixed;left:0;top:0;width:min(26vw,400px);aspect-ratio:4/3;z-index:30;pointer-events:none;opacity:0;overflow:hidden;transition:opacity 500ms var(--ease)}
-.peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 700ms var(--ease),transform 1200ms var(--ease)}
-.peek img.on{opacity:1;transform:none}
-.qa{margin-top:clamp(64px,10vh,120px)}
-@media (hover:none),(max-width:820px){.peek{display:none}.row{grid-template-columns:1fr}.row .mimg{display:block;aspect-ratio:4/3;margin-top:10px}.row .arr{display:none}}
+/* ---------- Architektur / Concepts wie Version A: quer laufende Bildfolge mit Frage, Feld läuft auf der Linie ---------- */
+#ideas{padding:clamp(140px,18vh,200px) var(--m) 0}
+.ar-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px}
+.ar-top h2{font-size:clamp(44px,5.6vw,104px)}
+.ar-top .txt{margin:0 clamp(0px,6vw,120px) .3em 0;max-width:460px}
+.ar-pin{position:relative;height:300vh;margin:clamp(80px,13vh,152px) calc(-1 * var(--m)) 0}
+.ar-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;padding:clamp(80px,11vh,110px) var(--m) clamp(24px,4vh,40px);display:flex;flex-direction:column}
+.ar-head{padding-top:20px;border-top:1px solid #000;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 32px}
+.ar-head .l1{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.ar-box{flex:1;min-height:0;margin-top:clamp(20px,3vh,36px);container-type:size}
+.ar-track{height:100%;display:flex;align-items:flex-start;gap:clamp(72px,9vw,168px);width:max-content;will-change:transform}
+.ar-fig{flex:none;margin:0;display:grid;gap:16px}
+.ar-fig .frame{width:100%;background:#000}
+.ar-fig .frame img{transition:transform 1.6s var(--ease)}
+.ar-fig:hover .frame img{transform:scale(1.03)}
+.ar-fig figcaption{display:grid;gap:8px}
+.ar-fig figcaption .txt{font-size:var(--fs-text-sm);line-height:1.4;max-width:34ch}
+.ar-q{flex:none;align-self:center;width:min(440px,78vw);display:grid;gap:20px}
+.ar-q .disp{font-size:clamp(28px,2.8vw,48px);text-wrap:balance}
+.ar-line{position:relative;flex:none;margin-top:clamp(24px,3.5vh,40px);height:1px;background:#000}
+.ar-line .dockpt{left:0;top:0;width:40px;height:32px;transform:translateY(-50%)}
 
-/* ---------- Floating House ---------- */
-#floating{height:240vh}
-.fl-img{position:absolute;inset:0;will-change:clip-path}
-.fl-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);will-change:transform}
-.fl-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.18) 50%,rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.6))} /* links dunkler: kleine Zeile und Headline lesbar */
-.fl-copy{position:absolute;left:calc(var(--m) + 3vw);right:calc(var(--m) + 3vw);bottom:clamp(150px,21vh,230px);display:grid;gap:24px}
-.fl-copy .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+/* ---------- Floating House wie Version A: Frage über der Linie, das Bild wächst von unten ins Vollbild ---------- */
+#floating{position:relative;height:260vh}
+.pf-line{position:absolute;left:var(--m);right:var(--m);top:clamp(88px,12vh,120px);height:1px;background:#fff}
+.pf-line .dockpt{right:0;top:0;width:clamp(40px,4.2vw,72px);aspect-ratio:5/4;transform:translateY(-50%)}
+.pf-q{position:absolute;left:var(--m);right:var(--m);top:calc(clamp(88px,12vh,120px) + clamp(40px,7vh,88px));max-width:11em;font-size:min(clamp(38px,5.8vw,108px),11vh);text-wrap:balance}
+.pf-img{position:absolute;inset:0;overflow:hidden;background:#141413;color:#fff;clip-path:inset(76% var(--m) 0 var(--m));will-change:clip-path}
+.pf-img:hover{opacity:1}
+.pf-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.pf-img .sh{position:absolute;inset:0 0 auto 0;height:50%;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0))}
+.pf-a{position:absolute;left:var(--m);right:var(--m);top:clamp(96px,14vh,150px);max-width:10em;font-size:min(clamp(34px,5vw,92px),10vh);opacity:0;text-wrap:balance}
+.pf-img .dockpt{left:58%;bottom:0;width:clamp(48px,5vw,88px);aspect-ratio:5/4;transform:translateY(50%)}
 
-/* ---------- Projects: Kontaktbogen ---------- */
-.pj-stick{display:flex;flex-direction:column;justify-content:center;padding:0 0 0 var(--m)}
-.pj-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:0 var(--m) 0 0;margin-bottom:clamp(28px,5vh,56px)}
-.pj-head .l1{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
-.track{display:flex;gap:clamp(20px,2.6vw,44px);will-change:transform;padding-right:var(--m)}
-.card{flex:none;width:calc(min(52vh,60vw) * .8);display:grid;gap:14px}
-.card .frame{aspect-ratio:4/5}
-.card .frame img{transition:transform 1400ms var(--ease)}
-.card:hover .frame img{transform:scale(1.03)}
-.card .meta{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:baseline}
-.card .meta .hm{grid-column:2}
-.card .meta .hm{font-size:clamp(15px,1.15vw,19px)}
-.card .meta .pl{grid-column:2;opacity:.55;font-size:10px;letter-spacing:.16em}
+/* ---------- Projects wie Version A: Liste links, Bild rechts bleibt stehen ---------- */
+#projekte{padding:var(--section-pad-sm) var(--m) var(--section-pad)}
+.pj-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 32px}
+.pj-head .l1{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.pj-grid{margin-top:clamp(32px,5vh,56px);align-items:start}
+.pj-list{grid-column:1/span 7;margin:0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.2)}
+.pj-list li{border-bottom:1px solid rgba(255,255,255,.2)}
+.pj-list a{display:grid;grid-template-columns:3.2em minmax(0,1fr) auto;align-items:baseline;gap:8px 16px;padding:clamp(18px,2.8vh,28px) 0;opacity:.5;transition:opacity 750ms var(--ease)}
+.pj-list a.on,.pj-list a:hover{opacity:1}
+.pj-list .no{font-variant-numeric:tabular-nums}
+.pj-list .inl{display:none;grid-column:2/-1;margin-top:12px;aspect-ratio:16/10;overflow:hidden;background:#141413}
+.pj-list .inl img{width:100%;height:100%;object-fit:cover}
+.pj-side{grid-column:10/span 3;position:sticky;top:clamp(110px,16vh,160px);display:grid;gap:16px}
+.pj-pic{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#141413}
+.pj-pic:hover{opacity:1}
+.pj-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.03);transition:opacity 900ms var(--ease),transform 1400ms var(--ease)}
+.pj-pic img.on{opacity:1;transform:none}
+.pj-meta{display:flex;justify-content:space-between;gap:16px;font-variant-numeric:tabular-nums}
+@media (max-width:819px){.pj-list{grid-column:1/-1}.pj-list a{opacity:1}.pj-list .inl{display:block}.pj-side{display:none}}
 
 /* ---------- Weg ---------- */
 .wg{display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:110px var(--m) clamp(36px,7vh,80px) calc(var(--rail) + var(--m))}
@@ -286,9 +301,6 @@ body.fin-yellow .rail-prog{background:rgba(0,0,0,.25)}body.fin-yellow .rail-prog
 .preload-i{position:absolute;bottom:28px;opacity:0}
 .preload-i.at-l{left:var(--m)}.preload-i.at-r{right:var(--m);font-variant-numeric:tabular-nums}
 
-/* Korn, wie auf Version A: overlay, reines Schwarz und Weiß bleiben unberührt */
-.grain{position:fixed;inset:-50%;z-index:45;pointer-events:none;opacity:.14;mix-blend-mode:overlay}
-
 @media (prefers-reduced-motion:reduce){.hero-cue i{animation:none}}
 
 /* Handy: Raster stapeln, lange deutsche Wörter trennen, nichts ragt seitlich heraus */
@@ -306,20 +318,21 @@ html,body{overflow-x:clip}
 <body>
 <div class="preload" id="pl" aria-hidden="true"></div>
 
-<aside class="rail" aria-label="Menü">
-  <button class="rail-btn" id="railBtn" aria-expanded="false" aria-controls="panel"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span class="info vt" data-c="header.menu"></span></button>
-  <span class="rail-prog" aria-hidden="true"><i id="railProg"></i></span>
-</aside>
-<nav class="panel" id="panel" aria-label="Hauptmenü">
-  <ul id="menuItems"></ul>
-  <div class="links info" id="menuLinks"></div>
-  <a class="back info" href="GRIFFNER%20Startseite.dc.html">← Version A</a>
-</nav>
+<div class="mnu" id="mnu" role="dialog" aria-label="Menü" aria-hidden="true">
+  <div class="mnu-main">
+    <div>
+      <nav class="mnu-nav" id="mnuNav" aria-label="Hauptmenü"></nav>
+      <a class="mnu-season info" id="mnuSeason" href="#kapitel" data-mfoot></a>
+    </div>
+    <figure class="mnu-fig" aria-hidden="true"><div class="mnu-img" id="mnuImg"></div><figcaption class="info mnu-cap" id="mnuCap"></figcaption></figure>
+  </div>
+  <div class="mnu-foot info" data-mfoot><div class="links" id="mnuLinks"></div><span data-c="footer.place"></span><img src="assets/logo/griffner-claim-weiss.svg" alt="built different"></div>
+</div>
 
 <div class="conn" id="conn" aria-hidden="true"><span></span><span></span></div>
 
 <header class="hdr" id="hdr">
-  <span></span>
+  <button class="side mbtn info" id="mBtn" aria-expanded="false" aria-controls="mnu"><span class="glyph" aria-hidden="true"><i></i><i></i></span><span data-c="header.menu"></span></button>
   <a class="logo" id="logo" href="#top" aria-label="GRIFFNER Startseite"><span class="slot" id="logoSlot"></span><span class="wm" id="logoWm"><svg viewBox="0 878.45 1000 127.11" aria-hidden="true"><path fill="currentColor" d="M25.6175,943.7201c0,11.20975 3.53369,20.21351 10.65137,27.03844c7.15581,6.86148 17.16066,10.74236 30.87103,10.74236c4.96815,0 8.50697,-0.8061 12.3691,-1.96933l0,-42.46217h24.9939l0,57.77744l-1.226,0.90146c-6.02352,4.42902 -21.12992,9.8111 -36.9165,9.8111c-20.21738,0 -37.18365,-6.8534 -48.50981,-17.79528c-11.35724,-10.9719 -17.85059,-26.86115 -17.85059,-44.04402c0,-18.28634 7.01257,-35.0372 19.08935,-46.58802c12.04754,-11.52285 29.94264,-18.68108 51.01265,-18.68108c13.2843,0 26.20787,3.04911 33.95395,7.42282l1.53825,0.86855l0,25.04651l-4.45708,-2.28646c-7.71088,-3.95564 -19.01914,-7.46063 -30.09972,-7.46063c-14.73455,0 -25.71753,4.16415 -33.58926,11.64783c-7.83912,7.45268 -11.83064,17.42693 -11.83064,30.03047z M205.21355,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM218.55349,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z M324.29349,880.01l0,123.055h-24.9939v-123.055z M402.85289,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M516.80159,903.7567v22.2438l41.1576,0l0,23.7467l-41.1576,0v53.3178h-25.3057l0,-123.055l68.3341,0l0,23.7467z M715.09218,1003.6886h-7.41239l-77.24131,-73.84446l0,73.22086h-24.9939l0,-123.8345h7.08819l77.40961,72.97777l0,-72.19827l25.1498,0z M849.77558,1003.065h-82.0533l0,-123.055l80.4943,0l0,23.7467l-56.124,0v22.2438l53.3178,0v23.7467l-53.3178,0v29.5711l57.683,0z M948.61543,966.00257c-3.38938,0.35155 -6.23481,0.58183 -10.71755,0.58183c-7.65244,0 -10.69508,-0.3876 -14.8635,-0.99759v37.47819h-25.3057l0,-123.055h46.717c15.87667,0.06529 28.81055,3.90787 37.29433,10.86786c8.5691,7.02999 13.32017,17.93298 13.32017,30.54854c0,9.38225 -2.39398,17.82267 -6.66033,24.32575c-4.27781,6.52054 -9.10355,10.24684 -15.53701,13.6009l27.13716,43.71195h-28.74392zM961.95537,937.7964c4.91627,-3.75645 6.8637,-8.60615 6.8637,-16.0582c0,-5.99161 -1.27187,-9.96813 -5.14359,-13.16941c-4.03263,-3.33434 -10.22514,-5.18466 -20.78881,-5.12389h-19.8523v39.26481c4.00979,0.61469 7.50415,0.90749 14.7076,0.90749c11.61829,0 19.15071,-1.95248 24.2134,-5.8208z"/></svg></span></a>
   <a class="side r info lnk" data-c="header.cta" href="#kontakt"></a>
 </header>
@@ -342,103 +355,22 @@ html,body{overflow-x:clip}
   <section id="haltung" class="light" data-label="Haltung">
     <div class="stick">
       <div class="hal">
-        <div class="pair">
+        <div class="pair" id="halPair">
           <div class="half a" id="halA"><img alt="" data-src="haltungV2.imgLife"></div>
           <div class="half b" id="halB"><img alt="" data-src="haltungV2.imgBuild"></div>
           <div class="house" id="halHouse" data-dock="edge" data-dock-edge="top" data-dock-x=".72"><img alt="" data-src="haltungV2.imgHouse"></div>
-        </div>
-        <p class="cap a disp ml" id="capA" data-c="haltungV2.life"></p>
-        <p class="cap b disp ml" id="capB" data-c="haltungV2.build"></p>
-        <div class="end" id="halEnd">
-          <h2 class="disp l" data-c="haltungV2.head"></h2>
-          <div style="display:grid;gap:22px;max-width:420px">
-            <p class="txt" data-c="haltungV2.body.0"></p>
-            <img src="assets/logo/griffner-claim.svg" alt="built different" style="width:150px;height:auto">
+          <p class="cap a" id="capA" data-c="haltungV2.life"></p>
+          <p class="cap b" id="capB" data-c="haltungV2.build"></p>
+          <div class="end" id="halEnd">
+            <h2 class="disp" data-c="haltungV2.head"></h2>
+            <div style="display:grid;gap:22px;max-width:30em">
+              <p class="txt" data-c="haltungV2.body.0"></p>
+              <img src="assets/logo/griffner-claim.svg" alt="built different" style="width:150px;height:auto">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Kapitel (neu in v3): The new GRIFFNER in sechs Kapiteln -->
-  <section id="kapitel" class="dark pad" data-label="Kapitel">
-    <div class="g12" style="align-items:end">
-      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="kapitel.head" data-rv></h2>
-      <p class="txt" style="grid-column:9/-1" data-c="kapitel.sub" data-rv></p>
-    </div>
-    <div class="doors" id="doors"></div>
-  </section>
-
-  <!-- Architektur -->
-  <section id="ideas" class="light pad" data-menu="#ideas" data-label="Architektur">
-    <div class="g12" style="align-items:end">
-      <h2 class="disp xl" style="grid-column:1/span 7" id="archHead" data-rv></h2>
-      <p class="txt" style="grid-column:9/-1" data-c="architektur.text" data-rv></p>
-    </div>
-    <div class="idx" style="position:relative">
-      <span class="dockpt" data-dock="box" aria-hidden="true" style="left:0;top:-16px;width:40px;height:32px"></span>
-      <div class="rule"></div>
-      <div class="idx-head">
-        <div class="l1"><h3 class="hm" data-c="architektur.rowTitle"></h3><span class="txt" data-c="architektur.rowSub"></span></div>
-        <a class="info" href="#" data-c="architektur.rowLink" data-arrow></a>
-      </div>
-      <div class="rows" id="rows"></div>
-    </div>
-    <div class="g12 qa">
-      <p class="disp ml" style="grid-column:6/span 4" data-c="architektur.question" data-rv></p>
-      <p class="txt" style="grid-column:10/-1" data-c="architektur.answer" data-rv></p>
-    </div>
-  </section>
-  <div class="peek" id="peek" aria-hidden="true"></div>
-
-  <!-- Floating House -->
-  <section id="floating" class="dark" data-menu="#proj" data-label="Projects">
-    <div class="stick">
-      <span id="proj" aria-hidden="true" style="position:absolute;top:0"></span>
-      <div class="fl-img" id="flImg"><img alt="" data-src="architektur.projects.img"></div>
-      <span class="dockpt" data-dock="edge" data-dock-x=".72" data-dock-w=".08" aria-hidden="true" style="left:var(--m);right:var(--m);bottom:10vh;height:0"></span>
-      <div class="fl-copy" id="flCopy">
-        <p class="info" data-c="architektur.projects.q"></p>
-        <div class="bot">
-          <h2 class="disp xl" style="max-width:9em" data-c="architektur.projects.a"></h2>
-          <div style="display:grid;gap:20px;max-width:360px">
-            <p class="txt" data-c="architektur.projects.text"></p>
-            <a class="lnk info" href="#projekte" data-c="architektur.projects.link" data-arrow></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projekte" class="dark" data-menu="#proj" data-label="Projects">
-    <div class="stick pj-stick">
-      <div class="pj-head">
-        <div class="l1"><h3 class="hm" data-c="architektur.projectList.head"></h3><span class="txt" data-c="architektur.projectList.text"></span></div>
-        <a class="info" href="#" data-c="architektur.projectList.link" data-arrow></a>
-      </div>
-      <div class="track" id="track"></div>
-    </div>
-  </section>
-
-  <!-- Weg -->
-  <section id="weg" class="dark" data-menu="#weg" data-label="Dein Weg zum Haus">
-    <div class="pad g12" style="align-items:end;padding-bottom:clamp(40px,8vh,90px)">
-      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="weg.statement" data-rv></h2>
-      <p class="txt" style="grid-column:9/-1;color:#CACACA" data-c="weg.text" data-rv></p>
-    </div>
-    <div id="wegPin" data-st="proof" style="height:520vh;position:relative">
-      <div class="stick wg">
-        <div class="wfilm"><div data-wstage="1"></div><div data-wlabels="1" class="wlabels" aria-hidden="true"></div></div>
-        <div class="wg-top" data-wband="top"><div class="steps info" id="steps"></div><span class="info wcap" id="wcap"></span></div>
-        <div class="dockpt" id="wDock" data-dock="box" data-dock-solid="1" data-dock-trigger="wegPin" aria-hidden="true"></div>
-        <div class="wg-bot" data-wband="bot">
-          <div class="titles" id="stTitles"></div>
-          <div class="texts" id="stTexts"></div>
-        </div>
-      </div>
-    </div>
-
   </section>
 
   <!-- Gregor: 3D-Film aus Version A, endet in Weiß und geht nahtlos in den Text über -->
@@ -461,6 +393,84 @@ html,body{overflow-x:clip}
         <a class="lnk info" href="#gregor" data-c="gregor.link" data-arrow style="justify-self:start"></a>
       </div>
     </div>
+  </section>
+
+  <!-- Kapitel (neu in v3): The new GRIFFNER in sechs Kapiteln -->
+  <section id="kapitel" class="dark pad" data-label="Kapitel">
+    <div class="g12" style="align-items:end">
+      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="kapitel.head" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1" data-c="kapitel.sub" data-rv></p>
+    </div>
+    <div class="doors" id="doors"></div>
+  </section>
+
+  <!-- Architektur / Concepts (wie Version A) -->
+  <section id="ideas" class="light" data-menu="#ideas" data-label="Architektur">
+    <div class="ar-top">
+      <h2 class="disp" id="archHead" data-rv></h2>
+      <p class="txt" data-c="architektur.text" data-rv></p>
+    </div>
+    <div class="ar-pin" id="arPin">
+      <div class="ar-stick">
+        <div class="ar-head">
+          <div class="l1"><h3 class="hm" data-c="architektur.rowTitle"></h3><span class="txt" data-c="architektur.rowSub"></span></div>
+          <a class="info" data-href="architektur.rowHref" data-c="architektur.rowLink" data-arrow></a>
+        </div>
+        <div class="ar-box"><div class="ar-track" id="arTrack"></div></div>
+        <div class="ar-line" id="arLine"><span class="dockpt" id="arDock" data-dock="box" aria-hidden="true"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating House (wie Version A) -->
+  <section id="floating" class="dark" data-menu="#proj" data-label="Projects">
+    <span id="proj" aria-hidden="true" style="position:absolute;top:0"></span>
+    <span id="projTrig" aria-hidden="true" style="position:absolute;left:0;top:159vh;width:1px;height:1px"></span>
+    <div class="stick">
+      <div class="pf-line"><span class="dockpt" data-dock="box" data-dock-solid="1" aria-hidden="true"></span></div>
+      <h2 class="disp pf-q" id="pfQ" data-c="architektur.projects.q"></h2>
+      <a class="pf-img" id="pfImg" data-href="architektur.projects.href">
+        <img alt="" data-src="architektur.projects.img">
+        <span class="sh"></span>
+        <h2 class="disp pf-a" id="pfA" data-c="architektur.projects.a"></h2>
+        <span class="dockpt" data-dock="box" data-dock-trigger="projTrig" aria-hidden="true"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Projects (wie Version A) -->
+  <section id="projekte" class="dark" data-menu="#proj" data-label="Projects">
+    <div class="pj-head">
+      <div class="l1"><h3 class="hm" data-c="architektur.projectList.head"></h3><span class="txt" data-c="architektur.projectList.text"></span></div>
+      <a class="info" data-href="architektur.projectList.href" data-c="architektur.projectList.link" data-arrow></a>
+    </div>
+    <div class="g12 pj-grid">
+      <ol class="pj-list" id="pjList"></ol>
+      <div class="pj-side">
+        <a class="pj-pic" id="pjPic" data-lux data-dock="edge" data-dock-edge="top" data-dock-x=".72"></a>
+        <div class="pj-meta info"><span id="pjInfo"></span><span id="pjCount"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weg -->
+  <section id="weg" class="dark" data-menu="#weg" data-label="Dein Weg zum Haus">
+    <div class="pad g12" style="align-items:end;padding-bottom:clamp(40px,8vh,90px)">
+      <h2 class="disp l" style="grid-column:1/span 7;max-width:12em" data-c="weg.statement" data-rv></h2>
+      <p class="txt" style="grid-column:9/-1;color:#CACACA" data-c="weg.text" data-rv></p>
+    </div>
+    <div id="wegPin" data-st="proof" style="height:520vh;position:relative">
+      <div class="stick wg">
+        <div class="wfilm"><div data-wstage="1"></div><div data-wlabels="1" class="wlabels" aria-hidden="true"></div></div>
+        <div class="wg-top" data-wband="top"><div class="steps info" id="steps"></div><span class="info wcap" id="wcap"></span></div>
+        <div class="dockpt" id="wDock" data-dock="box" data-dock-solid="1" data-dock-trigger="wegPin" aria-hidden="true"></div>
+        <div class="wg-bot" data-wband="bot">
+          <div class="titles" id="stTitles"></div>
+          <div class="texts" id="stTexts"></div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- News -->
@@ -533,20 +543,34 @@ html,body{overflow-x:clip}
   $('#grHl').setAttribute('aria-label', C.gregor.head);
   $('#grHl').innerHTML = [gw.slice(0, 4).join(' '), gw.slice(4).join(' '), g2].map((t, i) => `<span><span data-hl="${i}">${esc(t)}</span></span>`).join('');
 
-  $('#rows').innerHTML = C.architektur.concepts.map((c, i) => `
-    <a class="row" href="#" data-i="${i}">
-      <span class="disp">${esc(c.name)}</span>
-      <span class="txt">${esc(c.text)}</span>
-      <span class="arr" aria-hidden="true">→</span>
-      <span class="mimg frame"><img src="${esc(c.img)}" alt="" loading="lazy"></span>
-    </a>`).join('');
-  $('#peek').innerHTML = C.architektur.concepts.map(c => `<img src="${esc(c.img)}" alt="">`).join('');
+  // Concepts wie Version A: vier Bilder in wechselnden Formaten, die Frage dazwischen
+  const CF = [['62', '.8', '4 / 5', 'flex-start'], ['44', '1.9', '19 / 10', 'flex-end'], null, ['66', '.94', '47 / 50', 'flex-start'], ['48', '1.6', '8 / 5', 'center']];
+  let ci = 0;
+  $('#arTrack').innerHTML = CF.map(f => {
+    if (!f) return `<div class="ar-q"><p class="disp" data-c="architektur.question">${esc(C.architektur.question)}</p><p class="txt">${esc(C.architektur.answer)}</p></div>`;
+    const c = C.architektur.concepts[ci++] || {};
+    return `<figure class="ar-fig" style="width:min(calc(min(${f[0]}cqh, 100cqh - 90px) * ${f[1]}),70vw);align-self:${f[3]}">
+      <div class="frame" data-lux style="aspect-ratio:${f[2]}"><img src="${esc(c.img)}" alt="" draggable="false"></div>
+      <figcaption><span class="hm">${esc(c.name)}</span><span class="txt">${esc(c.text)}</span></figcaption></figure>`;
+  }).join('') + '<div aria-hidden="true" style="flex:none;width:1px"></div>';
 
-  $('#track').innerHTML = C.architektur.projectList.items.map((p, i) => `
-    <a class="card" href="${esc(p.href)}">
-      <span class="frame"${i === 0 ? ' data-dock="edge" data-dock-edge="top" data-dock-x=".72"' : ''}><img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy"></span>
-      <span class="meta"><span class="info">${String(i + 1).padStart(2, '0')}</span><span class="hm">${esc(p.name)}</span><span class="info pl">${esc(p.place)} / ${esc(p.year)}</span></span>
-    </a>`).join('');
+  // Projects wie Version A: Liste, das Bild rechts zeigt die aktive Zeile
+  const PL = C.architektur.projectList, PI = PL.items, pad2 = x => String(x).padStart(2, '0'), pInfo = it => [it.place, it.year].filter(Boolean).join(' / ');
+  $('#pjList').innerHTML = PI.map((it, i) => `<li><a href="${esc(it.href || '#')}" data-i="${i}"><span class="info no">${pad2(i + 1)}</span><span class="hm">${esc(it.name)}</span><span class="info" style="white-space:nowrap">${esc(pInfo(it))}</span><span class="inl"><img src="${esc(it.img)}" alt="${esc(it.name)}" loading="lazy"></span></a></li>`).join('');
+  $('#pjPic').innerHTML = PI.map(it => `<img src="${esc(it.img)}" alt="${esc(it.name)}">`).join('') + '<span class="lab" id="pjLab"></span>';
+  let pjA = -1, pjHover = false;
+  const pjSet = i => {
+    if (i === pjA) return; pjA = i; const it = PI[i];
+    $$('#pjList a').forEach((a, k) => a.classList.toggle('on', k === i));
+    $$('#pjPic img').forEach((im, k) => im.classList.toggle('on', k === i));
+    $('#pjPic').setAttribute('href', it.href || '#'); $('#pjLab').textContent = it.name;
+    $('#pjInfo').textContent = 'Project ' + pad2(i + 1) + (pInfo(it) ? ' / ' + pInfo(it) : ''); $('#pjCount').textContent = pad2(i + 1) + ' / ' + pad2(PI.length);
+  };
+  pjSet(0);
+  $$('#pjList a').forEach(a => { const on = () => { pjHover = true; pjSet(+a.dataset.i); }; a.addEventListener('mouseenter', on); a.addEventListener('focus', on); });
+  $('#pjList').addEventListener('mouseleave', () => { pjHover = false; });
+  const pjTrack = () => { if (pjHover) return; const mid = innerHeight * .5; let best = 0, d = Infinity; $$('#pjList li').forEach((r, i) => { const b = r.getBoundingClientRect(), x = Math.abs(b.top + b.height / 2 - mid); if (x < d) { d = x; best = i; } }); pjSet(best); };
+  addEventListener('scroll', pjTrack, { passive: true });
 
   const W = C.weg;
   $('#steps').innerHTML = W.stations.map(st => `<span class="step"><span>${esc(st.title)}</span><span class="trk"><i></i></span></span>`).join('');
@@ -647,40 +671,64 @@ html,body{overflow-x:clip}
   const CL = { VW: 6053, VH: 977, FX: .5225, FY: .303, R: .009 };
   fetch('assets/logo/griffner-claim-maske.svg').then(r => r.text()).then(t => { const m = t.match(/\sd="([^"]+)"/); if (m) $$('.claim-p').forEach(p => p.setAttribute('d', m[1])); }).catch(() => {});
   const claimT = (W, H, e) => { // e = 0: ganzer Claim, 84 % breit; e = 1: so tief im f, dass die Öffnung den Screen füllt
+    if (!W || !H) return 'scale(0)';   // Fenster noch ohne Größe (beim allerersten Bild)
     const W0 = Math.min(W * .84, 1200), H0 = W0 * CL.VH / CL.VW, px = (W - W0) / 2 + CL.FX * W0, py = (H - H0) / 2 + CL.FY * H0;
     const far = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py));
     const k = W0 * Math.exp(Math.log(far / (CL.R * W0) * 1.2) * e) / CL.VW;
     return `translate(${px.toFixed(2)} ${py.toFixed(2)}) scale(${k.toFixed(5)}) translate(${(-CL.FX * CL.VW).toFixed(1)} ${(-CL.FY * CL.VH).toFixed(1)})`;
   };
 
-  /* Menü: Punkte aus menu.items, noch nicht geöffnete Kapitel gedimmt mit „Coming“ */
+  /* Menü wie Version A (GriffnerMenu): Vollbild, große Punkte, Bild rechts wechselt beim Hover.
+     Noch nicht geöffnete Kapitel zeigen „Coming“ mit Datum und sind nicht klickbar. */
   const M = C.menu, today = '2026-10-23'; // wie Version A: simuliertes Startdatum, in Produktion Serverdatum
-  $('#menuItems').innerHTML = M.items.map(it => {
-    const soon = it.opens && today < it.opens;
-    const inner = `<span class="hm">${esc(it.label)}</span><span class="info sub">${esc(it.sub)}</span>` + (soon ? `<span class="info soon-tag">${esc(M.comingPrefix)} ${esc(it.date)}</span><span class="info hint">${esc(M.comingHover.replace('{date}', it.date))}</span>` : '');
-    return soon ? `<li class="mi soon" data-href="${esc(it.href)}" aria-disabled="true">${inner}</li>` : `<li class="mi" data-href="${esc(it.href)}"><a href="${esc(it.href)}" style="display:grid;gap:6px">${inner}</a></li>`;
-  }).join('');
-  $('#menuLinks').innerHTML = M.links.map(([l, h]) => `<a href="${esc(h)}">${esc(l)}</a>`).join('');
-  const body = document.body, btn = $('#railBtn');
-  let pinned = false, hovering = false;
-  const desktop = matchMedia('(min-width: 821px)');
-  const sync = () => {
-    const open = pinned || hovering;
-    body.classList.toggle('menu-open', open);
-    btn.setAttribute('aria-expanded', open);
+  const mItems = M.items.map(it => ({ ...it, soon: !!(it.opens && today < it.opens) }));
+  $('#mnuNav').innerHTML = mItems.map((it, i) => `<a class="mnu-it${it.soon ? ' soon' : ''}" href="${esc(it.soon ? '#top' : it.href)}" data-i="${i}"${it.soon ? ' aria-disabled="true"' : ''}><span class="m"><span data-mi>${esc(it.label)}</span></span><span class="info note">${it.soon ? esc(M.comingPrefix + ' ' + it.date) : ''}</span></a>`).join('');
+  $('#mnuImg').innerHTML = mItems.map(it => `<img src="${esc(it.img)}" alt="" loading="lazy">`).join('');
+  $('#mnuLinks').innerHTML = M.links.map(([l, h]) => `<a href="${esc(h)}">${esc(l)}</a>`).join('');
+  const S = C.season;
+  if (S && today <= S.hideAfter) {
+    const op = S.chapters.filter(c => c.iso <= today), curC = op[op.length - 1] || S.chapters[0], nx = S.chapters.find(c => c.iso > today);
+    $('#mnuSeason').innerHTML = `<span>${esc(S.bar.replace('{nr}', curC.nr))}</span><span>${nx ? esc(S.next.replace('{title}', nx.title).replace('{date}', nx.date)) : ''}</span><span>→</span>`;
+  } else $('#mnuSeason').remove();
+  const body = document.body, btn = $('#mBtn'), mnu = $('#mnu'), mNav = $('#mnuNav'), mImgs = $$('#mnuImg img'), mCap = $('#mnuCap');
+  const pick = i => { mImgs.forEach((im, k) => im.classList.toggle('on', k === i)); mCap.textContent = mItems[i].sub || ''; };
+  pick(0);
+  $$('.mnu-it', mNav).forEach(a => {
+    const i = +a.dataset.i, it = mItems[i], note = $('.note', a);
+    const on = () => { mNav.classList.add('hov'); $$('.mnu-it', mNav).forEach(x => x.classList.toggle('on', x === a)); pick(i); if (it.soon) note.textContent = 'Öffnet am ' + it.date; };
+    const off = () => { if (it.soon) note.textContent = M.comingPrefix + ' ' + it.date; };
+    a.addEventListener('mouseenter', on); a.addEventListener('focus', on); a.addEventListener('mouseleave', off); a.addEventListener('blur', off);
+    a.addEventListener('click', e => { if (it.soon) { e.preventDefault(); return; } setMenu(false); });
+  });
+  mNav.addEventListener('mouseleave', () => mNav.classList.remove('hov'));
+  mnu.addEventListener('click', e => { const a = e.target.closest('a'); if (a && !a.closest('.mnu-it')) setMenu(false); });
+  let mOpen = false;
+  const setMenu = open => {
+    if (open === mOpen) return; mOpen = open;
+    btn.setAttribute('aria-expanded', open); mnu.setAttribute('aria-hidden', !open);
+    const lenisNow = window.__lenis;
+    if (open) {
+      body.classList.add('menu-open'); document.documentElement.style.overflow = 'hidden'; if (lenisNow) lenisNow.stop();
+      if (reduce) return;
+      const E = 'cubic-bezier(.65,0,.15,1)', O = 'cubic-bezier(.22,1,.36,1)';
+      mnu.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 900, easing: E });
+      $$('[data-mi]', mnu).forEach((el, i) => el.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }], { duration: 1200, delay: 450 + i * 80, easing: O, fill: 'backwards' }));
+      $('#mnuImg').animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }], { duration: 1300, delay: 650, easing: E, fill: 'backwards' });
+      $$('[data-mfoot], .mnu-cap', mnu).forEach(el => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 1200, easing: O, fill: 'backwards' }));
+    } else {
+      document.documentElement.style.overflow = ''; if (lenisNow) lenisNow.start();   // sofort, damit ein Sprung aus dem Menü scrollen kann
+      const fin = () => { if (!mOpen) { body.classList.remove('menu-open'); mNav.classList.remove('hov'); } };
+      if (reduce) return fin();
+      mnu.animate([{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }], { duration: 700, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = fin;
+    }
   };
-  btn.addEventListener('click', () => { pinned = !pinned; sync(); });
-  [$('.rail'), $('#panel')].forEach(el => { el.addEventListener('mouseenter', () => { if (desktop.matches) { hovering = true; sync(); } }); el.addEventListener('mouseleave', () => { hovering = false; sync(); }); });
-  $('#panel').addEventListener('click', e => { if (e.target.closest('a')) { pinned = false; hovering = false; sync(); } });
-  addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = false; sync(); } });
-  sync();
+  btn.addEventListener('click', () => setMenu(!mOpen));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
   /* 3D-Filme aus Version A (exportiert nach site/film-*.js) */
   import('./site/film-weg.js').then(m => m.mount());
   import('./site/film-gregor.js').then(m => m.mount());
 
-  /* Korn */
-  (() => { const n = 160, c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'), d = g.createImageData(n, n); for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; } g.putImageData(d, 0, 0); const el = document.createElement('div'); el.className = 'grain'; el.setAttribute('aria-hidden', 'true'); el.style.background = `url(${c.toDataURL()})`; document.body.appendChild(el); if (!reduce) el.animate([0, 1, 2, 3, 4, 5].map(i => ({ transform: `translate(${(i * 37) % 100 - 50}px,${(i * 61) % 100 - 50}px)` })), { duration: 700, iterations: Infinity, easing: 'steps(6)' }); })();
 
   /* ---------- Bewegung ---------- */
   gsap.registerPlugin(ScrollTrigger);
@@ -753,13 +801,9 @@ html,body{overflow-x:clip}
     pl.addEventListener('click', skip); addEventListener('keydown', skip, { once: true });
   }
 
-  // Header kompakt, Menüleiste zeigt Fortschritt und aktives Kapitel
-  const hdr = $('#hdr'), prog = $('#railProg');
+  // Header kompakt
+  const hdr = $('#hdr');
   ScrollTrigger.create({ start: 80, end: 'max', onToggle: s => hdr.classList.toggle('compact', s.isActive) });
-  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: s => { prog.style.height = (s.progress * 100).toFixed(2) + '%'; } });
-  $$('main > section').forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 50%', end: 'bottom 50%', onToggle: st => {
-    if (st.isActive) $$('#menuItems .mi').forEach(li => li.classList.toggle('on', !!s.dataset.menu && li.dataset.href === s.dataset.menu));
-  } }));
 
   /* Connector: beginnt als Feld im Hero, baut beim ersten Scrollen das Logo mit der Wortmarke,
      gleitet mit dem Logo aus dem Bild und wandert dann wie in Version A von Andockpunkt zu Andockpunkt. */
@@ -819,7 +863,7 @@ html,body{overflow-x:clip}
     if (ln.length) gsap.from(ln, { yPercent: 105, duration: 1.4, ease, stagger: .08, scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
     else gsap.from(el, { y: 36, opacity: 0, clipPath: 'inset(0% 0% 100% 0%)', duration: 1.5, ease, clearProps: 'clipPath', scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
   });
-  $$('[data-lux], .card .frame, .nrow .th, .pan').forEach(el => gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
+  $$('[data-lux], .nrow .th, .pan').forEach(el => gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
 
   // Hero: Feld wird Fenster, Fenster wird Bild
   const heroClip = p => { const r = fieldRect(), vh = innerHeight, vw = innerWidth; const k = gsap.parseEase('power3.inOut')(p); const t = r.t * (1 - k), l = r.l * (1 - k), b = (vh - r.t - r.h) * (1 - k), rr = (vw - r.l - r.w) * (1 - k); return `inset(${t}px ${rr}px ${b}px ${l}px)`; };
@@ -841,43 +885,44 @@ html,body{overflow-x:clip}
     .fromTo(claimOpenState, { e: 1 }, { e: 0, duration: .42, ease: 'power2.inOut', onUpdate: drawClaimOpen }, 1.06)
     .to({}, { duration: .16 });
 
-  // Haltung: zwei Hälften fahren zusammen, dann das Haus
-  const gap = () => Math.min(innerWidth * .12, 170);
-  gsap.set('#halA', { x: () => -gap() }); gsap.set('#halB', { x: () => gap() });
+  // Haltung: die Lücke zwischen den Hälften schließt sich (Außenkanten bleiben am Seitenrand), dann das Haus
+  const gap = () => Math.min(innerWidth * .05, 80), halPair = $('#halPair'), halG = { g: 1 };
+  const halSet = () => { const g = gap() * halG.g; halPair.style.setProperty('--hg', g.toFixed(1) + 'px'); $('#halA').style.clipPath = `inset(0 ${g.toFixed(1)}px 0 0)`; $('#halB').style.clipPath = `inset(0 0 0 ${g.toFixed(1)}px)`; };
+  halSet(); addEventListener('resize', halSet);
   const hl = gsap.timeline({ scrollTrigger: { trigger: '#haltung', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
-  hl.to('#halA', { x: 0, duration: .4, ease: 'power2.inOut' }, .05)
-    .to('#halB', { x: 0, duration: .4, ease: 'power2.inOut' }, .05)
-    .to('#capA', { x: () => gap() * .4, opacity: 0, duration: .25 }, .25)
-    .to('#capB', { x: () => -gap() * .4, opacity: 0, duration: .25 }, .25)
+  hl.to(halG, { g: 0, duration: .4, ease: 'power2.inOut', onUpdate: halSet }, .05)
+    .to(['#capA', '#capB'], { opacity: 0, y: -12, duration: .2 }, .3)
     .to('#halHouse', { opacity: 1, duration: .2 }, .5)
     .fromTo('#halHouse img', { scale: 1.12 }, { scale: 1, duration: .45, ease: 'none' }, .5)
     .to('#halEnd', { opacity: 1, duration: .15 }, .72)
     .from('#halEnd > *', { y: 30, duration: .2, stagger: .05 }, .72);
 
-  // Architektur: Vorschaubild folgt dem Cursor
-  const peek = $('#peek'), pim = $$('img', peek);
-  let px = 0, py = 0, tx = 0, ty = 0, showing = false;
-  $$('#rows .row').forEach(r => {
-    r.addEventListener('mouseenter', () => { showing = true; peek.style.opacity = 1; pim.forEach((im, i) => im.classList.toggle('on', i == r.dataset.i)); });
-    r.addEventListener('mouseleave', () => { showing = false; peek.style.opacity = 0; });
-  });
-  addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-  gsap.ticker.add(() => { px += (tx - px) * .12; py += (ty - py) * .12; if (showing || peek.style.opacity !== '0') peek.style.transform = `translate(${px + 28}px,${py - peek.offsetHeight / 2}px)`; });
+  // Concepts: Bildfolge läuft quer, das Feld fährt auf der Linie mit (wie Version A)
+  const arPin = $('#arPin'), arTrack = $('#arTrack'), arLine = $('#arLine'), arDock = $('#arDock');
+  const arMax = () => Math.max(0, arTrack.scrollWidth - arLine.clientWidth);
+  const arSize = () => { arPin.style.height = Math.round(innerHeight + arMax() * 1.15) + 'px'; };
+  arSize(); ScrollTrigger.addEventListener('refreshInit', arSize);
+  const arApply = p => {
+    const W = arLine.clientWidth; if (!W) return;
+    arTrack.style.transform = `translate3d(${(-p * arMax()).toFixed(1)}px,0,0)`;
+    const w = Math.min(Math.max(W / 24, 40), 72), h = w * .8;
+    Object.assign(arDock.style, { width: w.toFixed(1) + 'px', height: h.toFixed(1) + 'px', left: (p * (W - w)).toFixed(1) + 'px' });
+  };
+  arApply(0);
+  ScrollTrigger.create({ trigger: arPin, start: 'top top', end: 'bottom bottom', onUpdate: s => arApply(s.progress), onRefresh: s => arApply(s.progress) });
 
-  // Floating House: Vollbild zieht sich zum Rahmen zusammen
-  const fl = gsap.timeline({ scrollTrigger: { trigger: '#floating', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
-  fl.fromTo('#flImg', { clipPath: 'inset(0px 0px 0px 0px)' }, { clipPath: () => `inset(${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')} ${innerHeight * .1}px ${getComputedStyle(document.documentElement).getPropertyValue('--page-margin')})`, duration: .55, ease: 'none' }, 0)
-    .to('#flImg img', { scale: 1, duration: .8, ease: 'none' }, 0)
-    .from('#flCopy > *', { y: 50, opacity: 0, duration: .25, stagger: .08 }, .3);
-
-  // Projects: Kontaktbogen läuft quer
-  const track = $('#track');
-  const marginPx = () => parseFloat(getComputedStyle($('#projekte .pj-stick')).paddingLeft) || 0; // --page-margin als Pixelwert
-  const dist = () => Math.max(0, track.scrollWidth - innerWidth + marginPx() * 2);
-  const setPjHeight = () => { $('#projekte').style.height = (innerHeight + dist()) + 'px'; };
-  setPjHeight(); ScrollTrigger.addEventListener('refreshInit', setPjHeight); // Höhe = Weg des Bogens, vor jeder Neuberechnung
+  // Floating House: Frage steht über der Linie, das Bild wächst von unten ins Vollbild, dann die Antwort (wie Version A)
+  const seg = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a))), io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const pfImg = $('#pfImg'), pfQ = $('#pfQ'), pfA = $('#pfA');
+  const pfDraw = p => {
+    const g = io3(seg(p, .12, .58)), m = parseFloat(getComputedStyle(pfQ).left) || 24, H = innerHeight;
+    pfImg.style.clipPath = `inset(${((1 - g) * H * .76).toFixed(1)}px ${((1 - g) * m).toFixed(1)}px 0 ${((1 - g) * m).toFixed(1)}px)`;
+    pfQ.style.opacity = (1 - seg(p, .3, .5)).toFixed(3);
+    const ta = io3(seg(p, .58, .7)); pfA.style.opacity = ta.toFixed(3); pfA.style.transform = `translateY(${((1 - ta) * 16).toFixed(1)}px)`;
+  };
+  pfDraw(0);
+  ScrollTrigger.create({ trigger: '#floating', start: 'top top', end: 'bottom bottom', onUpdate: s => pfDraw(s.progress), onRefresh: s => pfDraw(s.progress) });
   requestAnimationFrame(() => ScrollTrigger.refresh());
-  gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '#projekte', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
 
   // Weg: Schrittleiste wie Version A. Ladelinien füllen sich, der Connector läuft als Läufer mit, Titel kommen Buchstabe für Buchstabe
   const stepEls = $$('#steps .step'), fills = $$('#steps .trk i'), texts = $$('#stTexts > *'), words = $$('#stTitles .wword'), N = W.stations.length;
@@ -912,7 +957,7 @@ html,body{overflow-x:clip}
   }, 250 + i * 140)) });
 
   // Bilder bewegen sich leicht im Rahmen
-  $$('.card .frame img, .nrow .th img, .pan img, .row .mimg img').forEach(im => gsap.fromTo(im, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+  $$('.nrow .th img, .pan img').forEach(im => gsap.fromTo(im, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
 
   // Finale: Feld (Connector) wird gelbe Fläche, Claim stanzt sich aus, Zoom durchs f in den schwarzen Footer
   const finSvg = $('#finSvg'), finG = $('#finSvg .claim-g'), finP = $('#finP'), finDock = $('#finDock');
